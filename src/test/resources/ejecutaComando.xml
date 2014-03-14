@@ -1,0 +1,70 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:wsd="http://www.grupotvcable.com.ec/WsdlTvPagada/">
+	<soapenv:Header />
+	<soapenv:Body>
+		<wsd:ejecutaComando>
+			<wsd:Cabecera>
+				<wsd:IDEmpresa>1</wsd:IDEmpresa>
+				<wsd:Negocio>2</wsd:Negocio>
+				<wsd:Interface>3</wsd:Interface>
+				<wsd:Secuencia>4</wsd:Secuencia>
+			</wsd:Cabecera>
+			<wsd:Detalle>
+				<wsd:TVpagada>
+					<wsd:Serie>Serie</wsd:Serie>
+					<wsd:TipoD>1</wsd:TipoD>
+					<wsd:IdConvertidor>IDConvertidor</wsd:IdConvertidor>
+					<wsd:IdAccount>1</wsd:IdAccount>
+					<wsd:CItem>1</wsd:CItem>
+					<wsd:Ubicacion>1</wsd:Ubicacion>
+					<wsd:Accion>1</wsd:Accion>
+					<wsd:Credito>1</wsd:Credito>
+					<wsd:IdServicio>1</wsd:IdServicio>
+					<wsd:IdPaquetes wsd:CantP="1">
+						<!--Zero or more repetitions: -->
+						<wsd:IdPaquete>
+							<wsd:IdPaquete>1</wsd:IdPaquete>
+						</wsd:IdPaquete>
+					</wsd:IdPaquetes>
+					<wsd:IdEventos wsd:CantE="1">
+						<!--Zero or more repetitions: -->
+						<wsd:IdEvento>
+							<wsd:IdEvento>1</wsd:IdEvento>
+						</wsd:IdEvento>
+					</wsd:IdEventos>
+					<wsd:TipoA>1</wsd:TipoA>
+					<wsd:EstadoC>1</wsd:EstadoC>
+					<wsd:FormaPago>1</wsd:FormaPago>
+					<wsd:TipoC>1</wsd:TipoC>
+					<wsd:CodigoCanal>1</wsd:CodigoCanal>
+					<wsd:DescEvento>1</wsd:DescEvento>
+					<wsd:Comienzo>
+						<wsd:FechaIni>1</wsd:FechaIni>
+						<wsd:TiempoIni>1</wsd:TiempoIni>
+					</wsd:Comienzo>
+					<wsd:Final>
+						<wsd:FechaFin>1</wsd:FechaFin>
+						<wsd:TiempoFin>1</wsd:TiempoFin>
+					</wsd:Final>
+					<wsd:DuracionEvento>1</wsd:DuracionEvento>
+					<wsd:Interstitial>1</wsd:Interstitial>
+					<wsd:TiempoLibre>1</wsd:TiempoLibre>
+					<wsd:Mpaa>1</wsd:Mpaa>
+					<wsd:ContenidoViolento>1</wsd:ContenidoViolento>
+					<wsd:ContenidoSexual>1</wsd:ContenidoSexual>
+					<wsd:Lenguaje>1</wsd:Lenguaje>
+					<wsd:Rating>1</wsd:Rating>
+					<wsd:TiempoCompra>1</wsd:TiempoCompra>
+					<wsd:Paquete>1</wsd:Paquete>
+					<wsd:TiempoDisplay>1</wsd:TiempoDisplay>
+					<wsd:CostoEvento>1</wsd:CostoEvento>
+					<wsd:PrecioEvento>1</wsd:PrecioEvento>
+					<wsd:AnyTime>1</wsd:AnyTime>
+					<wsd:TipoPromocion>1</wsd:TipoPromocion>
+					<wsd:DatoC1>1</wsd:DatoC1>
+					<wsd:DatoC2>1</wsd:DatoC2>
+				</wsd:TVpagada>
+			</wsd:Detalle>
+ 		</wsd:ejecutaComando>
+	</soapenv:Body>
+</soapenv:Envelope>

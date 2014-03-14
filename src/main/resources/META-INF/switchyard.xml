@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:camel="urn:switchyard-component-camel:config:1.1" xmlns:jpa="urn:switchyard-component-camel-jpa:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.1" xmlns:sy="urn:switchyard-config:switchyard:1.1" xmlns:transform="urn:switchyard-config:transform:1.1" name="switch-aprovisionamiento" targetNamespace="urn:com.ec.tvcable.switch_aprov:switch-aprovisionamiento:1.0">
+  <sca:composite name="switch-aprovisionamiento" targetNamespace="urn:com.ec.tvcable.switch_aprov:switch-aprovisionamiento:1.0">
+    <sca:component name="TvInterfaceService">
+      <bean:implementation.bean class="com.ec.tvcable.switch_aprov.impl.TvInterfazServiceBean"/>
+      <sca:service name="TvInterfaceService">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.TvInterfaceService"/>
+      </sca:service>
+      <sca:reference name="WsdlTvPagada">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.servicio.tvpagada.WsdlTvPagada"/>
+      </sca:reference>
+      <sca:reference name="DatosTvPagada">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.DatosTvPagada"/>
+      </sca:reference>
+    </sca:component>
+    <sca:component name="IntrawayInterfaceService">
+      <bean:implementation.bean class="com.ec.tvcable.switch_aprov.impl.IntrawayInterfaceServiceBean"/>
+      <sca:service name="IntrawayInterfaceService">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.IntrawayInterfaceService"/>
+      </sca:service>
+      <sca:reference name="WsdlIntraway">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.servicio.intraway.WsdlIntraway"/>
+      </sca:reference>
+    </sca:component>
+    <sca:component name="InterfazResolverBean">
+      <bean:implementation.bean class="com.ec.tvcable.switch_aprov.impl.InterfazResolverBean"/>
+      <sca:service name="InterfazResolver">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.InterfazResolver"/>
+      </sca:service>
+      <sca:reference name="InterfazAprovServicio">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.InterfazAprovServicio"/>
+      </sca:reference>
+    </sca:component>
+    <sca:reference name="WsdlTvPagada" multiplicity="0..1" promote="TvInterfaceService/WsdlTvPagada">
+      <sca:interface.wsdl interface="wsdl/WsdlTvPagada.wsdl#wsdl.porttype(WsdlTvPagada)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/WsdlTvPagada.wsdl</soap:wsdl>
+        <soap:endpointAddress>http://pablo-a6200:8088/mockWsdlTvPagadaHttpBinding</soap:endpointAddress>
+      </soap:binding.soap>
+    </sca:reference>
+    <sca:component name="InterfazAprovServicioBean">
+      <bean:implementation.bean class="com.ec.tvcable.switch_aprov.impl.InterfazAprovServicioBean"/>
+      <sca:service name="InterfazAprovServicio">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.InterfazAprovServicio"/>
+      </sca:service>
+    </sca:component>
+    <sca:reference name="WsdlIntraway" multiplicity="0..1" promote="IntrawayInterfaceService/WsdlIntraway">
+      <sca:interface.wsdl interface="wsdl/WsdlIntraway.wsdl#wsdl.porttype(WsdlIntraway)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/WsdlIntraway.wsdl</soap:wsdl>
+        <soap:endpointAddress>http://pablo-a6200:8088/mockWsdlIntrawayHttpBinding</soap:endpointAddress>
+      </soap:binding.soap>
+    </sca:reference>
+    <sca:service name="EMS" promote="EMSBean/EMS">
+      <sca:interface.wsdl interface="wsdl/EMS.wsdl#wsdl.porttype(EMS)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/EMS.wsdl</soap:wsdl>
+        <soap:contextPath>switch-aprovisionamiento</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:component name="EMSBean">
+      <bean:implementation.bean requires="managedTransaction.Global" class="com.ec.tvcable.switch_aprov.EMSBean"/>
+      <sca:service name="EMS">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.servicio.ems.EMS"/>
+      </sca:service>
+      <sca:reference name="InterfazResolver">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.InterfazResolver"/>
+      </sca:reference>
+      <sca:reference name="IntrawayInterfaceService">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.IntrawayInterfaceService"/>
+      </sca:reference>
+      <sca:reference name="TvInterfaceService">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.TvInterfaceService"/>
+      </sca:reference>
+      <sca:reference name="TransactionResponseService" requires="propagatesTransaction">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.TransactionResponseService"/>
+      </sca:reference>
+    </sca:component>
+    <sca:component name="DatosTvPagadaBean">
+      <bean:implementation.bean class="com.ec.tvcable.switch_aprov.impl.DatosTvPagadaBean"/>
+      <sca:service name="DatosTvPagada">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.DatosTvPagada"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="TransactionResponseServiceBean">
+      <bean:implementation.bean class="com.ec.tvcable.switch_aprov.TransactionResponseServiceBean"/>
+      <sca:service name="TransactionResponseService" requires="propagatesTransaction">
+        <sca:interface.java interface="com.ec.tvcable.switch_aprov.TransactionResponseService"/>
+      </sca:service>
+    </sca:component>
+  </sca:composite>
+  <sy:transforms>
+    <transform:transform.jaxb from="java:com.ec.tvcable.switch_aprov.servicio.tvpagada.Comando" to="{http://www.grupotvcable.com.ec/WsdlTvPagada/}ejecutaComando" contextPath="com.ec.tvcable.switch_aprov.servicio.tvpagada"/>
+    <transform:transform.jaxb from="{http://www.grupotvcable.com.ec/WsdlTvPagada/}consultaRespuesta" to="java:com.ec.tvcable.switch_aprov.servicio.tvpagada.Respuesta" contextPath="com.ec.tvcable.switch_aprov.servicio.tvpagada"/>
+    <transform:transform.jaxb from="java:com.ec.tvcable.switch_aprov.servicio.intraway.Comando" to="{http://www.grupotvcable.com.ec/WsdlIntraway/}ejecutaComando" contextPath="com.ec.tvcable.switch_aprov.servicio.intraway"/>
+    <transform:transform.jaxb from="{http://www.grupotvcable.com.ec/WsdlIntraway/}consultaRespuesta" to="java:com.ec.tvcable.switch_aprov.servicio.intraway.Respuesta" contextPath="com.ec.tvcable.switch_aprov.servicio.intraway"/>
+    <transform:transform.jaxb from="java:com.ec.tvcable.switch_aprov.servicio.ems.EMSResponse" to="{http://www.example.org/EMS/}EMSResponse" contextPath="com.ec.tvcable.switch_aprov.servicio.ems"/>
+    <transform:transform.jaxb from="{http://www.example.org/EMS/}EMS" to="java:com.ec.tvcable.switch_aprov.servicio.ems.EMS_Type" contextPath="com.ec.tvcable.switch_aprov.servicio.ems"/>
+  </sy:transforms>
+</sy:switchyard>

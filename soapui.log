@@ -1,0 +1,45 @@
+2014-03-10 19:13:59,867 WARN  [SoapUI] Missing folder [/home/pablo/switchyard_workspace/switchy-aprovisionamiento/./ext] for external libraries
+2014-03-10 19:14:00,149 INFO  [DefaultSoapUICore] initialized soapui-settings from [/home/pablo/soapui-settings.xml]
+2014-03-10 19:14:01,043 INFO  [WsdlProject] Loaded project from [file:/home/pablo/switchyard_workspace/switchy-aprovisionamiento/soapui/aprovisionamiento.xml]
+2014-03-10 19:14:01,326 INFO  [SoapUIMockServiceRunner] Setting project property [message] to [Hello World!]
+2014-03-10 19:14:01,332 INFO  [SoapUIMockServiceRunner] Running all MockServices in project [WsdlTvPagada]
+2014-03-10 19:14:01,332 INFO  [SoapUIMockServiceRunner] Press any key to terminate
+2014-03-10 19:14:01,642 INFO  [SchemaUtils] Added default schema from file:/home/pablo/.m2/repository/com/smartbear/soapui/soapui/4.6.1/soapui-4.6.1.jar!/com/eviware/soapui/resources/xsds/xop.xsd with targetNamespace http://www.w3.org/2004/08/xop/include
+2014-03-10 19:14:01,702 INFO  [SchemaUtils] Added default schema from file:/home/pablo/.m2/repository/com/smartbear/soapui/soapui/4.6.1/soapui-4.6.1.jar!/com/eviware/soapui/resources/xsds/XMLSchema.xsd with targetNamespace http://www.w3.org/2001/XMLSchema
+2014-03-10 19:14:01,705 INFO  [SchemaUtils] Added default schema from file:/home/pablo/.m2/repository/com/smartbear/soapui/soapui/4.6.1/soapui-4.6.1.jar!/com/eviware/soapui/resources/xsds/xml.xsd with targetNamespace http://www.w3.org/XML/1998/namespace
+2014-03-10 19:14:01,707 INFO  [SchemaUtils] Added default schema from file:/home/pablo/.m2/repository/com/smartbear/soapui/soapui/4.6.1/soapui-4.6.1.jar!/com/eviware/soapui/resources/xsds/swaref.xsd with targetNamespace http://ws-i.org/profiles/basic/1.1/xsd
+2014-03-10 19:14:01,708 INFO  [SchemaUtils] Added default schema from file:/home/pablo/.m2/repository/com/smartbear/soapui/soapui/4.6.1/soapui-4.6.1.jar!/com/eviware/soapui/resources/xsds/xmime200505.xsd with targetNamespace http://www.w3.org/2005/05/xmlmime
+2014-03-10 19:14:01,709 INFO  [SchemaUtils] Added default schema from file:/home/pablo/.m2/repository/com/smartbear/soapui/soapui/4.6.1/soapui-4.6.1.jar!/com/eviware/soapui/resources/xsds/xmime200411.xsd with targetNamespace http://www.w3.org/2004/11/xmlmime
+2014-03-10 19:14:01,712 INFO  [SchemaUtils] Added default schema from file:/home/pablo/.m2/repository/com/smartbear/soapui/soapui/4.6.1/soapui-4.6.1.jar!/com/eviware/soapui/resources/xsds/soapEnvelope.xsd with targetNamespace http://schemas.xmlsoap.org/soap/envelope/
+2014-03-10 19:14:01,721 INFO  [SchemaUtils] Added default schema from file:/home/pablo/.m2/repository/com/smartbear/soapui/soapui/4.6.1/soapui-4.6.1.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd with targetNamespace http://schemas.xmlsoap.org/soap/encoding/
+2014-03-10 19:14:01,724 INFO  [SchemaUtils] Added default schema from file:/home/pablo/.m2/repository/com/smartbear/soapui/soapui/4.6.1/soapui-4.6.1.jar!/com/eviware/soapui/resources/xsds/soapEnvelope12.xsd with targetNamespace http://www.w3.org/2003/05/soap-envelope
+2014-03-10 19:14:01,733 INFO  [SchemaUtils] Added default schema from file:/home/pablo/.m2/repository/com/smartbear/soapui/soapui/4.6.1/soapui-4.6.1.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd with targetNamespace http://www.w3.org/2003/05/soap-encoding
+2014-03-10 19:14:01,734 INFO  [SchemaUtils] Loading schema types from [file:/home/pablo/switchyard_workspace/switchy-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl]
+2014-03-10 19:14:01,734 INFO  [SchemaUtils] Getting schema file:/home/pablo/switchyard_workspace/switchy-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl
+2014-03-10 19:14:02,155 INFO  [SchemaUtils] Loading schema types from [file:/home/pablo/java/servers/jboss-eap-6.1-switchyard/standalone/data/wsdl/switchy-aprovisionamiento.deployment/Aprovisionamiento.wsdl]
+2014-03-10 19:14:02,156 INFO  [SchemaUtils] Getting schema file:/home/pablo/java/servers/jboss-eap-6.1-switchyard/standalone/data/wsdl/switchy-aprovisionamiento.deployment/Aprovisionamiento.wsdl
+2014-03-10 19:14:02,410 INFO  [WsdlMockRunner] Mounted WSDL for interface [WsdlTvPagadaHttpBinding] at [/mockWsdlTvPagadaHttpBinding?WSDL]
+2014-03-10 19:14:02,420 INFO  [WsdlMockRunner] Mounted WSDL for interface [AprovisionamientoSoapBinding] at [/mockWsdlTvPagadaHttpBinding?WSDL]
+2014-03-10 19:14:02,436 INFO  [jetty] Logging to com.eviware.soapui.support.log.JettyLogger@32e16d62 via com.eviware.soapui.support.log.JettyLogger
+2014-03-10 19:14:02,475 INFO  [jetty] jetty-6.1.26
+2014-03-10 19:14:02,526 INFO  [jetty] Started JettyMockEngine$SoapUIConnector@0.0.0.0:8088
+2014-03-10 19:14:02,527 INFO  [JettyMockEngine] Started mockService [TvPagadaHttpBinding MockService] on port [8088] at path [/mockWsdlTvPagadaHttpBinding]
+2014-03-10 19:14:02,527 INFO  [SoapUIMockServiceRunner] MockService started on port 8088 at path [/mockWsdlTvPagadaHttpBinding]
+2014-03-10 19:14:02,553 INFO  [SchemaUtils] Loading schema types from [file:/home/pablo/switchyard_workspace/switchy-aprovisionamiento/src/main/resources/wsdl/WsdlIntraway.wsdl]
+2014-03-10 19:14:02,554 INFO  [SchemaUtils] Getting schema file:/home/pablo/switchyard_workspace/switchy-aprovisionamiento/src/main/resources/wsdl/WsdlIntraway.wsdl
+2014-03-10 19:14:02,731 INFO  [WsdlMockRunner] Mounted WSDL for interface [WsdlIntrawayHttpBinding] at [/mockWsdlIntrawayHttpBinding?WSDL]
+2014-03-10 19:14:02,731 INFO  [JettyMockEngine] Started mockService [IntrawayHttpBinding MockService] on port [8088] at path [/mockWsdlIntrawayHttpBinding]
+2014-03-10 19:14:02,731 INFO  [SoapUIMockServiceRunner] MockService started on port 8088 at path [/mockWsdlIntrawayHttpBinding]
+2014-03-10 19:14:02,752 INFO  [SchemaUtils] Loading schema types from [file:/home/pablo/switchyard_workspace/switchy-aprovisionamiento/src/main/resources/wsdl/EMS.wsdl]
+2014-03-10 19:14:02,753 INFO  [SchemaUtils] Getting schema file:/home/pablo/switchyard_workspace/switchy-aprovisionamiento/src/main/resources/wsdl/EMS.wsdl
+2014-03-10 19:14:02,908 INFO  [WsdlMockRunner] Mounted WSDL for interface [EMSSOAP] at [/mockEMSSOAP?WSDL]
+2014-03-10 19:14:02,908 INFO  [JettyMockEngine] Started mockService [EMSSOAP MockService] on port [8088] at path [/mockEMSSOAP]
+2014-03-10 19:14:02,908 INFO  [SoapUIMockServiceRunner] MockService started on port 8088 at path [/mockEMSSOAP]
+2014-03-10 19:14:02,909 INFO  [SoapUIMockServiceRunner] Started 3 runners
+2014-03-10 19:14:08,910 INFO  [JettyMockEngine] Stopped MockService [TvPagadaHttpBinding MockService] on port [8088]
+2014-03-10 19:14:08,910 INFO  [SoapUIMockServiceRunner] MockService stopped, handled 0 requests
+2014-03-10 19:14:08,911 INFO  [JettyMockEngine] Stopped MockService [IntrawayHttpBinding MockService] on port [8088]
+2014-03-10 19:14:08,911 INFO  [SoapUIMockServiceRunner] MockService stopped, handled 0 requests
+2014-03-10 19:14:08,911 INFO  [JettyMockEngine] Stopped MockService [EMSSOAP MockService] on port [8088]
+2014-03-10 19:14:08,911 INFO  [SoapUIMockServiceRunner] MockService stopped, handled 0 requests
+2014-03-10 19:14:08,911 INFO  [SoapUIMockServiceRunner] time taken: 7579ms

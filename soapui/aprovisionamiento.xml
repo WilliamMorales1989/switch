@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="WsdlTvPagada" resourceRoot="" soapui-version="4.6.4" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="WsdlTvPagadaHttpBinding" type="wsdl" bindingName="{http://www.grupotvcable.com.ec/WsdlTvPagada/}WsdlTvPagadaHttpBinding" soapVersion="1_1" anonymous="optional" definition="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl"><con:part><con:url>file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.grupotvcable.com.ec/WsdlTvPagada/" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:tns="http://www.grupotvcable.com.ec/WsdlTvPagada/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.grupotvcable.com.ec/WsdlTvPagada/">
+      <xsd:element name="ejecutaComando" type="tns:Comando"/>
+      <xsd:element name="consultaRespuesta" type="tns:Respuesta"/>
+      <xs:complexType name="Respuesta" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="Cabecera" type="ns1:Cabecera" xmlns:ns1="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+          <xs:element name="Mensaje" type="ns2:Mensaje" xmlns:ns2="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Cabecera" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="IDEmpresa" type="xs:int"/>
+          <xs:element name="Negocio" type="xs:int"/>
+          <xs:element name="Interface" type="xs:int"/>
+          <xs:element name="Secuencia" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Mensaje" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="CodError" type="xs:int"/>
+          <xs:element name="DetMensaje" type="xs:string"/>
+          <xs:element name="DatosExtrasTVP" type="ns3:DatosExtrasTVP" xmlns:ns3="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DatosExtrasTVP" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="IdServ" type="xs:int"/>
+          <xs:element name="NumPaq" type="ns4:NumPaq" xmlns:ns4="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+          <xs:element name="NumEve" type="ns5:NumEve" xmlns:ns5="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+          <xs:element name="Credito" type="xs:int"/>
+          <xs:element name="TipoDeco" type="xs:int"/>
+          <xs:element name="CodMap" type="xs:int"/>
+          <xs:element name="Activo" type="xs:string"/>
+          <xs:element name="UnitAddres" type="xs:int"/>
+          <xs:element name="Plant" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="NumPaq" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="IdPay" type="ns6:IdPay" xmlns:ns6="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+        </xs:sequence>
+        <xs:attribute name="CantP" type="xs:int"/>
+      </xs:complexType>
+      <xs:complexType name="IdPay" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="IdPay" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="NumEve" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="IdEve" type="ns7:IdEve" xmlns:ns7="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+        </xs:sequence>
+        <xs:attribute name="CantE" type="xs:int"/>
+      </xs:complexType>
+      <xs:complexType name="IdEve" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="IdEve" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Comando" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="Cabecera" type="ns8:Cabecera" xmlns:ns8="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+          <xs:element name="Detalle" type="ns9:Detalle" xmlns:ns9="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Detalle" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="TVpagada" type="ns10:TVpagada" xmlns:ns10="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="TVpagada" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="Serie" type="xs:string"/>
+          <xs:element name="TipoD" type="xs:int"/>
+          <xs:element name="IdConvertidor" type="xs:string"/>
+          <xs:element name="IdAccount" type="xs:int"/>
+          <xs:element name="CItem" type="xs:int"/>
+          <xs:element name="Ubicacion" type="xs:int"/>
+          <xs:element name="Accion" type="xs:int"/>
+          <xs:element name="Credito" type="xs:int"/>
+          <xs:element name="IdServicio" type="xs:int"/>
+          <xs:element name="IdPaquetes" type="ns11:IdPaquetes" xmlns:ns11="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+          <xs:element name="IdEventos" type="ns12:IdEventos" xmlns:ns12="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+          <xs:element name="TipoA" type="xs:int"/>
+          <xs:element name="EstadoC" type="xs:string"/>
+          <xs:element name="FormaPago" type="xs:string"/>
+          <xs:element name="TipoC" type="xs:int"/>
+          <xs:element name="CodigoCanal" type="xs:int"/>
+          <xs:element name="DescEvento" type="xs:string"/>
+          <xs:element name="Comienzo" type="ns13:Comienzo" xmlns:ns13="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+          <xs:element name="Final" type="ns14:Final" xmlns:ns14="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+          <xs:element name="DuracionEvento" type="xs:int"/>
+          <xs:element name="Interstitial" type="xs:int"/>
+          <xs:element name="TiempoLibre" type="xs:int"/>
+          <xs:element name="Mpaa" type="xs:int"/>
+          <xs:element name="ContenidoViolento" type="xs:int"/>
+          <xs:element name="ContenidoSexual" type="xs:int"/>
+          <xs:element name="Lenguaje" type="xs:int"/>
+          <xs:element name="Rating" type="xs:int"/>
+          <xs:element name="TiempoCompra" type="xs:int"/>
+          <xs:element name="Paquete" type="xs:int"/>
+          <xs:element name="TiempoDisplay" type="xs:int"/>
+          <xs:element name="CostoEvento" type="xs:int"/>
+          <xs:element name="PrecioEvento" type="xs:int"/>
+          <xs:element name="AnyTime" type="xs:int"/>
+          <xs:element name="TipoPromocion" type="xs:int"/>
+          <xs:element name="DatoC1" type="xs:string"/>
+          <xs:element name="DatoC2" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="IdPaquetes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="IdPaquete" type="ns15:IdPaquete" xmlns:ns15="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+        </xs:sequence>
+        <xs:attribute name="CantP" type="xs:int"/>
+      </xs:complexType>
+      <xs:complexType name="IdPaquete" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="IdPaquete" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="IdEventos" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="IdEvento" type="ns16:IdEvento" xmlns:ns16="http://www.grupotvcable.com.ec/WsdlTvPagada/"/>
+        </xs:sequence>
+        <xs:attribute name="CantE" type="xs:int"/>
+      </xs:complexType>
+      <xs:complexType name="IdEvento" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="IdEvento" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Comienzo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="FechaIni" type="xs:anySimpleType"/>
+          <xs:element name="TiempoIni" type="xs:anySimpleType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Final" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="FechaFin" type="xs:anySimpleType"/>
+          <xs:element name="TiempoFin" type="xs:anySimpleType"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="AprovTvPagadaRequest">
+    <wsdl:part name="ejecutaComando" element="tns:ejecutaComando"/>
+  </wsdl:message>
+  <wsdl:message name="AprovTvPagadaResponse">
+    <wsdl:part name="consultaRespuesta" element="tns:consultaRespuesta"/>
+  </wsdl:message>
+  <wsdl:portType name="WsdlTvPagada">
+    <wsdl:operation name="AprovTvPagada">
+      <wsdl:input name="AprovTvPagadaRequest" message="tns:AprovTvPagadaRequest"/>
+      <wsdl:output name="AprovTvPagadaResponse" message="tns:AprovTvPagadaResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsdlTvPagadaHttpBinding" type="tns:WsdlTvPagada">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="AprovTvPagada">
+      <wsdlsoap:operation soapAction="http://www.grupotvcable.com.ec/WsdlTvPagada/AprovTvPagada"/>
+      <wsdl:input name="AprovTvPagadaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AprovTvPagadaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsdlTvPagada">
+    <wsdl:port name="WsdlTvPagadaHttpPort" binding="tns:WsdlTvPagadaHttpBinding">
+      <wsdlsoap:address location="http://192.168.21.205/WsAprovisionamiento2/services/WsdlTvPagada"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:endpoint>http://pablo-A6200:8088/mockWsdlTvPagadaHttpBinding</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.grupotvcable.com.ec/WsdlTvPagada/AprovTvPagada" name="AprovTvPagada" bindingOperationName="AprovTvPagada" type="Request-Response" outputName="AprovTvPagadaResponse" inputName="AprovTvPagadaRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsd="http://www.grupotvcable.com.ec/WsdlTvPagada/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsd:ejecutaComando>
+         <wsd:Cabecera>
+            <wsd:IDEmpresa>?</wsd:IDEmpresa>
+            <wsd:Negocio>?</wsd:Negocio>
+            <wsd:Interface>?</wsd:Interface>
+            <wsd:Secuencia>?</wsd:Secuencia>
+         </wsd:Cabecera>
+         <wsd:Detalle>
+            <wsd:TVpagada>
+               <wsd:Serie>?</wsd:Serie>
+               <wsd:TipoD>?</wsd:TipoD>
+               <wsd:IdConvertidor>?</wsd:IdConvertidor>
+               <wsd:IdAccount>?</wsd:IdAccount>
+               <wsd:CItem>?</wsd:CItem>
+               <wsd:Ubicacion>?</wsd:Ubicacion>
+               <wsd:Accion>?</wsd:Accion>
+               <wsd:Credito>?</wsd:Credito>
+               <wsd:IdServicio>?</wsd:IdServicio>
+               <wsd:IdPaquetes wsd:CantP="?">
+                  <!--Zero or more repetitions:-->
+                  <wsd:IdPaquete>
+                     <wsd:IdPaquete>?</wsd:IdPaquete>
+                  </wsd:IdPaquete>
+               </wsd:IdPaquetes>
+               <wsd:IdEventos wsd:CantE="?">
+                  <!--Zero or more repetitions:-->
+                  <wsd:IdEvento>
+                     <wsd:IdEvento>?</wsd:IdEvento>
+                  </wsd:IdEvento>
+               </wsd:IdEventos>
+               <wsd:TipoA>?</wsd:TipoA>
+               <wsd:EstadoC>?</wsd:EstadoC>
+               <wsd:FormaPago>?</wsd:FormaPago>
+               <wsd:TipoC>?</wsd:TipoC>
+               <wsd:CodigoCanal>?</wsd:CodigoCanal>
+               <wsd:DescEvento>?</wsd:DescEvento>
+               <wsd:Comienzo>
+                  <wsd:FechaIni>?</wsd:FechaIni>
+                  <wsd:TiempoIni>?</wsd:TiempoIni>
+               </wsd:Comienzo>
+               <wsd:Final>
+                  <wsd:FechaFin>?</wsd:FechaFin>
+                  <wsd:TiempoFin>?</wsd:TiempoFin>
+               </wsd:Final>
+               <wsd:DuracionEvento>?</wsd:DuracionEvento>
+               <wsd:Interstitial>?</wsd:Interstitial>
+               <wsd:TiempoLibre>?</wsd:TiempoLibre>
+               <wsd:Mpaa>?</wsd:Mpaa>
+               <wsd:ContenidoViolento>?</wsd:ContenidoViolento>
+               <wsd:ContenidoSexual>?</wsd:ContenidoSexual>
+               <wsd:Lenguaje>?</wsd:Lenguaje>
+               <wsd:Rating>?</wsd:Rating>
+               <wsd:TiempoCompra>?</wsd:TiempoCompra>
+               <wsd:Paquete>?</wsd:Paquete>
+               <wsd:TiempoDisplay>?</wsd:TiempoDisplay>
+               <wsd:CostoEvento>?</wsd:CostoEvento>
+               <wsd:PrecioEvento>?</wsd:PrecioEvento>
+               <wsd:AnyTime>?</wsd:AnyTime>
+               <wsd:TipoPromocion>?</wsd:TipoPromocion>
+               <wsd:DatoC1>?</wsd:DatoC1>
+               <wsd:DatoC2>?</wsd:DatoC2>
+            </wsd:TVpagada>
+         </wsd:Detalle>
+      </wsd:ejecutaComando>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.grupotvcable.com.ec/WsdlTvPagada/AprovTvPagada"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="WsdlIntrawayHttpBinding" type="wsdl" bindingName="{http://www.grupotvcable.com.ec/WsdlIntraway/}WsdlIntrawayHttpBinding" soapVersion="1_1" anonymous="optional" definition="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlIntraway.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlIntraway.wsdl"><con:part><con:url>file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlIntraway.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.grupotvcable.com.ec/WsdlIntraway/" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:tns="http://www.grupotvcable.com.ec/WsdlIntraway/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.grupotvcable.com.ec/WsdlIntraway/">
+      <xsd:element name="ejecutaComando" type="tns:Comando"/>
+      <xsd:element name="consultaRespuesta" type="tns:Respuesta"/>
+      <xs:complexType name="Comando" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="Cabecera" type="ns1:Cabecera" xmlns:ns1="http://www.grupotvcable.com.ec/WsdlIntraway/"/>
+          <xs:element name="Detalle" type="ns2:Detalle" xmlns:ns2="http://www.grupotvcable.com.ec/WsdlIntraway/"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Cabecera" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="IDEmpresa" type="xs:int"/>
+          <xs:element name="Negocio" type="xs:int"/>
+          <xs:element name="Interface" type="xs:int"/>
+          <xs:element name="Secuencia" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Detalle" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="Intraway" type="ns3:Intraway" xmlns:ns3="http://www.grupotvcable.com.ec/WsdlIntraway/"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Intraway" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="Estandar" type="ns4:Estandar" xmlns:ns4="http://www.grupotvcable.com.ec/WsdlIntraway/"/>
+          <xs:element name="Interfaz" type="ns5:Interfaz" xmlns:ns5="http://www.grupotvcable.com.ec/WsdlIntraway/"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Estandar" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="AuthKey" type="xs:string"/>
+          <xs:element name="ClienteCRM" type="xs:int"/>
+          <xs:element name="IdProducto" type="xs:int"/>
+          <xs:element name="IdProductoPadre" type="xs:int"/>
+          <xs:element name="IdServicio" type="xs:int"/>
+          <xs:element name="IdServicioPadre" type="xs:int"/>
+          <xs:element name="IdVenta" type="xs:int"/>
+          <xs:element name="IdVentaPadre" type="xs:int"/>
+          <xs:element name="IdPromotor" type="xs:string"/>
+          <xs:element name="FechaDiferida" type="xs:anySimpleType"/>
+          <xs:element name="IdEstado" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Interfaz" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="Nombre" type="xs:string"/>
+          <xs:element name="Username" type="xs:string"/>
+          <xs:element name="Password" type="xs:string"/>
+          <xs:element name="IdTipoCliente" type="xs:string"/>
+          <xs:element name="EmailNoticias" type="xs:string"/>
+          <xs:element name="idCicloFactCRM" type="xs:string"/>
+          <xs:element name="ServicTypeCRMId" type="xs:int"/>
+          <xs:element name="MessageCRMID" type="xs:string"/>
+          <xs:element name="Cantidad" type="xs:int"/>
+          <xs:element name="Quotamax" type="xs:int"/>
+          <xs:element name="ServidorEmailCRMId" type="xs:string"/>
+          <xs:element name="Dominio" type="xs:string"/>
+          <xs:element name="DiskQuota" type="xs:int"/>
+          <xs:element name="Noticias" type="xs:int"/>
+          <xs:element name="Name" type="xs:string"/>
+          <xs:element name="ServicePackageCRMId" type="xs:string"/>
+          <xs:element name="Hub" type="xs:string"/>
+          <xs:element name="Nodo" type="xs:string"/>
+          <xs:element name="IdISPCRM" type="xs:string"/>
+          <xs:element name="ActivactionCode" type="xs:string"/>
+          <xs:element name="IspMtaCrmId" type="xs:int"/>
+          <xs:element name="BuscarTagCRM" type="xs:int"/>
+          <xs:element name="Docsis" type="xs:string"/>
+          <xs:element name="EnableAccounting" type="xs:string"/>
+          <xs:element name="ProductName" type="xs:string"/>
+          <xs:element name="BandPackageCRMId" type="xs:string"/>
+          <xs:element name="PrepaidPolicyCRMId" type="xs:string"/>
+          <xs:element name="CantCPE" type="xs:int"/>
+          <xs:element name="USChannelID" type="xs:int"/>
+          <xs:element name="StartingBalance" type="xs:int"/>
+          <xs:element name="DSFreq" type="xs:int"/>
+          <xs:element name="PeriodicalBaseBalance" type="xs:int"/>
+          <xs:element name="NoBoot" type="xs:boolean"/>
+          <xs:element name="MACAddress" type="xs:string"/>
+          <xs:element name="SnmpGroupCRMID" type="xs:string"/>
+          <xs:element name="HostName" type="xs:string"/>
+          <xs:element name="CmsCMDID" type="xs:string"/>
+          <xs:element name="Provisioning" type="xs:int"/>
+          <xs:element name="ProfileCRMId" type="xs:string"/>
+          <xs:element name="SendtoController" type="xs:string"/>
+          <xs:element name="LinesQTy" type="xs:int"/>
+          <xs:element name="MtaModelCRMId" type="xs:string"/>
+          <xs:element name="EndpointNumber" type="xs:int"/>
+          <xs:element name="Tn" type="xs:string"/>
+          <xs:element name="HomeExchangeCRMId" type="xs:string"/>
+          <xs:element name="FeatureCrmId" type="xs:string"/>
+          <xs:element name="Active" type="xs:int"/>
+          <xs:element name="DatoI1" type="xs:string"/>
+          <xs:element name="DatoI2" type="xs:string"/>
+          <xs:element name="Customer1" type="xs:string"/>
+          <xs:element name="Customer2" type="xs:string"/>
+          <xs:element name="Customer3" type="xs:string"/>
+          <xs:element name="Customer4" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Respuesta" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="Cabecera" type="ns6:Cabecera" xmlns:ns6="http://www.grupotvcable.com.ec/WsdlIntraway/"/>
+          <xs:element name="Mensaje" type="ns7:Mensaje" xmlns:ns7="http://www.grupotvcable.com.ec/WsdlIntraway/"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Mensaje" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <xs:sequence>
+          <xs:element name="CodError" type="xs:int"/>
+          <xs:element name="DetMensaje" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="AprovIntrawayRequest">
+    <wsdl:part name="ejecutaComando" element="tns:ejecutaComando"/>
+  </wsdl:message>
+  <wsdl:message name="AprovIntrawayResponse">
+    <wsdl:part name="consultaRespuesta" element="tns:consultaRespuesta"/>
+  </wsdl:message>
+  <wsdl:portType name="WsdlIntraway">
+    <wsdl:operation name="AprovIntraway">
+      <wsdl:input name="AprovIntrawayRequest" message="tns:AprovIntrawayRequest"/>
+      <wsdl:output name="AprovIntrawayResponse" message="tns:AprovIntrawayResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsdlIntrawayHttpBinding" type="tns:WsdlIntraway">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="AprovIntraway">
+      <wsdlsoap:operation soapAction="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway"/>
+      <wsdl:input name="AprovIntrawayRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AprovIntrawayResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsdlIntraway">
+    <wsdl:port name="WsdlIntrawayHttpPort" binding="tns:WsdlIntrawayHttpBinding">
+      <wsdlsoap:address location="http://192.168.21.205/WsAprovisionamiento2/services/WsdlIntraway"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://192.168.21.205/WsAprovisionamiento2/services/WsdlIntraway</con:endpoint><con:endpoint>http://pablo-A6200:8088/mockWsdlIntrawayHttpBinding</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway" name="AprovIntraway" bindingOperationName="AprovIntraway" type="Request-Response" outputName="AprovIntrawayResponse" inputName="AprovIntrawayRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.21.205/WsAprovisionamiento2/services/WsdlIntraway</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsd="http://www.grupotvcable.com.ec/WsdlIntraway/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsd:ejecutaComando>
+         <wsd:Cabecera>
+            <wsd:IDEmpresa>?</wsd:IDEmpresa>
+            <wsd:Negocio>?</wsd:Negocio>
+            <wsd:Interface>?</wsd:Interface>
+            <wsd:Secuencia>?</wsd:Secuencia>
+         </wsd:Cabecera>
+         <wsd:Detalle>
+            <wsd:Intraway>
+               <wsd:Estandar>
+                  <wsd:AuthKey>?</wsd:AuthKey>
+                  <wsd:ClienteCRM>?</wsd:ClienteCRM>
+                  <wsd:IdProducto>?</wsd:IdProducto>
+                  <wsd:IdProductoPadre>?</wsd:IdProductoPadre>
+                  <wsd:IdServicio>?</wsd:IdServicio>
+                  <wsd:IdServicioPadre>?</wsd:IdServicioPadre>
+                  <wsd:IdVenta>?</wsd:IdVenta>
+                  <wsd:IdVentaPadre>?</wsd:IdVentaPadre>
+                  <wsd:IdPromotor>?</wsd:IdPromotor>
+                  <wsd:FechaDiferida>?</wsd:FechaDiferida>
+                  <wsd:IdEstado>?</wsd:IdEstado>
+               </wsd:Estandar>
+               <wsd:Interfaz>
+                  <wsd:Nombre>?</wsd:Nombre>
+                  <wsd:Username>?</wsd:Username>
+                  <wsd:Password>?</wsd:Password>
+                  <wsd:IdTipoCliente>?</wsd:IdTipoCliente>
+                  <wsd:EmailNoticias>?</wsd:EmailNoticias>
+                  <wsd:idCicloFactCRM>?</wsd:idCicloFactCRM>
+                  <wsd:ServicTypeCRMId>?</wsd:ServicTypeCRMId>
+                  <wsd:MessageCRMID>?</wsd:MessageCRMID>
+                  <wsd:Cantidad>?</wsd:Cantidad>
+                  <wsd:Quotamax>?</wsd:Quotamax>
+                  <wsd:ServidorEmailCRMId>?</wsd:ServidorEmailCRMId>
+                  <wsd:Dominio>?</wsd:Dominio>
+                  <wsd:DiskQuota>?</wsd:DiskQuota>
+                  <wsd:Noticias>?</wsd:Noticias>
+                  <wsd:Name>?</wsd:Name>
+                  <wsd:ServicePackageCRMId>?</wsd:ServicePackageCRMId>
+                  <wsd:Hub>?</wsd:Hub>
+                  <wsd:Nodo>?</wsd:Nodo>
+                  <wsd:IdISPCRM>?</wsd:IdISPCRM>
+                  <wsd:ActivactionCode>?</wsd:ActivactionCode>
+                  <wsd:IspMtaCrmId>?</wsd:IspMtaCrmId>
+                  <wsd:BuscarTagCRM>?</wsd:BuscarTagCRM>
+                  <wsd:Docsis>?</wsd:Docsis>
+                  <wsd:EnableAccounting>?</wsd:EnableAccounting>
+                  <wsd:ProductName>?</wsd:ProductName>
+                  <wsd:BandPackageCRMId>?</wsd:BandPackageCRMId>
+                  <wsd:PrepaidPolicyCRMId>?</wsd:PrepaidPolicyCRMId>
+                  <wsd:CantCPE>?</wsd:CantCPE>
+                  <wsd:USChannelID>?</wsd:USChannelID>
+                  <wsd:StartingBalance>?</wsd:StartingBalance>
+                  <wsd:DSFreq>?</wsd:DSFreq>
+                  <wsd:PeriodicalBaseBalance>?</wsd:PeriodicalBaseBalance>
+                  <wsd:NoBoot>?</wsd:NoBoot>
+                  <wsd:MACAddress>?</wsd:MACAddress>
+                  <wsd:SnmpGroupCRMID>?</wsd:SnmpGroupCRMID>
+                  <wsd:HostName>?</wsd:HostName>
+                  <wsd:CmsCMDID>?</wsd:CmsCMDID>
+                  <wsd:Provisioning>?</wsd:Provisioning>
+                  <wsd:ProfileCRMId>?</wsd:ProfileCRMId>
+                  <wsd:SendtoController>?</wsd:SendtoController>
+                  <wsd:LinesQTy>?</wsd:LinesQTy>
+                  <wsd:MtaModelCRMId>?</wsd:MtaModelCRMId>
+                  <wsd:EndpointNumber>?</wsd:EndpointNumber>
+                  <wsd:Tn>?</wsd:Tn>
+                  <wsd:HomeExchangeCRMId>?</wsd:HomeExchangeCRMId>
+                  <wsd:FeatureCrmId>?</wsd:FeatureCrmId>
+                  <wsd:Active>?</wsd:Active>
+                  <wsd:DatoI1>?</wsd:DatoI1>
+                  <wsd:DatoI2>?</wsd:DatoI2>
+                  <wsd:Customer1>?</wsd:Customer1>
+                  <wsd:Customer2>?</wsd:Customer2>
+                  <wsd:Customer3>?</wsd:Customer3>
+                  <wsd:Customer4>?</wsd:Customer4>
+               </wsd:Interfaz>
+            </wsd:Intraway>
+         </wsd:Detalle>
+      </wsd:ejecutaComando>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EMSSOAP" type="wsdl" bindingName="{http://www.example.org/EMS/}EMSSOAP" soapVersion="1_1" anonymous="optional" definition="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/EMS.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/EMS.wsdl"><con:part><con:url>file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/EMS.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="EMS" targetNamespace="http://www.example.org/EMS/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/EMS/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/EMS/">
+      <xsd:element name="EMS">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Header" type="tns:Header"/>
+            <xsd:element name="Body" type="tns:Body"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EMSResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="NameOut" type="xsd:string"/>
+            <xsd:element name="Error" type="xsd:string"/>
+            <xsd:element name="ErrorNo" type="xsd:string"/>
+            <xsd:element name="ErrorMessage" type="xsd:string"/>
+            <xsd:element name="Description" type="xsd:string"/>
+            <xsd:element name="Name" type="xsd:string"/>
+            <xsd:element name="Address" type="xsd:string"/>
+            <xsd:element name="Telephone" type="xsd:string"/>
+            <xsd:element name="Plans" type="xsd:string"/>
+            <xsd:element name="Optional" type="tns:Optional"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="Header">
+        <xsd:sequence>
+          <xsd:element name="Target" type="xsd:string"/>
+          <xsd:element name="Entry" type="xsd:string"/>
+          <xsd:element name="Function" type="xsd:string"/>
+          <xsd:element name="User" type="xsd:string"/>
+          <xsd:element name="UserId" type="xsd:string"/>
+          <xsd:element name="Optional" type="tns:Option"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Body">
+        <xsd:sequence>
+          <xsd:element name="processId" type="xsd:string"/>
+          <xsd:element name="OrderId" type="xsd:string"/>
+          <xsd:element name="Status" type="xsd:string"/>
+          <xsd:element name="customer" type="tns:Customer"/>
+          <xsd:element name="Attributes" type="tns:Atributes"/>
+          <xsd:element name="Materials" type="tns:Materials"/>
+          <xsd:element name="Notes" type="tns:Notes"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Object"/>
+      <xsd:complexType name="Customer">
+        <xsd:sequence>
+          <xsd:element name="customerId" type="xsd:string"/>
+          <xsd:element name="AccountId" type="xsd:string"/>
+          <xsd:element name="contracts" type="tns:Contracts"></xsd:element>
+          <xsd:element name="devices" type="tns:devices"/>
+          <xsd:element name="Attributes" type="tns:Attributes"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Contracts">
+        <xsd:sequence>
+          <xsd:element name="contract" type="tns:contract"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="devices">
+        <xsd:sequence>
+          <xsd:element name="device" type="tns:device"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="contract">
+        <xsd:sequence>
+          <xsd:element name="contractId" type="xsd:string"/>
+          <xsd:element name="contractName" type="xsd:string"></xsd:element>
+          <xsd:element name="status" type="xsd:string"/>
+          <xsd:element name="Date" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="device">
+        <xsd:sequence>
+          <xsd:element name="deviceId" type="xsd:string"/>
+          <xsd:element name="deviceName" type="xsd:string"/>
+          <xsd:element name="deviceType" type="xsd:string"/>
+          <xsd:element name="serialNumber" type="xsd:string"></xsd:element>
+          <xsd:element name="macAddress" type="xsd:string"/>
+          <xsd:element name="macAddress1" type="xsd:string"/>
+          <xsd:element name="macAddress2" type="xsd:string"/>
+          <xsd:element name="status" type="xsd:string"/>
+          <xsd:element name="Date" type="xsd:string"/>
+          <xsd:element name="Serialnumberold" type="xsd:string"></xsd:element>
+          <xsd:element name="MacAddressold" type="xsd:string"></xsd:element>
+          <xsd:element name="networkservice" type="xsd:string"></xsd:element>
+          <xsd:element name="forAll" type="xsd:string"/>
+          <xsd:element name="activityType" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Attributes">
+        <xsd:sequence>
+          <xsd:element name="Attribute" type="tns:Attribute"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Attribute">
+        <xsd:sequence>
+          <xsd:element name="Name" type="xsd:string"/>
+          <xsd:element name="Value" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Atributes">
+        <xsd:sequence>
+          <xsd:element name="Caption" type="xsd:string"/>
+          <xsd:element name="Value" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Materials">
+        <xsd:sequence>
+          <xsd:element name="Code" type="xsd:string"/>
+          <xsd:element name="Number" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Notes">
+        <xsd:sequence>
+          <xsd:element name="Note" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Optional">
+        <xsd:sequence>
+          <xsd:element name="Optional1" type="xsd:string"/>
+          <xsd:element name="Optional2" type="xsd:string"/>
+          <xsd:element name="Optional3" type="xsd:int"/>
+          <xsd:element name="Optional4" type="xsd:int"/>
+          <xsd:element name="Optional5" type="xsd:boolean"/>
+          <xsd:element name="Optional6" type="xsd:boolean"/>
+          <xsd:element name="Optional7" type="xsd:float"/>
+          <xsd:element name="Optional8" type="xsd:float"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Option">
+        <xsd:sequence>
+          <xsd:element name="Optional1" type="xsd:string"/>
+          <xsd:element name="Optional2" type="xsd:boolean"/>
+          <xsd:element name="Optional3" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="EMSRequest">
+    <wsdl:part name="EjecutaComando" element="tns:EMS"/>
+  </wsdl:message>
+  <wsdl:message name="EMSResponse">
+    <wsdl:part name="ConsultaRespuesta " element="tns:EMSResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="EMS">
+    <wsdl:operation name="EMS">
+      <wsdl:input message="tns:EMSRequest"/>
+      <wsdl:output message="tns:EMSResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EMSSOAP" type="tns:EMS">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="EMS">
+      <soap:operation soapAction="http://www.example.org/EMS/EMS"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EMS">
+    <wsdl:port binding="tns:EMSSOAP" name="EMSSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/switch-aprovisionamiento/EMS</con:endpoint><con:endpoint>http://pablo-A6200:8088/mockEMSSOAP</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.example.org/EMS/EMS" name="EMS" bindingOperationName="EMS" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/switch-aprovisionamiento/EMS</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ems="http://www.example.org/EMS/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ems:EMS>
+         <Header>
+            <Target>TV</Target>
+            <Entry>?</Entry>
+            <Function>ACTIVATE</Function>
+            <User>?</User>
+            <UserId>?</UserId>
+            <Optional>
+               <Optional1>?</Optional1>
+               <Optional2>?</Optional2>
+               <Optional3>?</Optional3>
+            </Optional>
+         </Header>
+         <Body>
+            <processId>1</processId>
+            <OrderId>?</OrderId>
+            <Status>?</Status>
+            <customer>
+               <customerId>?</customerId>
+               <AccountId>?</AccountId>
+               <contracts>
+                  <contract>
+                     <contractId>?</contractId>
+                     <contractName>?</contractName>
+                     <status>?</status>
+                     <Date>?</Date>
+                  </contract>
+               </contracts>
+               <devices>
+                  <device>
+                     <deviceId>?</deviceId>
+                     <deviceName>?</deviceName>
+                     <deviceType>?</deviceType>
+                     <serialNumber>?</serialNumber>
+                     <macAddress>?</macAddress>
+                     <macAddress1>?</macAddress1>
+                     <macAddress2>?</macAddress2>
+                     <status>?</status>
+                     <Date>?</Date>
+                     <Serialnumberold>?</Serialnumberold>
+                     <MacAddressold>?</MacAddressold>
+                     <networkservice>?</networkservice>
+                     <forAll>?</forAll>
+                     <activityType>?</activityType>
+                  </device>
+               </devices>
+               <Attributes>
+                  <Attribute>
+                     <Name>?</Name>
+                     <Value>?</Value>
+                  </Attribute>
+               </Attributes>
+            </customer>
+            <Attributes>
+               <Caption>?</Caption>
+               <Value>?</Value>
+            </Attributes>
+            <Materials>
+               <Code>?</Code>
+               <Number>?</Number>
+            </Materials>
+            <Notes>
+               <Note>?</Note>
+            </Notes>
+         </Body>
+      </ems:EMS>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/EMS/EMS"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService port="8088" path="/mockWsdlTvPagadaHttpBinding" host="pablo-A6200" name="TvPagadaHttpBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="AprovTvPagada" interface="WsdlTvPagadaHttpBinding" operation="AprovTvPagada"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsd="http://www.grupotvcable.com.ec/WsdlTvPagada/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsd:consultaRespuesta>
+         <wsd:Cabecera>
+            <wsd:IDEmpresa>1</wsd:IDEmpresa>
+            <wsd:Negocio>1</wsd:Negocio>
+            <wsd:Interface>1</wsd:Interface>
+            <wsd:Secuencia>1</wsd:Secuencia>
+         </wsd:Cabecera>
+         <wsd:Mensaje>
+            <wsd:CodError>0</wsd:CodError>
+            <wsd:DetMensaje>detalleTvPagada</wsd:DetMensaje>
+            <wsd:DatosExtrasTVP>
+               <wsd:IdServ>1</wsd:IdServ>
+               <wsd:NumPaq wsd:CantP="1">
+                  <!--Zero or more repetitions:-->
+                  <wsd:IdPay>
+                     <wsd:IdPay>1</wsd:IdPay>
+                  </wsd:IdPay>
+               </wsd:NumPaq>
+               <wsd:NumEve wsd:CantE="1">
+                  <!--Zero or more repetitions:-->
+                  <wsd:IdEve>
+                     <wsd:IdEve>1</wsd:IdEve>
+                  </wsd:IdEve>
+               </wsd:NumEve>
+               <wsd:Credito>1</wsd:Credito>
+               <wsd:TipoDeco>1</wsd:TipoDeco>
+               <wsd:CodMap>1</wsd:CodMap>
+               <wsd:Activo>ACT</wsd:Activo>
+               <wsd:UnitAddres>1</wsd:UnitAddres>
+               <wsd:Plant>PLANT</wsd:Plant>
+            </wsd:DatosExtrasTVP>
+         </wsd:Mensaje>
+      </wsd:consultaRespuesta>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.grupotvcable.com.ec/WsdlTvPagada/AprovTvPagada"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="8088" path="/mockWsdlIntrawayHttpBinding" host="pablo-A6200" name="IntrawayHttpBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="AprovIntraway" interface="WsdlIntrawayHttpBinding" operation="AprovIntraway"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsd="http://www.grupotvcable.com.ec/WsdlIntraway/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsd:consultaRespuesta>
+         <wsd:Cabecera>
+            <wsd:IDEmpresa>?</wsd:IDEmpresa>
+            <wsd:Negocio>?</wsd:Negocio>
+            <wsd:Interface>?</wsd:Interface>
+            <wsd:Secuencia>?</wsd:Secuencia>
+         </wsd:Cabecera>
+         <wsd:Mensaje>
+            <wsd:CodError>?</wsd:CodError>
+            <wsd:DetMensaje>detalleIntraway</wsd:DetMensaje>
+         </wsd:Mensaje>
+      </wsd:consultaRespuesta>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="8088" path="/mockEMSSOAP" host="pablo-A6200" name="EMSSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="EMS" interface="EMSSOAP" operation="EMS"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ems="http://www.example.org/EMS/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ems:EMSResponse>
+         <NameOut>?</NameOut>
+         <Error>?</Error>
+         <ErrorNo>?</ErrorNo>
+         <ErrorMessage>?</ErrorMessage>
+         <Description>?</Description>
+         <Name>?</Name>
+         <Address>?</Address>
+         <Telephone>?</Telephone>
+         <Plans>?</Plans>
+         <Optional>
+            <Optional1>?</Optional1>
+            <Optional2>?</Optional2>
+            <Optional3>?</Optional3>
+            <Optional4>?</Optional4>
+            <Optional5>?</Optional5>
+            <Optional6>?</Optional6>
+            <Optional7>?</Optional7>
+            <Optional8>?</Optional8>
+         </Optional>
+      </ems:EMSResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/EMS/EMS"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
