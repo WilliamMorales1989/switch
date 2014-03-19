@@ -1,0 +1,38 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsd="http://www.grupotvcable.com.ec/WsdlTvPagada/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsd:consultaRespuesta>
+         <wsd:Cabecera>
+            <wsd:IDEmpresa>?</wsd:IDEmpresa>
+            <wsd:Negocio>?</wsd:Negocio>
+            <wsd:Interface>?</wsd:Interface>
+            <wsd:Secuencia>?</wsd:Secuencia>
+         </wsd:Cabecera>
+         <wsd:Mensaje>
+            <wsd:CodError>?</wsd:CodError>
+            <wsd:DetMensaje>?</wsd:DetMensaje>
+            <wsd:DatosExtrasTVP>
+               <wsd:IdServ>?</wsd:IdServ>
+               <wsd:NumPaq wsd:CantP="?">
+                  <!--Zero or more repetitions:-->
+                  <wsd:IdPay>
+                     <wsd:IdPay>?</wsd:IdPay>
+                  </wsd:IdPay>
+               </wsd:NumPaq>
+               <wsd:NumEve wsd:CantE="?">
+                  <!--Zero or more repetitions:-->
+                  <wsd:IdEve>
+                     <wsd:IdEve>?</wsd:IdEve>
+                  </wsd:IdEve>
+               </wsd:NumEve>
+               <wsd:Credito>?</wsd:Credito>
+               <wsd:TipoDeco>?</wsd:TipoDeco>
+               <wsd:CodMap>?</wsd:CodMap>
+               <wsd:Activo>?</wsd:Activo>
+               <wsd:UnitAddres>?</wsd:UnitAddres>
+               <wsd:Plant>?</wsd:Plant>
+            </wsd:DatosExtrasTVP>
+         </wsd:Mensaje>
+      </wsd:consultaRespuesta>
+   </soapenv:Body>
+</soapenv:Envelope>

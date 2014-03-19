@@ -727,7 +727,7 @@
          </wsd:Cabecera>
          <wsd:Mensaje>
             <wsd:CodError>0</wsd:CodError>
-            <wsd:DetMensaje>detalleTvPagada</wsd:DetMensaje>
+            <wsd:DetMensaje>Respuesta desde mock</wsd:DetMensaje>
             <wsd:DatosExtrasTVP>
                <wsd:IdServ>1</wsd:IdServ>
                <wsd:NumPaq wsd:CantP="1">
@@ -772,10 +772,10 @@
    <soapenv:Header/>
    <soapenv:Body>
       <ems:EMSResponse>
-         <NameOut>?</NameOut>
-         <Error>?</Error>
-         <ErrorNo>?</ErrorNo>
-         <ErrorMessage>?</ErrorMessage>
+         <NameOut>?</NameOut> 
+         <Error>?</Error>Exito: Proceso exitoso. FAIL: Aprovisionamiento fallido
+         <ErrorNo>?</ErrorNo>Exito: 0, FAIL: 1
+         <ErrorMessage>?</ErrorMessage>Exito: Respuestas de mensajes concatenados
          <Description>?</Description>
          <Name>?</Name>
          <Address>?</Address>

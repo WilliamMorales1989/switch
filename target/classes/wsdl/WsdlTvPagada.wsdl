@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.grupotvcable.com.ec/WsdlTvPagada/" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:tns="http://www.grupotvcable.com.ec/WsdlTvPagada/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.grupotvcable.com.ec/WsdlTvPagada/">
+<xsd:element name="ejecutaComando" type="tns:Comando"/>
+<xsd:element name="consultaRespuesta" type="tns:Respuesta"/>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Respuesta">
+<xs:sequence>
+<xs:element xmlns:ns1="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="Cabecera" type="ns1:Cabecera"/>
+<xs:element xmlns:ns2="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="Mensaje" type="ns2:Mensaje"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Cabecera">
+<xs:sequence>
+<xs:element name="IDEmpresa" type="xs:int"/>
+<xs:element name="Negocio" type="xs:int"/>
+<xs:element name="Interface" type="xs:int"/>
+<xs:element name="Secuencia" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Mensaje">
+<xs:sequence>
+<xs:element name="CodError" type="xs:int"/>
+<xs:element name="DetMensaje" type="xs:string"/>
+<xs:element xmlns:ns3="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="DatosExtrasTVP" type="ns3:DatosExtrasTVP"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="DatosExtrasTVP">
+<xs:sequence>
+<xs:element name="IdServ" type="xs:int"/>
+<xs:element xmlns:ns4="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="NumPaq" type="ns4:NumPaq"/>
+<xs:element xmlns:ns5="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="NumEve" type="ns5:NumEve"/>
+<xs:element name="Credito" type="xs:int"/>
+<xs:element name="TipoDeco" type="xs:int"/>
+<xs:element name="CodMap" type="xs:int"/>
+<xs:element name="Activo" type="xs:string"/>
+<xs:element name="UnitAddres" type="xs:int"/>
+<xs:element name="Plant" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="NumPaq">
+<xs:sequence>
+<xs:element xmlns:ns6="http://www.grupotvcable.com.ec/WsdlTvPagada/" maxOccurs="unbounded" minOccurs="0" name="IdPay" type="ns6:IdPay"/>
+</xs:sequence>
+<xs:attribute name="CantP" type="xs:int"/>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="IdPay">
+<xs:sequence>
+<xs:element name="IdPay" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="NumEve">
+<xs:sequence>
+<xs:element xmlns:ns7="http://www.grupotvcable.com.ec/WsdlTvPagada/" maxOccurs="unbounded" minOccurs="0" name="IdEve" type="ns7:IdEve"/>
+</xs:sequence>
+<xs:attribute name="CantE" type="xs:int"/>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="IdEve">
+<xs:sequence>
+<xs:element name="IdEve" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Comando">
+<xs:sequence>
+<xs:element xmlns:ns8="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="Cabecera" type="ns8:Cabecera"/>
+<xs:element xmlns:ns9="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="Detalle" type="ns9:Detalle"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Detalle">
+<xs:sequence>
+<xs:element xmlns:ns10="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="TVpagada" type="ns10:TVpagada"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="TVpagada">
+<xs:sequence>
+<xs:element name="Serie" type="xs:string"/>
+<xs:element name="TipoD" type="xs:int"/>
+<xs:element name="IdConvertidor" type="xs:string"/>
+<xs:element name="IdAccount" type="xs:int"/>
+<xs:element name="CItem" type="xs:int"/>
+<xs:element name="Ubicacion" type="xs:int"/>
+<xs:element name="Accion" type="xs:int"/>
+<xs:element name="Credito" type="xs:int"/>
+<xs:element name="IdServicio" type="xs:int"/>
+<xs:element xmlns:ns11="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="IdPaquetes" type="ns11:IdPaquetes"/>
+<xs:element xmlns:ns12="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="IdEventos" type="ns12:IdEventos"/>
+<xs:element name="TipoA" type="xs:int"/>
+<xs:element name="EstadoC" type="xs:string"/>
+<xs:element name="FormaPago" type="xs:string"/>
+<xs:element name="TipoC" type="xs:int"/>
+<xs:element name="CodigoCanal" type="xs:int"/>
+<xs:element name="DescEvento" type="xs:string"/>
+<xs:element xmlns:ns13="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="Comienzo" type="ns13:Comienzo"/>
+<xs:element xmlns:ns14="http://www.grupotvcable.com.ec/WsdlTvPagada/" name="Final" type="ns14:Final"/>
+<xs:element name="DuracionEvento" type="xs:int"/>
+<xs:element name="Interstitial" type="xs:int"/>
+<xs:element name="TiempoLibre" type="xs:int"/>
+<xs:element name="Mpaa" type="xs:int"/>
+<xs:element name="ContenidoViolento" type="xs:int"/>
+<xs:element name="ContenidoSexual" type="xs:int"/>
+<xs:element name="Lenguaje" type="xs:int"/>
+<xs:element name="Rating" type="xs:int"/>
+<xs:element name="TiempoCompra" type="xs:int"/>
+<xs:element name="Paquete" type="xs:int"/>
+<xs:element name="TiempoDisplay" type="xs:int"/>
+<xs:element name="CostoEvento" type="xs:int"/>
+<xs:element name="PrecioEvento" type="xs:int"/>
+<xs:element name="AnyTime" type="xs:int"/>
+<xs:element name="TipoPromocion" type="xs:int"/>
+<xs:element name="DatoC1" type="xs:string"/>
+<xs:element name="DatoC2" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="IdPaquetes">
+<xs:sequence>
+<xs:element xmlns:ns15="http://www.grupotvcable.com.ec/WsdlTvPagada/" maxOccurs="unbounded" minOccurs="0" name="IdPaquete" type="ns15:IdPaquete"/>
+</xs:sequence>
+<xs:attribute name="CantP" type="xs:int"/>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="IdPaquete">
+<xs:sequence>
+<xs:element name="IdPaquete" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="IdEventos">
+<xs:sequence>
+<xs:element xmlns:ns16="http://www.grupotvcable.com.ec/WsdlTvPagada/" maxOccurs="unbounded" minOccurs="0" name="IdEvento" type="ns16:IdEvento"/>
+</xs:sequence>
+<xs:attribute name="CantE" type="xs:int"/>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="IdEvento">
+<xs:sequence>
+<xs:element name="IdEvento" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Comienzo">
+<xs:sequence>
+<xs:element name="FechaIni" type="xs:anySimpleType"/>
+<xs:element name="TiempoIni" type="xs:anySimpleType"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Final">
+<xs:sequence>
+<xs:element name="FechaFin" type="xs:anySimpleType"/>
+<xs:element name="TiempoFin" type="xs:anySimpleType"/>
+</xs:sequence>
+</xs:complexType>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="AprovTvPagadaRequest">
+    <wsdl:part name="ejecutaComando" element="tns:ejecutaComando"/>
+  </wsdl:message>
+  <wsdl:message name="AprovTvPagadaResponse">
+    <wsdl:part name="consultaRespuesta" element="tns:consultaRespuesta"/>
+  </wsdl:message>
+  <wsdl:portType name="WsdlTvPagada">
+    <wsdl:operation name="AprovTvPagada">
+      <wsdl:input name="AprovTvPagadaRequest" message="tns:AprovTvPagadaRequest"/>
+      <wsdl:output name="AprovTvPagadaResponse" message="tns:AprovTvPagadaResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsdlTvPagadaHttpBinding" type="tns:WsdlTvPagada">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="AprovTvPagada">
+      <wsdlsoap:operation soapAction="http://www.grupotvcable.com.ec/WsdlTvPagada/AprovTvPagada"/>
+      <wsdl:input name="AprovTvPagadaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AprovTvPagadaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsdlTvPagada">
+    <wsdl:port name="WsdlTvPagadaHttpPort" binding="tns:WsdlTvPagadaHttpBinding">
+      <wsdlsoap:address location="http://192.168.21.205/WsAprovisionamiento2/services/WsdlTvPagada"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

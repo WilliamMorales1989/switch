@@ -1,12 +1,10 @@
 create table TRANSACTION_SP(
 Id number,
 DeviceId number not null,
+ProcessId number not null,
 IdEmpresa number,
 Negocio varchar2(3),
 Secuencia number,
-Serie varchar2(30),
-TipoD number,
-IdConvertidor varchar2(30),
 IdAccount number,
 CItem number,
 Ubicacion number(20),
@@ -70,10 +68,10 @@ create sequence TRANSACTION_SP_RESPONSE_SEQ start with 1 increment by 1 nocache 
 CREATE TABLE INTERFAZ_APROVISIONAMIENTO (
 		IA_ID NUMBER(19 , 0) NOT NULL,
 		IA_CONTROLLER VARCHAR2(255),
-		IA_FUNCTION VARCHAR2(255),
+		IA_ACTIVITY_TYPE VARCHAR2(255),
 		IA_INTERFACECODE VARCHAR2(255),
 		IA_ORDER NUMBER(10 , 0),
-		IA_TARGET VARCHAR2(255)
+		IA_SYSTEM VARCHAR2(255)
 	);
 
 CREATE UNIQUE INDEX SYS_C0039718 ON INTERFAZ_APROVISIONAMIENTO (IA_ID ASC);
