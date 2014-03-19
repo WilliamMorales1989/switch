@@ -43,18 +43,28 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 
 		this.aprovisionamientoType = parameters;
 
-		List<DeviceResponse> deviceResponses = processDevices();
-
 		AprovisionamientoResponse response = new AprovisionamientoResponse();
+		try {
+			List<DeviceResponse> deviceResponses = processDevices();
 
-		response.setBodyResponse(generateBodyResponse(deviceResponses));
+			
+			response.setBodyResponse(generateBodyResponse(deviceResponses));
+			
+			TransactionSpResponse transactionResponse = new TransactionSpResponse();
+			// transactionResponse.setDetMensaje(response.getErrorMessage());
+			transactionResponseService.store(transactionResponse);
+			// response.setErrorMessage(responseMessage.toString());
 
-		TransactionSpResponse transactionResponse = new TransactionSpResponse();
-		// transactionResponse.setDetMensaje(response.getErrorMessage());
-		transactionResponseService.store(transactionResponse);
-		// response.setErrorMessage(responseMessage.toString());
+			return response;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			BodyResponse bodyResponse = new BodyResponse();
+			bodyResponse.setResponseCode(100);
+			bodyResponse.setResponseMessage(e.getMessage());
+			response.setBodyResponse(bodyResponse);
+			return response;
+		}
 
-		return response;
 	}
 
 	private BodyResponse generateBodyResponse(List<DeviceResponse> deviceResponses) {

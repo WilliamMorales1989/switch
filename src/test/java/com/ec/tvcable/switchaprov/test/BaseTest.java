@@ -10,6 +10,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 
 import com.ec.tvcable.switchaprov.jpa.TransactionSpTvPagada;
+import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type;
+import com.ec.tvcable.switchaprov.service.aprov.BodyRequest;
+import com.ec.tvcable.switchaprov.service.aprov.Device;
+import com.ec.tvcable.switchaprov.service.aprov.HeaderRequest;
 
 public class BaseTest {
 
@@ -73,6 +77,32 @@ public class BaseTest {
 		transactionSpTvPagada.setDfrom(new Date());
 		transactionSpTvPagada.setDto(new Date());
 		return transactionSpTvPagada;
+	}
+
+	protected Aprovisionamiento_Type createAprovisionamientotype() {
+		Aprovisionamiento_Type type = new Aprovisionamiento_Type();
+
+		HeaderRequest header = new HeaderRequest();
+		header.setTarget("TV");
+
+		BodyRequest body = new BodyRequest();
+		body.setProcessId("1");
+
+		type.setBodyRequest(body);
+		type.setHeaderRequest(header);
+
+		return type;
+	}
+
+	protected void addDeviceToRequest(Aprovisionamiento_Type request, String id, String activity, String serialNumber) {
+
+		Device device = new Device();
+		device.setDeviceId(id);
+		device.setActivityType(activity);
+		device.setSerialNumber(serialNumber);
+		
+		request.getBodyRequest().getDevices().add(device);
+
 	}
 
 	

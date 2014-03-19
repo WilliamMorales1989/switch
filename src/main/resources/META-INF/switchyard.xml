@@ -83,26 +83,18 @@
         <sca:interface.java interface="com.ec.tvcable.switchaprov.DatosTvPagada"/>
       </sca:service>
     </sca:component>
-    <sca:reference name="TransactionResponseReference" multiplicity="0..1" promote="AprovisionamientoBean/TransactionSpResponseService">
-      <sca:interface.java interface="com.ec.tvcable.switchaprov.TransactionSpResponseService"/>
-      <jpa:binding.jpa>
-        <jpa:entityClassName>com.ec.tvcable.switchaprov.jpa.TransactionSpResponse</jpa:entityClassName>
-        <jpa:persistenceUnit>switch-aprovisionamiento</jpa:persistenceUnit>
-        <jpa:transactionManager>#jtaTransactionManager</jpa:transactionManager>
-        <jpa:produce>
-          <jpa:flushOnSend>true</jpa:flushOnSend>
-          <jpa:usePersist>true</jpa:usePersist>
-        </jpa:produce>
-      </jpa:binding.jpa>
-    </sca:reference>
+    <sca:component name="TransactionSpResponseServiceBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.TransactionResponseServiceBean"/>
+      <sca:service name="TransactionSpResponseService">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.TransactionSpResponseService"/>
+      </sca:service>
+    </sca:component>
   </sca:composite>
   <sy:transforms>
     <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.service.tvpagada.Comando" to="{http://www.grupotvcable.com.ec/WsdlTvPagada/}ejecutaComando" contextPath="com.ec.tvcable.switchaprov.service.tvpagada"/>
     <transform:transform.jaxb from="{http://www.grupotvcable.com.ec/WsdlTvPagada/}consultaRespuesta" to="java:com.ec.tvcable.switchaprov.service.tvpagada.Respuesta" contextPath="com.ec.tvcable.switchaprov.service.tvpagada"/>
     <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.service.intraway.Comando" to="{http://www.grupotvcable.com.ec/WsdlIntraway/}ejecutaComando" contextPath="com.ec.tvcable.switchaprov.service.intraway"/>
     <transform:transform.jaxb from="{http://www.grupotvcable.com.ec/WsdlIntraway/}consultaRespuesta" to="java:com.ec.tvcable.switchaprov.service.intraway.Respuesta" contextPath="com.ec.tvcable.switchaprov.service.intraway"/>
-    <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.service.ems.EMSResponse" to="{http://www.example.org/EMS/}EMSResponse" contextPath="com.ec.tvcable.switchaprov.service.ems"/>
-    <transform:transform.jaxb from="{http://www.example.org/EMS/}EMS" to="java:com.ec.tvcable.switchaprov.service.ems.EMS_Type" contextPath="com.ec.tvcable.switchaprov.service.ems"/>
     <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.service.aprov.AprovisionamientoResponse" to="{http://www.example.org/Aprovisionamiento/}AprovisionamientoResponse" contextPath="com.ec.tvcable.switchaprov.service.aprov"/>
     <transform:transform.jaxb from="{http://www.example.org/Aprovisionamiento/}Aprovisionamiento" to="java:com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type" contextPath="com.ec.tvcable.switchaprov.service.aprov"/>
   </sy:transforms>

@@ -14,7 +14,6 @@ import org.switchyard.component.bean.Service;
 import com.ec.tvcable.switchaprov.ComandoInterfaces;
 import com.ec.tvcable.switchaprov.InterfaceInvocationResponse;
 import com.ec.tvcable.switchaprov.IntrawayInterfaceService;
-import com.ec.tvcable.switchaprov.service.ems.EMS_Type;
 import com.ec.tvcable.switchaprov.service.intraway.Cabecera;
 import com.ec.tvcable.switchaprov.service.intraway.Comando;
 import com.ec.tvcable.switchaprov.service.intraway.Respuesta;

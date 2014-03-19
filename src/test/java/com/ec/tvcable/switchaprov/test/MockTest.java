@@ -35,9 +35,6 @@ import com.ec.tvcable.switchaprov.jpa.TransactionSpTvPagada;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento;
 import com.ec.tvcable.switchaprov.service.aprov.AprovisionamientoResponse;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type;
-import com.ec.tvcable.switchaprov.service.aprov.BodyRequest;
-import com.ec.tvcable.switchaprov.service.aprov.Device;
-import com.ec.tvcable.switchaprov.service.aprov.HeaderRequest;
 import com.ec.tvcable.switchaprov.service.tvpagada.Cabecera;
 import com.ec.tvcable.switchaprov.service.tvpagada.Comando;
 import com.ec.tvcable.switchaprov.service.tvpagada.Mensaje;
@@ -82,25 +79,22 @@ public class MockTest extends BaseTest {
 	}
 
 	@Test
-	public void primerTest() {
-		try {
-			addDeviceToRequest("1", "activity", "serialnumber");
-			aprovisionamiento.Aprovisionamiento(requestMessage);
-			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702"));
-			verify(resolver).resolveInterfaces(any(Operation.class));
-			verify(tvInterfaceServiceSpy).invokeInterfaces(any(ComandoInterfaces.class));
-			verify(tvInterfaceServiceSpy).generateResponse();
-			verify(tvInterfaceServiceSpy).createComando(any(DeviceProcess.class));
-		} catch (ConversionException e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
+	public void capturarErrorInesperado() {
+		
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
+			requestMessage.setBodyRequest(null);
+			
+			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
+			
+			Assert.assertEquals("Erorr inesperado", response.getBodyResponse().getResponseMessage());
+			Assert.assertEquals(0, response.getBodyResponse().getResponseCode());
+			
 	}
 
 	@Test
 	public void debeIterarPorDevicesEInterfaces() {
 		try {
-			addDeviceToRequest("1", "activity", "serialnumber");
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
 			TransactionSpTvPagada transactionSpTvPagada = createDatosTvPagada();
 
 			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702"));
@@ -125,7 +119,7 @@ public class MockTest extends BaseTest {
 	@Test
 	public void debeRetornarErrorDeConversion() {
 		try {
-			addDeviceToRequest("1", "activity", "serial-123");
+			addDeviceToRequest(requestMessage, "1", "activity", "serial-123");
 			TransactionSpTvPagada transactionSpTvPagada = createDatosTvPagada();
 			transactionSpTvPagada.setNegocio("");
 
@@ -150,7 +144,7 @@ public class MockTest extends BaseTest {
 	@Test
 	public void errorSiRegistroNoEsValido() {
 		try {
-			addDeviceToRequest("1", "activity", "serialnumber");
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
 			TransactionSpTvPagada transactionSpTvPagada = createDatosTvPagada();
 			transactionSpTvPagada.setIsValid("F");
 
@@ -176,8 +170,8 @@ public class MockTest extends BaseTest {
 	@Test
 	public void errorNoValidoEnSegundoDevice() {
 		try {
-			addDeviceToRequest("1", "activity", "serialnumber_1");
-			addDeviceToRequest("2", "activity", "serialnumber_2");
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber_1");
+			addDeviceToRequest(requestMessage, "2", "activity", "serialnumber_2");
 
 			TransactionSpTvPagada tvPagada1 = createDatosTvPagada();
 			TransactionSpTvPagada tvPagada2 = createDatosTvPagada();
@@ -205,8 +199,8 @@ public class MockTest extends BaseTest {
 	@Test
 	public void errorSiNoHayRegistroDeDatosEnSegundoDevice() {
 		try {
-			addDeviceToRequest("1", "activity", "serialnumber_1");
-			addDeviceToRequest("2", "activity", "serialnumber_2");
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber_1");
+			addDeviceToRequest(requestMessage, "2", "activity", "serialnumber_2");
 
 			TransactionSpTvPagada tvPagada = createDatosTvPagada();
 
@@ -234,7 +228,7 @@ public class MockTest extends BaseTest {
 	@Test
 	public void errorEnSegundaInterfaz() {
 		try {
-			addDeviceToRequest("1", "activity", "serie-123");
+			addDeviceToRequest(requestMessage, "1", "activity", "serie-123");
 			TransactionSpTvPagada createDatosTvPagada = createDatosTvPagada();
 
 			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702", "600", "500"));
@@ -261,7 +255,7 @@ public class MockTest extends BaseTest {
 	@Test
 	public void ejecucionExitosaUnDispositivo() {
 		try {
-			addDeviceToRequest("1", "activity", "serie-123");
+			addDeviceToRequest(requestMessage, "1", "activity", "serie-123");
 			TransactionSpTvPagada createDatosTvPagada = createDatosTvPagada();
 
 			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702", "600", "500"));
@@ -318,32 +312,6 @@ public class MockTest extends BaseTest {
 		}
 
 		return interfaces;
-	}
-
-	private Aprovisionamiento_Type createAprovisionamientotype() {
-		Aprovisionamiento_Type type = new Aprovisionamiento_Type();
-
-		HeaderRequest header = new HeaderRequest();
-		header.setTarget("TV");
-
-		BodyRequest body = new BodyRequest();
-		body.setProcessId("1");
-
-		type.setBodyRequest(body);
-		type.setHeaderRequest(header);
-
-		return type;
-	}
-
-	private void addDeviceToRequest(String id, String activity, String serialNumber) {
-
-		Device device = new Device();
-		device.setDeviceId(id);
-		device.setActivityType(activity);
-		device.setSerialNumber(serialNumber);
-		
-		requestMessage.getBodyRequest().getDevices().add(device);
-
 	}
 
 }

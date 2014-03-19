@@ -30,8 +30,8 @@ public class InterfazAprovServicioBean implements InterfazAprovServicio {
 	public List<InterfazAprovisionamiento> buscarPorAprovisionamiento(
 			Operation operation) {
 		Query query = em.createNamedQuery("buscarPorAprovisionamiento");
-		query.setParameter("target", operation.getSystem());
-		query.setParameter("function", operation.getActivityType());
+		query.setParameter("system", operation.getSystem());
+		query.setParameter("activityType", operation.getActivityType());
 		return query.getResultList();
 	}
 
