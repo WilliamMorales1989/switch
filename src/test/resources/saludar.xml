@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:com.ec.tvcable.switchaprov:switch-aprovisionamiento:1.0">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:saludar>
+         <!--Optional:-->
+         <urn:string>Pablo</urn:string>
+      </urn:saludar>
+   </soapenv:Body>
+</soapenv:Envelope>

@@ -62,6 +62,7 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 			bodyResponse.setResponseCode(100);
 			bodyResponse.setResponseMessage(e.getMessage());
 			response.setBodyResponse(bodyResponse);
+			System.out.println(bodyResponse.getResponseMessage());
 			return response;
 		}
 

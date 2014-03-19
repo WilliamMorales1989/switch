@@ -27,7 +27,6 @@ import com.ec.tvcable.switchaprov.InterfazResolver;
 import com.ec.tvcable.switchaprov.Operation;
 import com.ec.tvcable.switchaprov.TransactionSpResponseService;
 import com.ec.tvcable.switchaprov.TvInterfaceService;
-import com.ec.tvcable.switchaprov.exception.ConversionException;
 import com.ec.tvcable.switchaprov.exception.DataQueryException;
 import com.ec.tvcable.switchaprov.impl.TvInterfazServiceBean;
 import com.ec.tvcable.switchaprov.jpa.TransactionSpResponse;

@@ -54,10 +54,10 @@ Id number,
 device_id number,
 interface number,
 request_id number,
-request_date date,
-CodError number,
-DetMensaje varchar2(500),
-DatosExtrasTVP varchar2(500)
+request_date date --,
+-- CodError number,
+-- DetMensaje varchar2(500),
+-- DatosExtrasTVP varchar2(500)
 );
 
 alter table TRANSACTION_SP_RESPONSE add constraint FK_TRANSACTION_SP_RESPONSE 
