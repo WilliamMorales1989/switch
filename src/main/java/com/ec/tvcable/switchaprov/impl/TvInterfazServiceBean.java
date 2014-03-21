@@ -31,7 +31,7 @@ import com.ec.tvcable.switchaprov.service.tvpagada.WsdlTvPagada;
  */
 @Service(TvInterfaceService.class)
 public class TvInterfazServiceBean implements TvInterfaceService {
-
+	
 	@Reference
 	@Inject
 	private WsdlTvPagada wsdlTvPagada;
@@ -58,8 +58,6 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 				comando.getCabecera().setInterface(Integer.parseInt(interf));
 				respuesta = invokeAprovTvpagada(comando);
 				responses.add(generateResponse());
-				if (failedExecution())
-					break;
 			}
 		} catch (Exception e) {
 			logger.error("Problemas al invocar interfaces: ", e);
@@ -67,10 +65,6 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 			responses.add(generateResponse());
 		}
 		return responses;
-	}
-
-	private boolean failedExecution() {
-		return respuesta.getMensaje().getCodError() > 0;
 	}
 
 	public void genFailedResponse(Exception e) {

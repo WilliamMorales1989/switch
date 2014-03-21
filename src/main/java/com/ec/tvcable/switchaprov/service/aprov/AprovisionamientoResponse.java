@@ -1,6 +1,11 @@
 
 package com.ec.tvcable.switchaprov.service.aprov;
 
+import java.io.StringWriter;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -40,6 +45,20 @@ public class AprovisionamientoResponse {
     protected HeaderResponse headerResponse;
     @XmlElement(name = "BodyResponse", required = true)
     protected BodyResponse bodyResponse;
+    
+    
+    public String getXMLStringResponce() {
+		try {
+			JAXBContext context = JAXBContext.newInstance(AprovisionamientoResponse.class);
+			Marshaller marshaller = context.createMarshaller();
+			StringWriter sw = new StringWriter();
+			marshaller.marshal(this, sw);
+			return sw.toString();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
     /**
      * Gets the value of the headerResponse property.
