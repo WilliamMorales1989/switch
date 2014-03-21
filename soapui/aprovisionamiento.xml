@@ -496,7 +496,6 @@
         <xsd:sequence>
           <xsd:element name="Target" type="xsd:string"/>
           <xsd:element name="Entry" type="xsd:string"/>
-          <xsd:element name="Function" type="xsd:string"/>
           <xsd:element name="User" type="xsd:string"/>
           <xsd:element name="Token" type="xsd:string"/>
           <xsd:element name="Attributes" type="tns:AttributesRequest"/>
@@ -517,10 +516,8 @@
       <xsd:complexType name="Device">
         <xsd:sequence>
           <xsd:element name="deviceId" type="xsd:string"/>
-          <xsd:element name="deviceName" type="xsd:string"/>
           <xsd:element name="deviceType" type="xsd:string"/>
           <xsd:element name="serialNumber" type="xsd:string"></xsd:element>
-          <xsd:element name="macAddress" type="xsd:string"/>
           <xsd:element name="macAddress1" type="xsd:string"/>
           <xsd:element name="macAddress2" type="xsd:string"/>
           <xsd:element name="activityType" type="xsd:string"></xsd:element>
@@ -604,14 +601,13 @@
       <soap:address location="http://www.example.org/"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:endpoint>http://pablo-A6200:8088/mockAprovisionamientoSOAP</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.example.org/Aprovisionamiento/Aprovisionamiento" name="Aprovisionamiento" bindingOperationName="Aprovisionamiento" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apr="http://www.example.org/Aprovisionamiento/">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://www.example.org/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.example.org/Aprovisionamiento/Aprovisionamiento" name="Aprovisionamiento" bindingOperationName="Aprovisionamiento" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.example.org/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apr="http://www.example.org/Aprovisionamiento/">
    <soapenv:Header/>
    <soapenv:Body>
       <apr:Aprovisionamiento>
          <HeaderRequest>
             <Target>?</Target>
             <Entry>?</Entry>
-            <Function>ACTIVATE</Function>
             <User>?</User>
             <Token>?</Token>
             <Attributes>
@@ -623,6 +619,7 @@
             <processId>?</processId>
             <!--1 or more repetitions:-->
             <Devices>
+            	<device>
                <deviceId>?</deviceId>
                <deviceType>?</deviceType>
                <serialNumber>?</serialNumber>
@@ -636,6 +633,7 @@
                   <Name>?</Name>
                   <Values>?</Values>
                </Attributes>
+            	<device>
             </Devices>
          </BodyRequest>
       </apr:Aprovisionamiento>
@@ -693,37 +691,4 @@
          </wsd:Mensaje>
       </wsd:consultaRespuesta>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="8088" path="/mockEMSSOAP" host="pablo-A6200" name="EMSSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/></con:mockService><con:mockService port="8088" path="/mockAprovisionamientoSOAP" host="pablo-A6200" name="AprovisionamientoSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="Aprovisionamiento" interface="AprovisionamientoSOAP" operation="Aprovisionamiento"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apr="http://www.example.org/Aprovisionamiento/">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <apr:AprovisionamientoResponse>
-         <HeaderResponse>
-            <Target>?</Target>
-            <Entry>?</Entry>
-            <User>?</User>
-            <Token>?</Token>
-            <AttributesResponse>
-               <Name>?</Name>
-               <Values>?</Values>
-            </AttributesResponse>
-         </HeaderResponse>
-         <BodyResponse>
-            <ResponseCode>?</ResponseCode>
-            <ResponseMessage>?</ResponseMessage>
-            <ProcessId>?</ProcessId>
-            <!--1 or more repetitions:-->
-            <Devices>
-               <DeviceId>?</DeviceId>
-               <!--1 or more repetitions:-->
-               <Interfaces>
-                  <InterfazId>?</InterfazId>
-                  <ErrorCode>?</ErrorCode>
-                  <ErrorMessage>?</ErrorMessage>
-               </Interfaces>
-               <SerialNumber>?</SerialNumber>
-               <ErrorCode>?</ErrorCode>
-            </Devices>
-         </BodyResponse>
-      </apr:AprovisionamientoResponse>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/Aprovisionamiento/Aprovisionamiento"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="8088" path="/mockEMSSOAP" host="pablo-A6200" name="EMSSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/></con:mockService><con:mockService port="8088" path="/mockAprovisionamientoSOAP" host="pablo-A6200" name="AprovisionamientoSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/></con:mockService><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>

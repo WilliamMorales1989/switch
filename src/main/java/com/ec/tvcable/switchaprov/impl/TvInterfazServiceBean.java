@@ -20,9 +20,12 @@ import com.ec.tvcable.switchaprov.InterfaceInvocationResponse;
 import com.ec.tvcable.switchaprov.TvInterfaceService;
 import com.ec.tvcable.switchaprov.exception.ConversionException;
 import com.ec.tvcable.switchaprov.exception.DataQueryException;
+import com.ec.tvcable.switchaprov.jpa.InterfazAprovisionamiento;
+import com.ec.tvcable.switchaprov.service.aprov.Device;
 import com.ec.tvcable.switchaprov.service.tvpagada.Comando;
 import com.ec.tvcable.switchaprov.service.tvpagada.Mensaje;
 import com.ec.tvcable.switchaprov.service.tvpagada.Respuesta;
+import com.ec.tvcable.switchaprov.service.tvpagada.TVpagada;
 import com.ec.tvcable.switchaprov.service.tvpagada.WsdlTvPagada;
 
 /**
@@ -53,9 +56,13 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 		try {
 			Comando comando = createComando(new DeviceProcess(comandoInterfaces.getDevice().getDeviceId(),
 					comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId()));
-			for (String interf : comandoInterfaces.getInterfaces()) {
-				actualInterface = interf;
-				comando.getCabecera().setInterface(Integer.parseInt(interf));
+			
+			assignMessageAttributes(comandoInterfaces.getDevice(), comando.getDetalle().getTVpagada());
+			
+			for (InterfazAprovisionamiento interf : comandoInterfaces.getInterfaces()) {
+				actualInterface = interf.getInterfaceCode();
+				comando.getCabecera().setInterface(Integer.parseInt(actualInterface));
+				comando.getDetalle().getTVpagada().setAccion(interf.getAccion());
 				respuesta = invokeAprovTvpagada(comando);
 				responses.add(generateResponse());
 			}
@@ -65,6 +72,12 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 			responses.add(generateResponse());
 		}
 		return responses;
+	}
+
+	private void assignMessageAttributes(Device device, TVpagada comando) {
+		comando.setSerie(device.getSerialNumber());
+		comando.setTipoD(Integer.parseInt(device.getDeviceType()));
+		comando.setIdConvertidor(device.getMacAddress1());
 	}
 
 	public void genFailedResponse(Exception e) {

@@ -5,6 +5,7 @@ package com.ec.tvcable.switchaprov;
 
 import java.util.List;
 
+import com.ec.tvcable.switchaprov.jpa.InterfazAprovisionamiento;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type;
 import com.ec.tvcable.switchaprov.service.aprov.Device;
 
@@ -14,7 +15,7 @@ import com.ec.tvcable.switchaprov.service.aprov.Device;
  */
 public class ComandoInterfaces {
 	
-	public ComandoInterfaces(Aprovisionamiento_Type aprovisionamientoType, List<String> interfaces, Device device) {
+	public ComandoInterfaces(Aprovisionamiento_Type aprovisionamientoType, List<InterfazAprovisionamiento> interfaces, Device device) {
 		super();
 		this.aprovisionamientoType = aprovisionamientoType;
 		this.interfaces = interfaces;
@@ -23,7 +24,7 @@ public class ComandoInterfaces {
 
 	private Aprovisionamiento_Type aprovisionamientoType;
 	
-	private List<String> interfaces;
+	private List<InterfazAprovisionamiento> interfaces;
 
 	private Device device;
 
@@ -35,11 +36,11 @@ public class ComandoInterfaces {
 		this.aprovisionamientoType = aprovisionamientoType;
 	}
 
-	public List<String> getInterfaces() {
+	public List<InterfazAprovisionamiento> getInterfaces() {
 		return interfaces;
 	}
 
-	public void setInterfaces(List<String> interfaces) {
+	public void setInterfaces(List<InterfazAprovisionamiento> interfaces) {
 		this.interfaces = interfaces;
 	}
 

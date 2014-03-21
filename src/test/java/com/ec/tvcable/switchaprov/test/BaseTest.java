@@ -101,7 +101,7 @@ public class BaseTest {
 		device.setActivityType(activity);
 		device.setSerialNumber(serialNumber);
 		
-		request.getBodyRequest().getDevices().add(device);
+		request.getBodyRequest().getDevice().add(device);
 
 	}
 

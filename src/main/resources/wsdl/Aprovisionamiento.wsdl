@@ -34,7 +34,7 @@
       <xsd:complexType name="BodyRequest">
       	<xsd:sequence>
       		<xsd:element name="processId" type="xsd:string"></xsd:element>
-      		<xsd:element name="Devices" type="tns:Device"
+      		<xsd:element name="Device" type="tns:Device"
       			maxOccurs="unbounded" minOccurs="1">
       		</xsd:element>
       	</xsd:sequence>
@@ -111,6 +111,7 @@
             			type="xsd:string">
             		</xsd:element>
             		<xsd:element name="ErrorCode" type="xsd:int"></xsd:element>
+            		<xsd:element name="ErrorMessage" type="xsd:string"></xsd:element>
             	</xsd:sequence>
             </xsd:complexType>
     
@@ -121,6 +122,7 @@
             		<xsd:element name="ErrorMessage" type="xsd:string"></xsd:element>
             	</xsd:sequence>
             </xsd:complexType>
+    
     
     </xsd:schema>
   </wsdl:types>

@@ -9,13 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import junit.framework.Assert;
 
@@ -32,8 +27,10 @@ import com.ec.tvcable.switchaprov.InterfazResolver;
 import com.ec.tvcable.switchaprov.Operation;
 import com.ec.tvcable.switchaprov.TransactionSpResponseService;
 import com.ec.tvcable.switchaprov.TvInterfaceService;
+import com.ec.tvcable.switchaprov.exception.AprovisionamientoException;
 import com.ec.tvcable.switchaprov.exception.DataQueryException;
 import com.ec.tvcable.switchaprov.impl.TvInterfazServiceBean;
+import com.ec.tvcable.switchaprov.jpa.InterfazAprovisionamiento;
 import com.ec.tvcable.switchaprov.jpa.TransactionSpResponse;
 import com.ec.tvcable.switchaprov.jpa.TransactionSpTvPagada;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento;
@@ -81,19 +78,31 @@ public class MockTest extends BaseTest {
 
 		requestMessage = createAprovisionamientotype();
 	}
-	
 
-//	@Test
+	// @Test
 	public void capturarErrorInesperado() {
-		
-			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
-			requestMessage.setBodyRequest(null);
-			
-			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
-			
-			Assert.assertEquals("Erorr inesperado", response.getBodyResponse().getResponseMessage());
-			Assert.assertEquals(0, response.getBodyResponse().getResponseCode());
-			
+
+		addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
+		requestMessage.setBodyRequest(null);
+
+		AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
+
+		Assert.assertEquals("Erorr inesperado", response.getBodyResponse().getResponseMessage());
+		Assert.assertEquals(0, response.getBodyResponse().getResponseCode());
+
+	}
+
+	@Test
+	public void excepcionSiNoHayTarget() {
+		addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
+		requestMessage.getHeaderRequest().setTarget("");
+
+		AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
+
+		Assert.assertEquals(
+				"Error general de ejecucion: class java.lang.RuntimeException No existe implementacion para el TARGET: ",
+				response.getBodyResponse().getResponseMessage());
+
 	}
 
 	@Test
@@ -116,6 +125,33 @@ public class MockTest extends BaseTest {
 			Assert.assertEquals(1, response.getBodyResponse().getDevices().size());
 			Assert.assertEquals(1, response.getBodyResponse().getDevices().get(0).getDeviceId());
 		} catch (DataQueryException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (AprovisionamientoException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+
+	@Test
+	public void ejecucionFallidaSiNoHayInterfaces() {
+		try {
+			addDeviceToRequest(requestMessage, "1", "activity", "serial-123");
+
+			TransactionSpTvPagada transactionSpTvPagada = createDatosTvPagada();
+
+			when(resolver.resolveInterfaces(any(Operation.class))).thenThrow(
+					new AprovisionamientoException("No existen interfaces definidas para system: ? activityType ?"));
+			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(transactionSpTvPagada);
+
+			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
+
+			Assert.assertEquals("Device: serial-123 No existen interfaces definidas para system: ? activityType ?", response
+					.getBodyResponse().getResponseMessage());
+		} catch (DataQueryException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (AprovisionamientoException e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
@@ -143,6 +179,9 @@ public class MockTest extends BaseTest {
 		} catch (DataQueryException e) {
 			e.printStackTrace();
 			Assert.fail();
+		} catch (AprovisionamientoException e) {
+			e.printStackTrace();
+			Assert.fail();
 		}
 	}
 
@@ -167,6 +206,9 @@ public class MockTest extends BaseTest {
 			Assert.assertEquals("Device: serialnumber El registro de datos esta marcado como invalido", emsResponse
 					.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (AprovisionamientoException e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
@@ -198,6 +240,9 @@ public class MockTest extends BaseTest {
 		} catch (DataQueryException e) {
 			e.printStackTrace();
 			Assert.fail();
+		} catch (AprovisionamientoException e) {
+			e.printStackTrace();
+			Assert.fail();
 		}
 	}
 
@@ -222,64 +267,43 @@ public class MockTest extends BaseTest {
 			verify(datosTvPagada, times(2)).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy, times(2)).generateResponse();
 
-			Assert.assertEquals("Device: serialnumber_2 Error al consultar datos para transaccion. No existen datos para el device 1", emsResponse.getBodyResponse()
-					.getResponseMessage());
+			Assert.assertEquals(
+					"Device: serialnumber_2 Error al consultar datos para transaccion. No existen datos para el device 1",
+					emsResponse.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (AprovisionamientoException e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
 	}
 
-//	@Test
-	public void convertEmsResponseToXMLTest() throws Exception {
-		try {
-			addDeviceToRequest(requestMessage, "1", "activity", "serie-123");
-			TransactionSpTvPagada createDatosTvPagada = createDatosTvPagada();
-
-			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702", "600", "500"));
-			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse())
-					.thenReturn(createTvPagadaSuccessResponse()).thenReturn(createTvPagadaSuccessResponse());
-			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(createDatosTvPagada);
-
-			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
-
-			verify(resolver).resolveInterfaces(any(Operation.class));
-			verify(tvInterfaceServiceSpy).invokeInterfaces(any(ComandoInterfaces.class));
-			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
-			verify(tvInterfaceServiceSpy, Mockito.times(3)).generateResponse();
-			verify(tvInterfaceServiceSpy, Mockito.times(3)).invokeAprovTvpagada(any(Comando.class));
-			
-			
-			Assert.assertEquals(emsResponse.getXMLStringResponce(), loadStringXML("XMLResponce.xml"));
-			
-		} catch (DataQueryException e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-	}
-	
 	@Test
 	public void errorEnSegundaInterfaz() {
 		try {
 			addDeviceToRequest(requestMessage, "1", "activity", "serie-123");
 			TransactionSpTvPagada createDatosTvPagada = createDatosTvPagada();
-			
+
 			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702", "600", "500"));
 			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse())
-			.thenReturn(createTvPagadaErorrResponse()).thenReturn(createTvPagadaSuccessResponse());
+					.thenReturn(createTvPagadaErorrResponse()).thenReturn(createTvPagadaSuccessResponse());
 			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(createDatosTvPagada);
-			
+
 			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
-			
+
 			verify(resolver).resolveInterfaces(any(Operation.class));
 			verify(tvInterfaceServiceSpy).invokeInterfaces(any(ComandoInterfaces.class));
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy, Mockito.times(3)).generateResponse();
 			verify(tvInterfaceServiceSpy, Mockito.times(3)).invokeAprovTvpagada(any(Comando.class));
-			
-			Assert.assertEquals("Device: serie-123 (I: 600) Error de ejecucion",
-					emsResponse.getBodyResponse().getResponseMessage());
+
+			Assert.assertEquals("Device: serie-123 (I: 600) Error de ejecucion", emsResponse.getBodyResponse()
+					.getResponseMessage());
 		} catch (DataQueryException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (AprovisionamientoException e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
@@ -305,8 +329,12 @@ public class MockTest extends BaseTest {
 			verify(transactionResponseService).store(any(TransactionSpResponse.class));
 
 			Assert.assertEquals(0, emsResponse.getBodyResponse().getResponseCode());
-			Assert.assertTrue("El mensaje de error debe estar vacio", emsResponse.getBodyResponse().getResponseMessage().isEmpty());
+			Assert.assertTrue("El mensaje de error debe estar vacio", emsResponse.getBodyResponse()
+					.getResponseMessage().isEmpty());
 		} catch (DataQueryException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (AprovisionamientoException e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
@@ -337,11 +365,13 @@ public class MockTest extends BaseTest {
 		return respuesta;
 	}
 
-	private List<String> createInterfaceStub(String... lista) {
-		List<String> interfaces = new ArrayList<String>();
+	private List<InterfazAprovisionamiento> createInterfaceStub(String... lista) {
+		List<InterfazAprovisionamiento> interfaces = new ArrayList<InterfazAprovisionamiento>();
 
 		for (int i = 0; i < lista.length; i++) {
-			interfaces.add(lista[i]);
+			InterfazAprovisionamiento ia = new InterfazAprovisionamiento();
+			ia.setInterfaceCode(lista[i]);
+			interfaces.add(ia);
 		}
 
 		return interfaces;

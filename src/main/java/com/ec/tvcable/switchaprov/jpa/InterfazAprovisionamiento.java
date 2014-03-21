@@ -35,6 +35,9 @@ public class InterfazAprovisionamiento implements Serializable {
 	@Column(name = "ia_order")
 	private Integer order;
 
+	@Column(name = "ia_accion")
+	private Integer accion;
+
 	public Long getId() {
 		return id;
 	}
@@ -81,6 +84,14 @@ public class InterfazAprovisionamiento implements Serializable {
 
 	public void setOrder(Integer order) {
 		this.order = order;
+	}
+
+	public Integer getAccion() {
+		return accion;
+	}
+
+	public void setAccion(Integer accion) {
+		this.accion = accion;
 	}
 
 }

@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="processId" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Devices" type="{http://www.example.org/Aprovisionamiento/}Device" maxOccurs="unbounded"/>
+ *         &lt;element name="Device" type="{http://www.example.org/Aprovisionamiento/}Device" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -32,14 +32,14 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "BodyRequest", propOrder = {
     "processId",
-    "devices"
+    "device"
 })
 public class BodyRequest {
 
     @XmlElement(required = true)
     protected String processId;
-    @XmlElement(name = "Devices", required = true)
-    protected List<Device> devices;
+    @XmlElement(name = "Device", required = true)
+    protected List<Device> device;
 
     /**
      * Gets the value of the processId property.
@@ -66,18 +66,18 @@ public class BodyRequest {
     }
 
     /**
-     * Gets the value of the devices property.
+     * Gets the value of the device property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the devices property.
+     * This is why there is not a <CODE>set</CODE> method for the device property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getDevices().add(newItem);
+     *    getDevice().add(newItem);
      * </pre>
      * 
      * 
@@ -87,11 +87,11 @@ public class BodyRequest {
      * 
      * 
      */
-    public List<Device> getDevices() {
-        if (devices == null) {
-            devices = new ArrayList<Device>();
+    public List<Device> getDevice() {
+        if (device == null) {
+            device = new ArrayList<Device>();
         }
-        return this.devices;
+        return this.device;
     }
 
 }

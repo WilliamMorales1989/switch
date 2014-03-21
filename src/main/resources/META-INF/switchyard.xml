@@ -2,7 +2,7 @@
 <sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:camel="urn:switchyard-component-camel:config:1.1" xmlns:file="urn:switchyard-component-camel-file:config:1.1" xmlns:jpa="urn:switchyard-component-camel-jpa:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.1" xmlns:sy="urn:switchyard-config:switchyard:1.1" xmlns:transform="urn:switchyard-config:transform:1.1" name="switch-aprovisionamiento" targetNamespace="urn:com.ec.tvcable.switchaprov:switch-aprovisionamiento:1.0">
   <sca:composite name="switch-aprovisionamiento" targetNamespace="urn:com.ec.tvcable.switchaprov:switch-aprovisionamiento:1.0">
     <sca:component name="TvInterfaceService">
-      <bean:implementation.bean class="com.ec.tvcable.switchaprov.impl.TvInterfazServiceBean"/>
+      <bean:implementation.bean requires="managedTransaction.Global" class="com.ec.tvcable.switchaprov.impl.TvInterfazServiceBean"/>
       <sca:service name="TvInterfaceService">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.TvInterfaceService"/>
       </sca:service>
@@ -35,7 +35,7 @@
       <sca:interface.wsdl interface="wsdl/WsdlTvPagada.wsdl#wsdl.porttype(WsdlTvPagada)"/>
       <soap:binding.soap name="soap1">
         <soap:wsdl>wsdl/WsdlTvPagada.wsdl</soap:wsdl>
-        <soap:endpointAddress>http://pablo-a6200:8088/mockWsdlTvPagadaHttpBinding</soap:endpointAddress>
+        <soap:endpointAddress>http://${TVPAGADA_SERVER}:${TVPAGADA_PORT:8088}/${TVPAGADA_CONTEXT:mockWsdlTvPagadaHttpBinding}</soap:endpointAddress>
       </soap:binding.soap>
     </sca:reference>
     <sca:component name="InterfazAprovServicioBean">
@@ -60,7 +60,7 @@
       </soap:binding.soap>
     </sca:service>
     <sca:component name="AprovisionamientoBean">
-      <bean:implementation.bean class="com.ec.tvcable.switchaprov.AprovisionamientoBean"/>
+      <bean:implementation.bean requires="managedTransaction.Global" class="com.ec.tvcable.switchaprov.AprovisionamientoBean"/>
       <sca:service name="Aprovisionamiento">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento"/>
       </sca:service>
@@ -89,6 +89,9 @@
         <sca:interface.java interface="com.ec.tvcable.switchaprov.TransactionSpResponseService"/>
       </sca:service>
     </sca:component>
+    <sca:property value="80" name="TVPAGADA_PORT"/>
+    <sca:property value="192.168.21.205" name="TVPAGADA_SERVER"/>
+    <sca:property value="WsAprovisionamiento/services/WsdlTvPagada" name="TVPAGADA_CONTEXT"/>
   </sca:composite>
   <sy:transforms>
     <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.service.tvpagada.Comando" to="{http://www.grupotvcable.com.ec/WsdlTvPagada/}ejecutaComando" contextPath="com.ec.tvcable.switchaprov.service.tvpagada"/>
