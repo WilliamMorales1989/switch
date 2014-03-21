@@ -473,165 +473,121 @@
          </wsd:Detalle>
       </wsd:ejecutaComando>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EMSSOAP" type="wsdl" bindingName="{http://www.example.org/EMS/}EMSSOAP" soapVersion="1_1" anonymous="optional" definition="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/EMS.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/EMS.wsdl"><con:part><con:url>file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/EMS.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="EMS" targetNamespace="http://www.example.org/EMS/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/EMS/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AprovisionamientoSOAP" type="wsdl" bindingName="{http://www.example.org/Aprovisionamiento/}AprovisionamientoSOAP" soapVersion="1_1" anonymous="optional" definition="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/Aprovisionamiento.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/Aprovisionamiento.wsdl"><con:part><con:url>file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/Aprovisionamiento.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="Aprovisionamiento" targetNamespace="http://www.example.org/Aprovisionamiento/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Aprovisionamiento/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
-    <xsd:schema targetNamespace="http://www.example.org/EMS/">
-      <xsd:element name="EMS">
+    <xsd:schema targetNamespace="http://www.example.org/Aprovisionamiento/">
+      <xsd:element name="Aprovisionamiento">
         <xsd:complexType>
           <xsd:sequence>
-            <xsd:element name="Header" type="tns:Header"/>
-            <xsd:element name="Body" type="tns:Body"/>
+            <xsd:element name="HeaderRequest" type="tns:HeaderRequest"/>
+            <xsd:element name="BodyRequest" type="tns:BodyRequest"/>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-      <xsd:element name="EMSResponse">
+      <xsd:element name="AprovisionamientoResponse">
         <xsd:complexType>
           <xsd:sequence>
-            <xsd:element name="NameOut" type="xsd:string"/>
-            <xsd:element name="Error" type="xsd:string"/>
-            <xsd:element name="ErrorNo" type="xsd:string"/>
-            <xsd:element name="ErrorMessage" type="xsd:string"/>
-            <xsd:element name="Description" type="xsd:string"/>
-            <xsd:element name="Name" type="xsd:string"/>
-            <xsd:element name="Address" type="xsd:string"/>
-            <xsd:element name="Telephone" type="xsd:string"/>
-            <xsd:element name="Plans" type="xsd:string"/>
-            <xsd:element name="Optional" type="tns:Optional"/>
+            <xsd:element name="HeaderResponse" type="tns:HeaderResponse"/>
+            <xsd:element name="BodyResponse" type="tns:BodyResponse"/>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-      <xsd:complexType name="Header">
+      <xsd:complexType name="HeaderRequest">
         <xsd:sequence>
           <xsd:element name="Target" type="xsd:string"/>
           <xsd:element name="Entry" type="xsd:string"/>
-          <xsd:element name="Function" type="xsd:string"/>
           <xsd:element name="User" type="xsd:string"/>
-          <xsd:element name="UserId" type="xsd:string"/>
-          <xsd:element name="Optional" type="tns:Option"/>
+          <xsd:element name="Token" type="xsd:string"/>
+          <xsd:element name="Attributes" type="tns:AttributesRequest"/>
         </xsd:sequence>
       </xsd:complexType>
-      <xsd:complexType name="Body">
+      <xsd:complexType name="BodyRequest">
         <xsd:sequence>
           <xsd:element name="processId" type="xsd:string"/>
-          <xsd:element name="OrderId" type="xsd:string"/>
-          <xsd:element name="Status" type="xsd:string"/>
-          <xsd:element name="customer" type="tns:Customer"/>
-          <xsd:element name="Attributes" type="tns:Atributes"/>
-          <xsd:element name="Materials" type="tns:Materials"/>
-          <xsd:element name="Notes" type="tns:Notes"/>
+          <xsd:element name="Devices" type="tns:Device" maxOccurs="unbounded" minOccurs="1"></xsd:element>
         </xsd:sequence>
       </xsd:complexType>
-      <xsd:complexType name="Object"/>
-      <xsd:complexType name="Customer">
-        <xsd:sequence>
-          <xsd:element name="customerId" type="xsd:string"/>
-          <xsd:element name="AccountId" type="xsd:string"/>
-          <xsd:element name="contracts" type="tns:Contracts"></xsd:element>
-          <xsd:element name="devices" type="tns:devices"/>
-          <xsd:element name="Attributes" type="tns:Attributes"/>
-        </xsd:sequence>
-      </xsd:complexType>
-      <xsd:complexType name="Contracts">
-        <xsd:sequence>
-          <xsd:element name="contract" type="tns:contract"/>
-        </xsd:sequence>
-      </xsd:complexType>
-      <xsd:complexType name="devices">
-        <xsd:sequence>
-          <xsd:element name="device" type="tns:device"/>
-        </xsd:sequence>
-      </xsd:complexType>
-      <xsd:complexType name="contract">
-        <xsd:sequence>
-          <xsd:element name="contractId" type="xsd:string"/>
-          <xsd:element name="contractName" type="xsd:string"></xsd:element>
-          <xsd:element name="status" type="xsd:string"/>
-          <xsd:element name="Date" type="xsd:string"/>
-        </xsd:sequence>
-      </xsd:complexType>
-      <xsd:complexType name="device">
-        <xsd:sequence>
-          <xsd:element name="deviceId" type="xsd:string"/>
-          <xsd:element name="deviceName" type="xsd:string"/>
-          <xsd:element name="deviceType" type="xsd:string"/>
-          <xsd:element name="serialNumber" type="xsd:string"></xsd:element>
-          <xsd:element name="macAddress" type="xsd:string"/>
-          <xsd:element name="macAddress1" type="xsd:string"/>
-          <xsd:element name="macAddress2" type="xsd:string"/>
-          <xsd:element name="status" type="xsd:string"/>
-          <xsd:element name="Date" type="xsd:string"/>
-          <xsd:element name="Serialnumberold" type="xsd:string"></xsd:element>
-          <xsd:element name="MacAddressold" type="xsd:string"></xsd:element>
-          <xsd:element name="networkservice" type="xsd:string"></xsd:element>
-          <xsd:element name="forAll" type="xsd:string"/>
-          <xsd:element name="activityType" type="xsd:string"/>
-        </xsd:sequence>
-      </xsd:complexType>
-      <xsd:complexType name="Attributes">
-        <xsd:sequence>
-          <xsd:element name="Attribute" type="tns:Attribute"/>
-        </xsd:sequence>
-      </xsd:complexType>
-      <xsd:complexType name="Attribute">
+      <xsd:complexType name="AttributesRequest">
         <xsd:sequence>
           <xsd:element name="Name" type="xsd:string"/>
           <xsd:element name="Value" type="xsd:string"/>
         </xsd:sequence>
       </xsd:complexType>
-      <xsd:complexType name="Atributes">
+      <xsd:complexType name="Device">
         <xsd:sequence>
-          <xsd:element name="Caption" type="xsd:string"/>
-          <xsd:element name="Value" type="xsd:string"/>
+          <xsd:element name="deviceId" type="xsd:string"/>
+          <xsd:element name="deviceType" type="xsd:string"/>
+          <xsd:element name="serialNumber" type="xsd:string"></xsd:element>
+          <xsd:element name="macAddress1" type="xsd:string"/>
+          <xsd:element name="macAddress2" type="xsd:string"/>
+          <xsd:element name="activityType" type="xsd:string"></xsd:element>
+          <xsd:element name="system" type="xsd:string"/>
+          <xsd:element name="Controller" type="xsd:string"/>
+          <xsd:element name="Attributes" type="tns:Attribute" maxOccurs="unbounded" minOccurs="0"></xsd:element>
         </xsd:sequence>
       </xsd:complexType>
-      <xsd:complexType name="Materials">
+      <xsd:complexType name="Attribute">
         <xsd:sequence>
-          <xsd:element name="Code" type="xsd:string"/>
-          <xsd:element name="Number" type="xsd:string"/>
+          <xsd:element name="Name" type="xsd:string"/>
+          <xsd:element name="Values" type="xsd:string"/>
         </xsd:sequence>
       </xsd:complexType>
-      <xsd:complexType name="Notes">
+      <xsd:complexType name="HeaderResponse">
         <xsd:sequence>
-          <xsd:element name="Note" type="xsd:string"/>
+          <xsd:element name="Target" type="xsd:string"/>
+          <xsd:element name="Entry" type="xsd:string"/>
+          <xsd:element name="User" type="xsd:string"/>
+          <xsd:element name="Token" type="xsd:string"/>
+          <xsd:element name="AttributesResponse" type="tns:AttributesResponse"/>
         </xsd:sequence>
       </xsd:complexType>
-      <xsd:complexType name="Optional">
+      <xsd:complexType name="BodyResponse">
         <xsd:sequence>
-          <xsd:element name="Optional1" type="xsd:string"/>
-          <xsd:element name="Optional2" type="xsd:string"/>
-          <xsd:element name="Optional3" type="xsd:int"/>
-          <xsd:element name="Optional4" type="xsd:int"/>
-          <xsd:element name="Optional5" type="xsd:boolean"/>
-          <xsd:element name="Optional6" type="xsd:boolean"/>
-          <xsd:element name="Optional7" type="xsd:float"/>
-          <xsd:element name="Optional8" type="xsd:float"/>
+          <xsd:element name="ResponseCode" type="xsd:int"/>
+          <xsd:element name="ResponseMessage" type="xsd:string"></xsd:element>
+          <xsd:element name="ProcessId" type="xsd:int"/>
+          <xsd:element name="Devices" type="tns:DeviceResponse" maxOccurs="unbounded" minOccurs="1"/>
         </xsd:sequence>
       </xsd:complexType>
-      <xsd:complexType name="Option">
+      <xsd:complexType name="AttributesResponse">
         <xsd:sequence>
-          <xsd:element name="Optional1" type="xsd:string"/>
-          <xsd:element name="Optional2" type="xsd:boolean"/>
-          <xsd:element name="Optional3" type="xsd:int"/>
+          <xsd:element name="Name" type="xsd:string"/>
+          <xsd:element name="Values" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DeviceResponse">
+        <xsd:sequence>
+          <xsd:element name="DeviceId" type="xsd:int"/>
+          <xsd:element name="Interfaces" type="tns:Interface" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+          <xsd:element name="SerialNumber" type="xsd:string"></xsd:element>
+          <xsd:element name="ErrorCode" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Interface">
+        <xsd:sequence>
+          <xsd:element name="InterfazId" type="xsd:int"/>
+          <xsd:element name="ErrorCode" type="xsd:int"/>
+          <xsd:element name="ErrorMessage" type="xsd:string"/>
         </xsd:sequence>
       </xsd:complexType>
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="EMSRequest">
-    <wsdl:part name="EjecutaComando" element="tns:EMS"/>
+  <wsdl:message name="AprovisionamientoRequest">
+    <wsdl:part element="tns:Aprovisionamiento" name="parameters"/>
   </wsdl:message>
-  <wsdl:message name="EMSResponse">
-    <wsdl:part name="ConsultaRespuesta " element="tns:EMSResponse"/>
+  <wsdl:message name="AprovisionamientoResponse">
+    <wsdl:part element="tns:AprovisionamientoResponse" name="parameters"/>
   </wsdl:message>
-  <wsdl:portType name="EMS">
-    <wsdl:operation name="EMS">
-      <wsdl:input message="tns:EMSRequest"/>
-      <wsdl:output message="tns:EMSResponse"/>
+  <wsdl:portType name="Aprovisionamiento">
+    <wsdl:operation name="Aprovisionamiento">
+      <wsdl:input message="tns:AprovisionamientoRequest"/>
+      <wsdl:output message="tns:AprovisionamientoResponse"/>
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="EMSSOAP" type="tns:EMS">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="EMS">
-      <soap:operation soapAction="http://www.example.org/EMS/EMS"/>
+  <wsdl:binding name="AprovisionamientoSOAP" type="tns:Aprovisionamiento">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Aprovisionamiento">
+      <soap:operation soapAction="http://www.example.org/Aprovisionamiento/Aprovisionamiento"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -640,82 +596,47 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:service name="EMS">
-    <wsdl:port binding="tns:EMSSOAP" name="EMSSOAP">
+  <wsdl:service name="Aprovisionamiento">
+    <wsdl:port binding="tns:AprovisionamientoSOAP" name="AprovisionamientoSOAP">
       <soap:address location="http://www.example.org/"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/switch-aprovisionamiento/EMS</con:endpoint><con:endpoint>http://pablo-A6200:8088/mockEMSSOAP</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.example.org/EMS/EMS" name="EMS" bindingOperationName="EMS" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/switch-aprovisionamiento/EMS</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ems="http://www.example.org/EMS/">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:endpoint>http://pablo-A6200:8088/mockAprovisionamientoSOAP</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.example.org/Aprovisionamiento/Aprovisionamiento" name="Aprovisionamiento" bindingOperationName="Aprovisionamiento" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apr="http://www.example.org/Aprovisionamiento/">
    <soapenv:Header/>
    <soapenv:Body>
-      <ems:EMS>
-         <Header>
-            <Target>TV</Target>
+      <apr:Aprovisionamiento>
+         <HeaderRequest>
+            <Target>?</Target>
             <Entry>?</Entry>
-            <Function>ACTIVATE</Function>
             <User>?</User>
-            <UserId>?</UserId>
-            <Optional>
-               <Optional1>?</Optional1>
-               <Optional2>?</Optional2>
-               <Optional3>?</Optional3>
-            </Optional>
-         </Header>
-         <Body>
-            <processId>1</processId>
-            <OrderId>?</OrderId>
-            <Status>?</Status>
-            <customer>
-               <customerId>?</customerId>
-               <AccountId>?</AccountId>
-               <contracts>
-                  <contract>
-                     <contractId>?</contractId>
-                     <contractName>?</contractName>
-                     <status>?</status>
-                     <Date>?</Date>
-                  </contract>
-               </contracts>
-               <devices>
-                  <device>
-                     <deviceId>?</deviceId>
-                     <deviceName>?</deviceName>
-                     <deviceType>?</deviceType>
-                     <serialNumber>?</serialNumber>
-                     <macAddress>?</macAddress>
-                     <macAddress1>?</macAddress1>
-                     <macAddress2>?</macAddress2>
-                     <status>?</status>
-                     <Date>?</Date>
-                     <Serialnumberold>?</Serialnumberold>
-                     <MacAddressold>?</MacAddressold>
-                     <networkservice>?</networkservice>
-                     <forAll>?</forAll>
-                     <activityType>?</activityType>
-                  </device>
-               </devices>
-               <Attributes>
-                  <Attribute>
-                     <Name>?</Name>
-                     <Value>?</Value>
-                  </Attribute>
-               </Attributes>
-            </customer>
+            <Token>?</Token>
             <Attributes>
-               <Caption>?</Caption>
+               <Name>?</Name>
                <Value>?</Value>
             </Attributes>
-            <Materials>
-               <Code>?</Code>
-               <Number>?</Number>
-            </Materials>
-            <Notes>
-               <Note>?</Note>
-            </Notes>
-         </Body>
-      </ems:EMS>
+         </HeaderRequest>
+         <BodyRequest>
+            <processId>?</processId>
+            <!--1 or more repetitions:-->
+            <Devices>
+               <deviceId>?</deviceId>
+               <deviceType>?</deviceType>
+               <serialNumber>?</serialNumber>
+               <macAddress1>?</macAddress1>
+               <macAddress2>?</macAddress2>
+               <activityType>?</activityType>
+               <system>?</system>
+               <Controller>?</Controller>
+               <!--Zero or more repetitions:-->
+               <Attributes>
+                  <Name>?</Name>
+                  <Values>?</Values>
+               </Attributes>
+            </Devices>
+         </BodyRequest>
+      </apr:Aprovisionamiento>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/EMS/EMS"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService port="8088" path="/mockWsdlTvPagadaHttpBinding" host="pablo-A6200" name="TvPagadaHttpBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="AprovTvPagada" interface="WsdlTvPagadaHttpBinding" operation="AprovTvPagada"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsd="http://www.grupotvcable.com.ec/WsdlTvPagada/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/Aprovisionamiento/Aprovisionamiento"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService port="8088" path="/mockWsdlTvPagadaHttpBinding" host="pablo-A6200" name="TvPagadaHttpBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="AprovTvPagada" interface="WsdlTvPagadaHttpBinding" operation="AprovTvPagada"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsd="http://www.grupotvcable.com.ec/WsdlTvPagada/">
    <soapenv:Header/>
    <soapenv:Body>
       <wsd:consultaRespuesta>
@@ -768,29 +689,37 @@
          </wsd:Mensaje>
       </wsd:consultaRespuesta>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="8088" path="/mockEMSSOAP" host="pablo-A6200" name="EMSSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="EMS" interface="EMSSOAP" operation="EMS"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ems="http://www.example.org/EMS/">
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="8088" path="/mockEMSSOAP" host="pablo-A6200" name="EMSSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/></con:mockService><con:mockService port="8088" path="/mockAprovisionamientoSOAP" host="pablo-A6200" name="AprovisionamientoSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="Aprovisionamiento" interface="AprovisionamientoSOAP" operation="Aprovisionamiento"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apr="http://www.example.org/Aprovisionamiento/">
    <soapenv:Header/>
    <soapenv:Body>
-      <ems:EMSResponse>
-         <NameOut>?</NameOut> 
-         <Error>?</Error>Exito: Proceso exitoso. FAIL: Aprovisionamiento fallido
-         <ErrorNo>?</ErrorNo>Exito: 0, FAIL: 1
-         <ErrorMessage>?</ErrorMessage>Exito: Respuestas de mensajes concatenados
-         <Description>?</Description>
-         <Name>?</Name>
-         <Address>?</Address>
-         <Telephone>?</Telephone>
-         <Plans>?</Plans>
-         <Optional>
-            <Optional1>?</Optional1>
-            <Optional2>?</Optional2>
-            <Optional3>?</Optional3>
-            <Optional4>?</Optional4>
-            <Optional5>?</Optional5>
-            <Optional6>?</Optional6>
-            <Optional7>?</Optional7>
-            <Optional8>?</Optional8>
-         </Optional>
-      </ems:EMSResponse>
+      <apr:AprovisionamientoResponse>
+         <HeaderResponse>
+            <Target>?</Target>
+            <Entry>?</Entry>
+            <User>?</User>
+            <Token>?</Token>
+            <AttributesResponse>
+               <Name>?</Name>
+               <Values>?</Values>
+            </AttributesResponse>
+         </HeaderResponse>
+         <BodyResponse>
+            <ResponseCode>?</ResponseCode>
+            <ResponseMessage>?</ResponseMessage>
+            <ProcessId>?</ProcessId>
+            <!--1 or more repetitions:-->
+            <Devices>
+               <DeviceId>?</DeviceId>
+               <!--1 or more repetitions:-->
+               <Interfaces>
+                  <InterfazId>?</InterfazId>
+                  <ErrorCode>?</ErrorCode>
+                  <ErrorMessage>?</ErrorMessage>
+               </Interfaces>
+               <SerialNumber>?</SerialNumber>
+               <ErrorCode>?</ErrorCode>
+            </Devices>
+         </BodyResponse>
+      </apr:AprovisionamientoResponse>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/EMS/EMS"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/Aprovisionamiento/Aprovisionamiento"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>

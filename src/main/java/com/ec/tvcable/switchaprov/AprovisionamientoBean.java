@@ -50,6 +50,8 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 			
 			response.setBodyResponse(generateBodyResponse(deviceResponses));
 			
+			
+			
 			TransactionSpResponse transactionResponse = new TransactionSpResponse();
 			// transactionResponse.setDetMensaje(response.getErrorMessage());
 			transactionResponseService.store(transactionResponse);
