@@ -54,7 +54,8 @@ Id number,
 device_id number,
 interface number,
 request_id number,
-request_date date --,
+request_date date,
+xml_response VARCHAR2(2000)
 -- CodError number,
 -- DetMensaje varchar2(500),
 -- DatosExtrasTVP varchar2(500)

@@ -35,13 +35,16 @@ public class TransactionSpResponse {
 	@Column(name="request_date")
 	private Date requestDate;
 	
-	@Column(name="CodError")
-	private Integer codError;
+	@Column(name="xml_response")
+	private String XMLResponse;
 	
-	@Column(name="detMensaje")
-	private String detMensaje;
-	
-	private String datosExtrasTVP;
+	public String getXMLResponse() {
+		return XMLResponse;
+	}
+
+	public void setXMLResponse(String xMLResponse) {
+		XMLResponse = xMLResponse;
+	}
 
 	public Long getId() {
 		return id;
@@ -81,30 +84,6 @@ public class TransactionSpResponse {
 
 	public void setRequestDate(Date requestDate) {
 		this.requestDate = requestDate;
-	}
-
-	public Integer getCodError() {
-		return codError;
-	}
-
-	public void setCodError(Integer codError) {
-		this.codError = codError;
-	}
-
-	public String getDetMensaje() {
-		return detMensaje;
-	}
-
-	public void setDetMensaje(String detMensaje) {
-		this.detMensaje = detMensaje;
-	}
-
-	public String getDatosExtrasTYP() {
-		return datosExtrasTVP;
-	}
-
-	public void setDatosExtrasTYP(String datosExtrasTYP) {
-		this.datosExtrasTVP = datosExtrasTYP;
 	}
 
 }

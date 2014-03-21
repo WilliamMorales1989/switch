@@ -52,6 +52,7 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 			
 			TransactionSpResponse transactionResponse = new TransactionSpResponse();
 			// transactionResponse.setDetMensaje(response.getErrorMessage());
+			transactionResponse.setXMLResponse(response.getXMLStringResponce());
 			transactionResponseService.store(transactionResponse);
 			// response.setErrorMessage(responseMessage.toString());
 
@@ -96,7 +97,6 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 	private List<DeviceResponse> processDevices() {
 
 		List<DeviceResponse> deviceResponses = new ArrayList<DeviceResponse>();
-
 		for (Device device : aprovisionamientoType.getBodyRequest().getDevices()) {
 
 			Operation operation = new Operation(device.getSystem(), device.getActivityType());

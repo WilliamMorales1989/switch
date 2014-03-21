@@ -9,8 +9,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import junit.framework.Assert;
 
@@ -76,8 +81,9 @@ public class MockTest extends BaseTest {
 
 		requestMessage = createAprovisionamientotype();
 	}
+	
 
-	@Test
+//	@Test
 	public void capturarErrorInesperado() {
 		
 			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
@@ -224,15 +230,15 @@ public class MockTest extends BaseTest {
 		}
 	}
 
-	@Test
-	public void errorEnSegundaInterfaz() {
+//	@Test
+	public void convertEmsResponseToXMLTest() throws Exception {
 		try {
 			addDeviceToRequest(requestMessage, "1", "activity", "serie-123");
 			TransactionSpTvPagada createDatosTvPagada = createDatosTvPagada();
 
 			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702", "600", "500"));
 			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse())
-					.thenReturn(createTvPagadaErorrResponse());
+					.thenReturn(createTvPagadaSuccessResponse()).thenReturn(createTvPagadaSuccessResponse());
 			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(createDatosTvPagada);
 
 			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
@@ -240,9 +246,37 @@ public class MockTest extends BaseTest {
 			verify(resolver).resolveInterfaces(any(Operation.class));
 			verify(tvInterfaceServiceSpy).invokeInterfaces(any(ComandoInterfaces.class));
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
-			verify(tvInterfaceServiceSpy, Mockito.times(2)).generateResponse();
-			verify(tvInterfaceServiceSpy, Mockito.times(2)).invokeAprovTvpagada(any(Comando.class));
-
+			verify(tvInterfaceServiceSpy, Mockito.times(3)).generateResponse();
+			verify(tvInterfaceServiceSpy, Mockito.times(3)).invokeAprovTvpagada(any(Comando.class));
+			
+			
+			Assert.assertEquals(emsResponse.getXMLStringResponce(), loadStringXML("XMLResponce.xml"));
+			
+		} catch (DataQueryException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void errorEnSegundaInterfaz() {
+		try {
+			addDeviceToRequest(requestMessage, "1", "activity", "serie-123");
+			TransactionSpTvPagada createDatosTvPagada = createDatosTvPagada();
+			
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702", "600", "500"));
+			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse())
+			.thenReturn(createTvPagadaErorrResponse()).thenReturn(createTvPagadaSuccessResponse());
+			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(createDatosTvPagada);
+			
+			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
+			
+			verify(resolver).resolveInterfaces(any(Operation.class));
+			verify(tvInterfaceServiceSpy).invokeInterfaces(any(ComandoInterfaces.class));
+			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
+			verify(tvInterfaceServiceSpy, Mockito.times(3)).generateResponse();
+			verify(tvInterfaceServiceSpy, Mockito.times(3)).invokeAprovTvpagada(any(Comando.class));
+			
 			Assert.assertEquals("Device: serie-123 (I: 600) Error de ejecucion",
 					emsResponse.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {

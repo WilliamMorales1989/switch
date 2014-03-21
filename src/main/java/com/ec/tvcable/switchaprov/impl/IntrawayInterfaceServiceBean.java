@@ -26,7 +26,8 @@ import com.ec.tvcable.switchaprov.service.intraway.WsdlIntraway;
 @Service(IntrawayInterfaceService.class)
 public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 
-	@Reference @Inject
+	@Reference 
+	@Inject
 	WsdlIntraway wsdlIntraway;
 	
 	@Override
