@@ -100,7 +100,6 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 		// TODO: Definir codigo de erorr
 		mensaje.setCodError(100);
 		mensaje.setDetMensaje(buildDetailExceptionMessage(e));
-		System.out.println("mensaje en respuesta: " + mensaje.getDetMensaje());
 		respuesta.setMensaje(mensaje);
 	}
 
@@ -114,7 +113,6 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 		iir.setInterfaz(actualInterface);
 		Mensaje mensaje = respuesta.getMensaje();
 		iir.setCodError(mensaje.getCodError());
-		System.out.println("mensaje en iir: " + mensaje.getDetMensaje());
 		iir.setDetMensaje(mensaje.getDetMensaje());
 		return iir;
 	}
@@ -124,7 +122,7 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 		try {
 			converter = new AprovisionamientoConverter(datosTvPagada.findByDevice(deviceProcess));
 		} catch (DataQueryException e) {
-			throw new ConversionException("Error al consultar datos para transaccion. ".concat(e.getMessage()), e);
+			throw new ConversionException("Error al consultar datos para transaccion. ", e);
 		}
 		return converter.toComandoTv();
 	}

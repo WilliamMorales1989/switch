@@ -35,7 +35,7 @@
       <sca:interface.wsdl interface="wsdl/WsdlTvPagada.wsdl#wsdl.porttype(WsdlTvPagada)"/>
       <soap:binding.soap name="soap1">
         <soap:wsdl>wsdl/WsdlTvPagada.wsdl</soap:wsdl>
-        <soap:endpointAddress>http://${TVPAGADA_SERVER}:${TVPAGADA_PORT:8088}/${TVPAGADA_CONTEXT:mockWsdlTvPagadaHttpBinding}</soap:endpointAddress>
+        <soap:endpointAddress>http://${TVPAGADA_SERVER:localhost}:${TVPAGADA_PORT:8088}/${TVPAGADA_CONTEXT:mockWsdlTvPagadaHttpBinding}</soap:endpointAddress>
       </soap:binding.soap>
     </sca:reference>
     <sca:component name="InterfazAprovServicioBean">
@@ -89,9 +89,6 @@
         <sca:interface.java interface="com.ec.tvcable.switchaprov.TransactionSpResponseService"/>
       </sca:service>
     </sca:component>
-    <sca:property value="80" name="TVPAGADA_PORT"/>
-    <sca:property value="192.168.21.205" name="TVPAGADA_SERVER"/>
-    <sca:property value="WsAprovisionamiento/services/WsdlTvPagada" name="TVPAGADA_CONTEXT"/>
   </sca:composite>
   <sy:transforms>
     <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.service.tvpagada.Comando" to="{http://www.grupotvcable.com.ec/WsdlTvPagada/}ejecutaComando" contextPath="com.ec.tvcable.switchaprov.service.tvpagada"/>

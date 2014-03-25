@@ -224,7 +224,7 @@ public class MockTest extends BaseTest {
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy).generateResponse();
 
-			Assert.assertEquals("Device: serial-123 Error de conversion de datos para el campo [Negocio]", response
+			Assert.assertEquals("Device: serial-123 Error de conversion de datos para el campo [Negocio]For input string: \"\"", response
 					.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {
 			e.printStackTrace();
@@ -305,7 +305,7 @@ public class MockTest extends BaseTest {
 			TransactionSpTvPagada tvPagada = createDatosTvPagada();
 
 			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(tvPagada).thenThrow(
-					new DataQueryException("No existen datos para el device 1"));
+					new DataQueryException("No existen datos para el device 1 process 1"));
 
 			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse());
 			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("702"));
@@ -318,7 +318,7 @@ public class MockTest extends BaseTest {
 			verify(tvInterfaceServiceSpy, times(2)).generateResponse();
 
 			Assert.assertEquals(
-					"Device: serialnumber_2 Error al consultar datos para transaccion. No existen datos para el device 1",
+					"Device: serialnumber_2 Error al consultar datos para transaccion. No existen datos para el device 1 process 1",
 					emsResponse.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {
 			e.printStackTrace();

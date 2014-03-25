@@ -18,16 +18,20 @@ import com.ec.tvcable.switchaprov.jpa.TransactionSpTvPagada;
 
 /**
  * @author pablo
- *
+ * 
  */
 @Service(DatosTvPagada.class)
 public class DatosTvPagadaBean implements DatosTvPagada {
-	
+
 	@PersistenceContext
 	private EntityManager em;
 
-	/* (non-Javadoc)
-	 * @see com.ec.tvcable.switchaprov.DatosTvPagada#buscarPorDevice(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ec.tvcable.switchaprov.DatosTvPagada#buscarPorDevice(java.lang.String
+	 * )
 	 */
 	@Override
 	public TransactionSpTvPagada findByDevice(DeviceProcess deviceProcess) throws DataQueryException {
@@ -37,11 +41,15 @@ public class DatosTvPagadaBean implements DatosTvPagada {
 			query.setParameter("processId", Long.parseLong(deviceProcess.getProcessId()));
 			return (TransactionSpTvPagada) query.getSingleResult();
 		} catch (NoResultException e) {
-			throw new DataQueryException(String.format("No existen datos para el device %s", deviceProcess.getDeviceId()), e);
-		}catch (NonUniqueResultException e) {
-			throw new DataQueryException(String.format("Existen varios registros para el device %s", deviceProcess.getDeviceId()), e);
+			throw new DataQueryException(String.format("No existen datos para el device %s process %s ",
+					deviceProcess.getDeviceId(), deviceProcess.getProcessId()), e);
+		} catch (NonUniqueResultException e) {
+			throw new DataQueryException(String.format("Existen varios registros para el device %s process %s ",
+					deviceProcess.getDeviceId(), deviceProcess.getProcessId()), e);
 		} catch (Exception e) {
-			throw new DataQueryException(String.format("No se pudo consultar datos para el device %s, error: %s", deviceProcess.getDeviceId(), e.getMessage()), e);
+			throw new DataQueryException(String.format(
+					"No se pudo consultar datos para el device %s process %s , error: %s", deviceProcess.getDeviceId(),
+					deviceProcess.getProcessId(), e.getMessage()), e);
 		}
 	}
 

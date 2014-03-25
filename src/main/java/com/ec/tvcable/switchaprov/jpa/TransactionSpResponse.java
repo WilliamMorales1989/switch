@@ -15,32 +15,32 @@ import javax.persistence.Table;
 
 /**
  * @author pablo
- *
+ * 
  */
 @Entity
-@Table(name="transaction_sp_response")
-@SequenceGenerator(sequenceName="TRANSACTION_SP_RESPONSE_SEQ", name = "GENERATOR")
+@Table(name = "transaction_sp_response")
 public class TransactionSpResponse {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GENERATOR")
+	@SequenceGenerator(name = "TRANSACTION_SP_RESPONSE_SEQ", sequenceName = "TRANSACTION_SP_RESPONSE_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTION_SP_RESPONSE_SEQ")
 	private Long id;
-	
-	@Column(name="device_id")
+
+	@Column(name = "device_id")
 	private Integer deviceId;
-	
-	@Column(name="interface")
+
+	@Column(name = "interface")
 	private Integer interfaceCode;
-	
-	@Column(name="request_id")
+
+	@Column(name = "request_id")
 	private Integer requestId;
-	
-	@Column(name="request_date")
+
+	@Column(name = "request_date")
 	private Date requestDate;
-	
-	@Column(name="xml_response")
+
+	@Column(name = "xml_response")
 	private String XMLResponse;
-	
+
 	public String getXMLResponse() {
 		return XMLResponse;
 	}
