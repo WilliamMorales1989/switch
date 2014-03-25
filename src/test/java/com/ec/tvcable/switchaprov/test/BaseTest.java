@@ -26,6 +26,7 @@ public class BaseTest {
 		return db.parse(getClass().getClassLoader().getResourceAsStream(path));
 	}
 
+	@SuppressWarnings("resource")
 	protected String loadStringXML(String path) throws Exception {
 		String content = new Scanner(new File(TEST_RESOURCE_PATH + path)).useDelimiter("\\Z")
 				.next();
