@@ -6,13 +6,14 @@
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="switch-aprovisionamiento">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:jboss/datasources/TvcableDS</jta-data-source>
+		<jta-data-source>java:jboss/datasources/pg/TvcableDS</jta-data-source>
+<!-- 		<jta-data-source>java:jboss/datasources/TvcableDS</jta-data-source> -->
 <!-- 		<jta-data-source>java:jboss/datasources/tvcable-ds</jta-data-source> -->
       
 		<properties>
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" /> -->
 			<property name="hibernate.hbm2ddl.auto" value="validate" />
 		</properties>
 	</persistence-unit>

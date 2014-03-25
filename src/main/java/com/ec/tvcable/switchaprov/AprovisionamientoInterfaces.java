@@ -13,9 +13,9 @@ import com.ec.tvcable.switchaprov.service.aprov.Device;
  * @author pablo
  *
  */
-public class ComandoInterfaces {
+public class AprovisionamientoInterfaces {
 	
-	public ComandoInterfaces(Aprovisionamiento_Type aprovisionamientoType, List<InterfazAprovisionamiento> interfaces, Device device) {
+	public AprovisionamientoInterfaces(Aprovisionamiento_Type aprovisionamientoType, List<InterfazAprovisionamiento> interfaces, Device device) {
 		super();
 		this.aprovisionamientoType = aprovisionamientoType;
 		this.interfaces = interfaces;

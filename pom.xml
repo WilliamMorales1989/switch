@@ -65,19 +65,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.switchyard.components</groupId>
-      <artifactId>switchyard-component-camel-jpa</artifactId>
-      <version>${switchyard.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.hibernate.javax.persistence</groupId>
       <artifactId>hibernate-jpa-2.1-api</artifactId>
       <version>1.0.0.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.switchyard.components</groupId>
-      <artifactId>switchyard-component-camel-file</artifactId>
-      <version>${switchyard.version}</version>
     </dependency>
   </dependencies>
   <build>

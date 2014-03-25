@@ -94,13 +94,14 @@ public class BaseTest {
 		return type;
 	}
 
-	protected void addDeviceToRequest(Aprovisionamiento_Type request, String id, String activity, String serialNumber) {
+	protected void addDeviceToRequest(Aprovisionamiento_Type request, String id, String activity, String serialNumber, String system) {
 
 		Device device = new Device();
 		device.setDeviceId(id);
 		device.setActivityType(activity);
 		device.setSerialNumber(serialNumber);
-		
+		device.setDeviceType("1");
+		device.setSystem(system);
 		request.getBodyRequest().getDevice().add(device);
 
 	}

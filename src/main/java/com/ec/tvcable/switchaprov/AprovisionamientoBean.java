@@ -2,6 +2,7 @@ package com.ec.tvcable.switchaprov;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,8 +13,6 @@ import javax.xml.bind.Marshaller;
 import org.switchyard.component.bean.Reference;
 import org.switchyard.component.bean.Service;
 
-import com.ec.tvcable.switchaprov.exception.AprovisionamientoException;
-import com.ec.tvcable.switchaprov.jpa.InterfazAprovisionamiento;
 import com.ec.tvcable.switchaprov.jpa.TransactionSpResponse;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento;
 import com.ec.tvcable.switchaprov.service.aprov.AprovisionamientoResponse;
@@ -25,6 +24,12 @@ import com.ec.tvcable.switchaprov.service.aprov.Interface;
 
 @Service(Aprovisionamiento.class)
 public class AprovisionamientoBean implements Aprovisionamiento {
+
+	private static final int FAIL_DEVICE_CODE = 1;
+
+	private static int SUCCESS_MEDIATOR_CODE = 1;
+
+	private static int FAIL_PROCESS_CODE = 1;
 
 	@Inject
 	@Reference
@@ -44,129 +49,100 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 
 	private Aprovisionamiento_Type aprovisionamientoType;
 
+	private AprovisionamientoResponse response;
+
+	private List<DeviceResponse> deviceResponses;
+
 	@Override
 	public AprovisionamientoResponse Aprovisionamiento(Aprovisionamiento_Type parameters) {
 
 		this.aprovisionamientoType = parameters;
 
-		AprovisionamientoResponse response = new AprovisionamientoResponse();
+		response = new AprovisionamientoResponse();
 
-		try {
-			List<DeviceResponse> deviceResponses = processDevices();
+		processDevices();
 
-			response.setBodyResponse(generateBodyResponse(deviceResponses));
+		response.setBodyResponse(buildBodyResponse());
 
-			TransactionSpResponse transactionResponse = new TransactionSpResponse();
-			transactionResponse.setXMLResponse(aprovisionamientoResponseToXMLString(response));
-			transactionResponseService.store(transactionResponse);
+		saveDbResponse(parameters);
 
-			return response;
-		} catch (Exception e) {
-			e.printStackTrace();
-			BodyResponse bodyResponse = new BodyResponse();
-			bodyResponse.setResponseCode(1);
-			bodyResponse.setResponseMessage(String.format("Error general de ejecucion: %s %s", e.getClass(),
-					e.getMessage()));
-			response.setBodyResponse(bodyResponse);
-			return response;
-		}
+		return response;
 
 	}
 
-	private BodyResponse generateBodyResponse(List<DeviceResponse> deviceResponses) {
+	private void saveDbResponse(Aprovisionamiento_Type parameters) {
+		TransactionSpResponse transactionResponse = new TransactionSpResponse();
+		transactionResponse.setXMLResponse(aprovisionamientoResponseToXMLString());
+		transactionResponse.setRequestDate(new Date());
+		transactionResponse.setRequestId(Integer.parseInt(parameters.getBodyRequest().getProcessId()));
+		transactionResponseService.store(transactionResponse);
+	}
+
+	private BodyResponse buildBodyResponse() {
 		BodyResponse bodyResponse = new BodyResponse();
 
 		bodyResponse.setProcessId(Integer.parseInt(aprovisionamientoType.getBodyRequest().getProcessId()));
 
-		int failCount = 0;
 		StringBuilder sb = new StringBuilder();
 		for (DeviceResponse dr : deviceResponses) {
 			bodyResponse.getDevices().add(dr);
-			if (dr.getErrorCode() > 0) {
+			if (errorInDeviceResponse(dr)) {
+				bodyResponse.setResponseCode(FAIL_PROCESS_CODE);
+				
 				sb.append(String.format("Device: %s %s", dr.getSerialNumber(), dr.getErrorMessage()));
-				for (Interface inter : dr.getInterfaces()) {
-					if (inter.getErrorCode() > 0) {
-						failCount++;
-						sb.append(inter.getErrorMessage());
-					}
-				}
+				sb.append(buildInterfaceDetail(dr));
+				sb.append(" | ");
 			}
 		}
-
-		bodyResponse.setResponseCode(failCount);
-		bodyResponse.setResponseMessage(sb.toString());
+		bodyResponse.setResponseMessage(removeLastPipeFrom(sb));
 		return bodyResponse;
 	}
 
-	private List<DeviceResponse> processDevices() {
+	private String buildInterfaceDetail(DeviceResponse dr) {
+		StringBuilder sb = new StringBuilder(60);
+		for (Interface inter : dr.getInterfaces()) {
+			if (errorInInterfaceProcess(inter)) {
+				sb.append(inter.getErrorMessage());
+			}
+		}
+		return sb.toString();
+	}
 
-		List<DeviceResponse> deviceResponses = new ArrayList<DeviceResponse>();
+	private boolean errorInInterfaceProcess(Interface inter) {
+		return inter.getErrorCode() != SUCCESS_MEDIATOR_CODE;
+	}
+
+	private boolean errorInDeviceResponse(DeviceResponse dr) {
+		return dr.getErrorCode() == FAIL_DEVICE_CODE;
+	}
+
+	private String removeLastPipeFrom(StringBuilder sb) {
+		if (sb.length() > 3)
+			return sb.substring(0, sb.length() - 3);
+		else
+			return sb.toString();
+	}
+
+	private void processDevices() {
+
+		deviceResponses = new ArrayList<DeviceResponse>();
+
 		for (Device device : aprovisionamientoType.getBodyRequest().getDevice()) {
 
-			Operation operation = new Operation(device.getSystem(), device.getActivityType());
+			DeviceProcessor deviceProcessor = new DeviceProcessor(tvInterfaceService, interfazResolver);
 
-			List<InterfaceInvocationResponse> iiResponses;
-
-			try {
-				iiResponses = invokeInterfaces(interfazResolver.resolveInterfaces(operation), device);
-				deviceResponses.add(generateDeviceResponse(device, iiResponses));
-			} catch (AprovisionamientoException e) {
-				deviceResponses.add(generateDeviceErrorResponse(e, device));
-			}
-
+			deviceResponses.add(deviceProcessor.processDevice(device, aprovisionamientoType));
 
 		}
 
-		return deviceResponses;
 	}
 
-	private DeviceResponse generateDeviceErrorResponse(AprovisionamientoException e, Device device) {
-		DeviceResponse dr = new DeviceResponse();
-		dr.setDeviceId(Integer.parseInt(device.getDeviceId()));
-		dr.setErrorCode(1);
-		dr.setSerialNumber(device.getSerialNumber());
-		dr.setErrorMessage(e.getMessage());
-		return dr;
-	}
-
-	private DeviceResponse generateDeviceResponse(Device device, List<InterfaceInvocationResponse> responses) {
-		DeviceResponse deviceResponse = new DeviceResponse();
-		deviceResponse.setDeviceId(Integer.parseInt(device.getDeviceId()));
-		deviceResponse.setSerialNumber(device.getSerialNumber());
-		for (InterfaceInvocationResponse iir : responses) {
-			Interface inter = new Interface();
-			inter.setErrorCode(iir.getCodError());
-			inter.setErrorMessage(iir.getDetailMessage());
-			inter.setInterfazId(iir.getInterfazInt());
-			deviceResponse.getInterfaces().add(inter);
-			if (iir.getCodError() > 0) {
-				deviceResponse.setErrorCode(iir.getCodError());
-			}
-		}
-
-		return deviceResponse;
-	}
-
-	private List<InterfaceInvocationResponse> invokeInterfaces(List<InterfazAprovisionamiento> interfaces, Device device) {
-
-		ComandoInterfaces comandoInterfaces = new ComandoInterfaces(aprovisionamientoType, interfaces, device);
-
-		if ("INT".equals(aprovisionamientoType.getHeaderRequest().getTarget())) {
-			return interfaz600.invokeInterfaces(comandoInterfaces);
-		}
-		if ("TV".equals(aprovisionamientoType.getHeaderRequest().getTarget())) {
-			return tvInterfaceService.invokeInterfaces(comandoInterfaces);
-		}
-		throw new RuntimeException(String.format("No existe implementacion para el TARGET: %s", aprovisionamientoType
-				.getHeaderRequest().getTarget()));
-	}
-
-	private String aprovisionamientoResponseToXMLString(AprovisionamientoResponse ar) {
+	private String aprovisionamientoResponseToXMLString() {
 		try {
 			JAXBContext context = JAXBContext.newInstance(AprovisionamientoResponse.class);
 			Marshaller marshaller = context.createMarshaller();
 			StringWriter sw = new StringWriter();
-			marshaller.marshal(ar, sw);
+			marshaller.marshal(response, sw);
 			return sw.toString();
 		} catch (JAXBException e) {
 			e.printStackTrace();

@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.net.NoRouteToHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import org.mockito.Mockito;
 import org.mockito.internal.util.reflection.Whitebox;
 
 import com.ec.tvcable.switchaprov.AprovisionamientoBean;
-import com.ec.tvcable.switchaprov.ComandoInterfaces;
+import com.ec.tvcable.switchaprov.AprovisionamientoInterfaces;
 import com.ec.tvcable.switchaprov.DatosTvPagada;
 import com.ec.tvcable.switchaprov.DeviceProcess;
 import com.ec.tvcable.switchaprov.InterfazResolver;
@@ -82,7 +83,7 @@ public class MockTest extends BaseTest {
 	// @Test
 	public void capturarErrorInesperado() {
 
-		addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
+		addDeviceToRequest(requestMessage, "1", "activity", "serialnumber", "TV");
 		requestMessage.setBodyRequest(null);
 
 		AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
@@ -93,37 +94,60 @@ public class MockTest extends BaseTest {
 	}
 
 	@Test
-	public void excepcionSiNoHayTarget() {
-		addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
+	public void ejecucionFallidaSiNoHaySystem() {
+		addDeviceToRequest(requestMessage, "1", "activity", "serialnumber", "tvpagada");
 		requestMessage.getHeaderRequest().setTarget("");
 
 		AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
 
-		Assert.assertEquals(
-				"Error general de ejecucion: class java.lang.RuntimeException No existe implementacion para el TARGET: ",
-				response.getBodyResponse().getResponseMessage());
+		Assert.assertEquals("Device: serialnumber No existe implementacion para el SYSTEM: tvpagada", response
+				.getBodyResponse().getResponseMessage());
 
+	}
+
+	@Test
+	public void invocarDeAcuerdoConSystem() {
+		try {
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber", "TV");
+			TransactionSpTvPagada transactionSpTvPagada = createDatosTvPagada();
+
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("702"));
+			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(transactionSpTvPagada);
+			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse());
+
+			aprovisionamiento.Aprovisionamiento(requestMessage);
+
+			verify(resolver).resolveInterfaces(any(Operation.class));
+			verify(tvInterfaceServiceSpy).invokeInterfaces(any(AprovisionamientoInterfaces.class));
+			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
+			verify(tvInterfaceServiceSpy).generateResponse();
+
+		} catch (DataQueryException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (AprovisionamientoException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
 	}
 
 	@Test
 	public void debeIterarPorDevicesEInterfaces() {
 		try {
-			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber", "TV");
 			TransactionSpTvPagada transactionSpTvPagada = createDatosTvPagada();
 
-			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702"));
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("702"));
 			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(transactionSpTvPagada);
 			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse());
 
-			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
+			aprovisionamiento.Aprovisionamiento(requestMessage);
 
 			verify(resolver).resolveInterfaces(any(Operation.class));
-			verify(tvInterfaceServiceSpy).invokeInterfaces(any(ComandoInterfaces.class));
+			verify(tvInterfaceServiceSpy).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy).generateResponse();
 
-			Assert.assertEquals(1, response.getBodyResponse().getDevices().size());
-			Assert.assertEquals(1, response.getBodyResponse().getDevices().get(0).getDeviceId());
 		} catch (DataQueryException e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -136,7 +160,7 @@ public class MockTest extends BaseTest {
 	@Test
 	public void ejecucionFallidaSiNoHayInterfaces() {
 		try {
-			addDeviceToRequest(requestMessage, "1", "activity", "serial-123");
+			addDeviceToRequest(requestMessage, "1", "activity", "serial-123", "TV");
 
 			TransactionSpTvPagada transactionSpTvPagada = createDatosTvPagada();
 
@@ -146,8 +170,34 @@ public class MockTest extends BaseTest {
 
 			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
 
-			Assert.assertEquals("Device: serial-123 No existen interfaces definidas para system: ? activityType ?", response
-					.getBodyResponse().getResponseMessage());
+			Assert.assertEquals("Device: serial-123 No existen interfaces definidas para system: ? activityType ?",
+					response.getBodyResponse().getResponseMessage());
+		} catch (DataQueryException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (AprovisionamientoException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+
+	@Test
+	public void mostrarDetalleSiMediadorNoDisponible() {
+		try {
+			addDeviceToRequest(requestMessage, "1", "activity", "serial-123", "TV");
+
+			TransactionSpTvPagada transactionSpTvPagada = createDatosTvPagada();
+
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("100"));
+			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(transactionSpTvPagada);
+			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenThrow(
+					new RuntimeException(new NoRouteToHostException("Servicio no disponible")));
+
+			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
+
+			Assert.assertEquals(
+					"Device: serial-123 (I: 100) java.net.NoRouteToHostException: Servicio no disponibleServicio no disponible",
+					response.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -160,17 +210,17 @@ public class MockTest extends BaseTest {
 	@Test
 	public void debeRetornarErrorDeConversion() {
 		try {
-			addDeviceToRequest(requestMessage, "1", "activity", "serial-123");
+			addDeviceToRequest(requestMessage, "1", "activity", "serial-123", "TV");
 			TransactionSpTvPagada transactionSpTvPagada = createDatosTvPagada();
 			transactionSpTvPagada.setNegocio("");
 
-			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702"));
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("702"));
 			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(transactionSpTvPagada);
 
 			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
 
 			verify(resolver).resolveInterfaces(any(Operation.class));
-			verify(tvInterfaceServiceSpy).invokeInterfaces(any(ComandoInterfaces.class));
+			verify(tvInterfaceServiceSpy).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy).generateResponse();
 
@@ -188,18 +238,18 @@ public class MockTest extends BaseTest {
 	@Test
 	public void errorSiRegistroNoEsValido() {
 		try {
-			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber");
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber", "TV");
 			TransactionSpTvPagada transactionSpTvPagada = createDatosTvPagada();
 			transactionSpTvPagada.setIsValid("F");
 
 			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(transactionSpTvPagada);
 			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse());
-			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702"));
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("702"));
 
 			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
 
 			verify(resolver).resolveInterfaces(any(Operation.class));
-			verify(tvInterfaceServiceSpy).invokeInterfaces(any(ComandoInterfaces.class));
+			verify(tvInterfaceServiceSpy).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy).generateResponse();
 
@@ -217,8 +267,8 @@ public class MockTest extends BaseTest {
 	@Test
 	public void errorNoValidoEnSegundoDevice() {
 		try {
-			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber_1");
-			addDeviceToRequest(requestMessage, "2", "activity", "serialnumber_2");
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber_1", "TV");
+			addDeviceToRequest(requestMessage, "2", "activity", "serialnumber_2", "TV");
 
 			TransactionSpTvPagada tvPagada1 = createDatosTvPagada();
 			TransactionSpTvPagada tvPagada2 = createDatosTvPagada();
@@ -226,12 +276,12 @@ public class MockTest extends BaseTest {
 
 			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(tvPagada1).thenReturn(tvPagada2);
 			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse());
-			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702"));
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("702"));
 
 			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
 
 			verify(resolver, times(2)).resolveInterfaces(any(Operation.class));
-			verify(tvInterfaceServiceSpy, times(2)).invokeInterfaces(any(ComandoInterfaces.class));
+			verify(tvInterfaceServiceSpy, times(2)).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada, times(2)).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy, times(2)).generateResponse();
 
@@ -249,8 +299,8 @@ public class MockTest extends BaseTest {
 	@Test
 	public void errorSiNoHayRegistroDeDatosEnSegundoDevice() {
 		try {
-			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber_1");
-			addDeviceToRequest(requestMessage, "2", "activity", "serialnumber_2");
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber_1", "TV");
+			addDeviceToRequest(requestMessage, "2", "activity", "serialnumber_2", "TV");
 
 			TransactionSpTvPagada tvPagada = createDatosTvPagada();
 
@@ -258,12 +308,12 @@ public class MockTest extends BaseTest {
 					new DataQueryException("No existen datos para el device 1"));
 
 			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse());
-			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702"));
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("702"));
 
 			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
 
 			verify(resolver, times(2)).resolveInterfaces(any(Operation.class));
-			verify(tvInterfaceServiceSpy, times(2)).invokeInterfaces(any(ComandoInterfaces.class));
+			verify(tvInterfaceServiceSpy, times(2)).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada, times(2)).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy, times(2)).generateResponse();
 
@@ -282,10 +332,10 @@ public class MockTest extends BaseTest {
 	@Test
 	public void errorEnSegundaInterfaz() {
 		try {
-			addDeviceToRequest(requestMessage, "1", "activity", "serie-123");
+			addDeviceToRequest(requestMessage, "1", "activity", "serie-123", "TV");
 			TransactionSpTvPagada createDatosTvPagada = createDatosTvPagada();
 
-			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702", "600", "500"));
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("702", "600", "500"));
 			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse())
 					.thenReturn(createTvPagadaErorrResponse()).thenReturn(createTvPagadaSuccessResponse());
 			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(createDatosTvPagada);
@@ -293,7 +343,7 @@ public class MockTest extends BaseTest {
 			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
 
 			verify(resolver).resolveInterfaces(any(Operation.class));
-			verify(tvInterfaceServiceSpy).invokeInterfaces(any(ComandoInterfaces.class));
+			verify(tvInterfaceServiceSpy).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy, Mockito.times(3)).generateResponse();
 			verify(tvInterfaceServiceSpy, Mockito.times(3)).invokeAprovTvpagada(any(Comando.class));
@@ -312,17 +362,17 @@ public class MockTest extends BaseTest {
 	@Test
 	public void ejecucionExitosaUnDispositivo() {
 		try {
-			addDeviceToRequest(requestMessage, "1", "activity", "serie-123");
+			addDeviceToRequest(requestMessage, "1", "activity", "serie-123", "TV");
 			TransactionSpTvPagada createDatosTvPagada = createDatosTvPagada();
 
-			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(createInterfaceStub("702", "600", "500"));
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("702", "600", "500"));
 			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse());
 			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenReturn(createDatosTvPagada);
 
 			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
 
 			verify(resolver).resolveInterfaces(any(Operation.class));
-			verify(tvInterfaceServiceSpy).invokeInterfaces(any(ComandoInterfaces.class));
+			verify(tvInterfaceServiceSpy).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy, Mockito.times(3)).generateResponse();
 			verify(tvInterfaceServiceSpy, Mockito.times(3)).invokeAprovTvpagada(any(Comando.class));
@@ -342,13 +392,14 @@ public class MockTest extends BaseTest {
 
 	private Respuesta createTvPagadaErorrResponse() {
 		Respuesta respuesta = createTvPagadaResponse();
-		respuesta.getMensaje().setCodError(1);
+		respuesta.getMensaje().setCodError(0);
 		respuesta.getMensaje().setDetMensaje("Error de ejecucion");
 		return respuesta;
 	}
 
 	private Respuesta createTvPagadaSuccessResponse() {
 		Respuesta respuesta = createTvPagadaResponse();
+		respuesta.getMensaje().setCodError(1);
 		respuesta.getMensaje().setDetMensaje("Ejecucion exitosa");
 		return respuesta;
 	}
@@ -359,19 +410,20 @@ public class MockTest extends BaseTest {
 		cabecera.setIDEmpresa(1);
 		respuesta.setCabecera(cabecera);
 		Mensaje mensaje = new Mensaje();
-		mensaje.setCodError(0);
 		mensaje.setDetMensaje("Ejecucion exitosa");
 		respuesta.setMensaje(mensaje);
 		return respuesta;
 	}
 
-	private List<InterfazAprovisionamiento> createInterfaceStub(String... lista) {
+	private List<InterfazAprovisionamiento> buildInterfaceStub(String... lista) {
 		List<InterfazAprovisionamiento> interfaces = new ArrayList<InterfazAprovisionamiento>();
 
 		for (int i = 0; i < lista.length; i++) {
 			InterfazAprovisionamiento ia = new InterfazAprovisionamiento();
 			ia.setInterfaceCode(lista[i]);
+			ia.setAccion(1);
 			interfaces.add(ia);
+			ia.setSystem("TV");
 		}
 
 		return interfaces;

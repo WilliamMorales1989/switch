@@ -13,7 +13,7 @@ import org.switchyard.component.bean.Reference;
 import org.switchyard.component.bean.Service;
 
 import com.ec.tvcable.switchaprov.AprovisionamientoConverter;
-import com.ec.tvcable.switchaprov.ComandoInterfaces;
+import com.ec.tvcable.switchaprov.AprovisionamientoInterfaces;
 import com.ec.tvcable.switchaprov.DatosTvPagada;
 import com.ec.tvcable.switchaprov.DeviceProcess;
 import com.ec.tvcable.switchaprov.InterfaceInvocationResponse;
@@ -34,7 +34,7 @@ import com.ec.tvcable.switchaprov.service.tvpagada.WsdlTvPagada;
  */
 @Service(TvInterfaceService.class)
 public class TvInterfazServiceBean implements TvInterfaceService {
-	
+
 	@Reference
 	@Inject
 	private WsdlTvPagada wsdlTvPagada;
@@ -49,16 +49,17 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 	private String actualInterface;
 
 	@Override
-	public List<InterfaceInvocationResponse> invokeInterfaces(ComandoInterfaces comandoInterfaces) {
+	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoInterfaces) {
 		List<InterfaceInvocationResponse> responses = new ArrayList<InterfaceInvocationResponse>();
 
 		actualInterface = null;
 		try {
+
 			Comando comando = createComando(new DeviceProcess(comandoInterfaces.getDevice().getDeviceId(),
 					comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId()));
-			
+
 			assignMessageAttributes(comandoInterfaces.getDevice(), comando.getDetalle().getTVpagada());
-			
+
 			for (InterfazAprovisionamiento interf : comandoInterfaces.getInterfaces()) {
 				actualInterface = interf.getInterfaceCode();
 				comando.getCabecera().setInterface(Integer.parseInt(actualInterface));
@@ -66,12 +67,25 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 				respuesta = invokeAprovTvpagada(comando);
 				responses.add(generateResponse());
 			}
+
 		} catch (Exception e) {
 			logger.error("Problemas al invocar interfaces: ", e);
-			genFailedResponse(e);
+			buildFailedResponse(e);
 			responses.add(generateResponse());
 		}
 		return responses;
+	}
+
+	private String buildDetailExceptionMessage(Throwable e) {
+		StringBuilder sb = new StringBuilder(120);
+
+		Throwable exception = e;
+
+		while (exception != null) {
+			sb.append(exception.getMessage());
+			exception = exception.getCause();
+		}
+		return sb.toString();
 	}
 
 	private void assignMessageAttributes(Device device, TVpagada comando) {
@@ -80,13 +94,13 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 		comando.setIdConvertidor(device.getMacAddress1());
 	}
 
-	public void genFailedResponse(Exception e) {
+	public void buildFailedResponse(Exception e) {
 		respuesta = new Respuesta();
 		Mensaje mensaje = new Mensaje();
 		// TODO: Definir codigo de erorr
 		mensaje.setCodError(100);
-		mensaje.setDetMensaje(e.getMessage());
-
+		mensaje.setDetMensaje(buildDetailExceptionMessage(e));
+		System.out.println("mensaje en respuesta: " + mensaje.getDetMensaje());
 		respuesta.setMensaje(mensaje);
 	}
 
@@ -100,8 +114,8 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 		iir.setInterfaz(actualInterface);
 		Mensaje mensaje = respuesta.getMensaje();
 		iir.setCodError(mensaje.getCodError());
+		System.out.println("mensaje en iir: " + mensaje.getDetMensaje());
 		iir.setDetMensaje(mensaje.getDetMensaje());
-
 		return iir;
 	}
 

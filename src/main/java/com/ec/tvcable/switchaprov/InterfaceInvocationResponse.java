@@ -41,7 +41,7 @@ public class InterfaceInvocationResponse {
 
 	public String getDetailMessage() {
 		if (interfaz == null || "0".equals(interfaz)) {
-			return getDetMensaje();
+			return detMensaje;
 		}
 		return String.format("(I: %s) %s", interfaz, detMensaje);
 	}

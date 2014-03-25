@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import org.switchyard.component.bean.Reference;
 import org.switchyard.component.bean.Service;
 
-import com.ec.tvcable.switchaprov.ComandoInterfaces;
+import com.ec.tvcable.switchaprov.AprovisionamientoInterfaces;
 import com.ec.tvcable.switchaprov.InterfaceInvocationResponse;
 import com.ec.tvcable.switchaprov.IntrawayInterfaceService;
 import com.ec.tvcable.switchaprov.service.intraway.Cabecera;
@@ -31,7 +31,7 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 	WsdlIntraway wsdlIntraway;
 	
 	@Override
-	public List<InterfaceInvocationResponse> invokeInterfaces(ComandoInterfaces comandoInterfaces) {
+	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoInterfaces) {
 		Comando comando = createComando();
 		invocarAprovTvpagada(comando);
 		

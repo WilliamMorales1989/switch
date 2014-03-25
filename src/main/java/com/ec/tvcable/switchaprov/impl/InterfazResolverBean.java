@@ -3,7 +3,6 @@
  */
 package com.ec.tvcable.switchaprov.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,14 +23,6 @@ import com.ec.tvcable.switchaprov.jpa.InterfazAprovisionamiento;
 @Service(InterfazResolver.class)
 public class InterfazResolverBean implements InterfazResolver {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.ec.tvcable.switchaprov.InterfazResolver#resolveInterfaces(java.lang
-	 * .String)
-	 */
-
 	@Inject
 	@Reference
 	InterfazAprovServicio interfazAprovServicio;
@@ -46,14 +37,6 @@ public class InterfazResolverBean implements InterfazResolver {
 					"No existen interfaces definidas para system: %s activityType %s", operation.getSystem(),
 					operation.getActivityType()));
 		}
-	}
-
-	private List<String> generarListaInterfaces(List<InterfazAprovisionamiento> intAprovlist) {
-		List<String> interfaces = new ArrayList<String>();
-		for (InterfazAprovisionamiento ia : intAprovlist) {
-			interfaces.add(ia.getInterfaceCode());
-		}
-		return interfaces;
 	}
 
 	private boolean hayInterfaces(List<InterfazAprovisionamiento> intAprovlist) {

@@ -504,7 +504,7 @@
       <xsd:complexType name="BodyRequest">
         <xsd:sequence>
           <xsd:element name="processId" type="xsd:string"/>
-          <xsd:element name="Devices" type="tns:Device" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+          <xsd:element name="Device" type="tns:Device" maxOccurs="unbounded" minOccurs="1"></xsd:element>
         </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="AttributesRequest">
@@ -601,12 +601,12 @@
       <soap:address location="http://www.example.org/"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://www.example.org/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.example.org/Aprovisionamiento/Aprovisionamiento" name="Aprovisionamiento" bindingOperationName="Aprovisionamiento" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.example.org/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apr="http://www.example.org/Aprovisionamiento/">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:endpoint>http://www.example.org/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.example.org/Aprovisionamiento/Aprovisionamiento" name="Aprovisionamiento" bindingOperationName="Aprovisionamiento" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apr="http://www.example.org/Aprovisionamiento/">
    <soapenv:Header/>
    <soapenv:Body>
       <apr:Aprovisionamiento>
          <HeaderRequest>
-            <Target>?</Target>
+            <Target>TV</Target>
             <Entry>?</Entry>
             <User>?</User>
             <Token>?</Token>
@@ -616,25 +616,23 @@
             </Attributes>
          </HeaderRequest>
          <BodyRequest>
-            <processId>?</processId>
+            <processId>1</processId>
             <!--1 or more repetitions:-->
-            <Devices>
-            	<device>
-               <deviceId>?</deviceId>
-               <deviceType>?</deviceType>
-               <serialNumber>?</serialNumber>
-               <macAddress1>?</macAddress1>
-               <macAddress2>?</macAddress2>
-               <activityType>?</activityType>
-               <system>?</system>
-               <Controller>?</Controller>
+            <Device>
+               <deviceId>1</deviceId>
+               <deviceType>2</deviceType>
+               <serialNumber>ser-111</serialNumber>
+               <macAddress1>123</macAddress1>
+               <macAddress2>123</macAddress2>
+               <activityType>ACTIVATE</activityType>
+               <system>TV</system>
+               <Controller>1</Controller>
                <!--Zero or more repetitions:-->
                <Attributes>
                   <Name>?</Name>
                   <Values>?</Values>
                </Attributes>
-            	<device>
-            </Devices>
+            </Device>
          </BodyRequest>
       </apr:Aprovisionamiento>
    </soapenv:Body>
@@ -650,7 +648,7 @@
          </wsd:Cabecera>
          <wsd:Mensaje>
             <wsd:CodError>0</wsd:CodError>
-            <wsd:DetMensaje>Respuesta desde mock</wsd:DetMensaje>
+            <wsd:DetMensaje></wsd:DetMensaje>
             <wsd:DatosExtrasTVP>
                <wsd:IdServ>1</wsd:IdServ>
                <wsd:NumPaq wsd:CantP="1">

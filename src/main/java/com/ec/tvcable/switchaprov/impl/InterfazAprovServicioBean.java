@@ -26,7 +26,6 @@ public class InterfazAprovServicioBean implements InterfazAprovServicio {
 	private EntityManager em;
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<InterfazAprovisionamiento> buscarPorAprovisionamiento(
 			Operation operation) {
 		Query query = em.createNamedQuery("buscarPorAprovisionamiento");

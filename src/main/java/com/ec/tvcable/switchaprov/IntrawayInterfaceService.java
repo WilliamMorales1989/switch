@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface IntrawayInterfaceService  {
 
-	public List<InterfaceInvocationResponse> invokeInterfaces(ComandoInterfaces comandoEmsInterfaces);
+	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoEmsInterfaces);
 
 }

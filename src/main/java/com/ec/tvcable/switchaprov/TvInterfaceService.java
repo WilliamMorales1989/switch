@@ -19,7 +19,7 @@ public interface TvInterfaceService {
 
 	public Respuesta invokeAprovTvpagada(Comando comando);
 
-	public List<InterfaceInvocationResponse> invokeInterfaces(ComandoInterfaces comandoEmsInterfaces);
+	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoEmsInterfaces);
 	
 	public Comando createComando(DeviceProcess deviceProcess) throws ConversionException;
 	
