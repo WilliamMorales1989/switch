@@ -74,7 +74,7 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 		TransactionSpResponse transactionResponse = new TransactionSpResponse();
 		transactionResponse.setXMLResponse(aprovisionamientoResponseToXMLString());
 		transactionResponse.setRequestDate(new Date());
-		transactionResponse.setRequestId(Integer.parseInt(parameters.getBodyRequest().getProcessId()));
+		transactionResponse.setProcessId(Integer.parseInt(parameters.getBodyRequest().getProcessId()));
 		transactionResponseService.store(transactionResponse);
 	}
 
