@@ -607,7 +607,7 @@
       <apr:Aprovisionamiento>
          <HeaderRequest>
             <Target>TV</Target>
-            <Entry>?</Entry>
+            <Entry>?</Entry>    
             <User>?</User>
             <Token>?</Token>
             <Attributes>
@@ -623,7 +623,7 @@
                <deviceType>2</deviceType>
                <serialNumber>ser-111</serialNumber>
                <macAddress1>123</macAddress1>
-               <macAddress2>123</macAddress2>
+               <macAddress2>?</macAddress2>
                <activityType>ACTIVATE</activityType>
                <system>TV</system>
                <Controller>1</Controller>
