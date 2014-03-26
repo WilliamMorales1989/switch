@@ -26,14 +26,8 @@ public class TransactionSpResponse {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTION_SP_RESPONSE_SEQ")
 	private Long id;
 
-	@Column(name = "device_id")
-	private Integer deviceId;
-
-	@Column(name = "interface")
-	private Integer interfaceCode;
-
-	@Column(name = "request_id")
-	private Integer requestId;
+	@Column(name = "process_id")
+	private Integer processId;
 
 	@Column(name = "request_date")
 	private Date requestDate;
@@ -57,28 +51,12 @@ public class TransactionSpResponse {
 		this.id = id;
 	}
 
-	public Integer getDeviceId() {
-		return deviceId;
+	public Integer getProcessId() {
+		return processId;
 	}
 
-	public void setDeviceId(Integer deviceId) {
-		this.deviceId = deviceId;
-	}
-
-	public Integer getInterfaceCode() {
-		return interfaceCode;
-	}
-
-	public void setInterfaceCode(Integer interfaceCode) {
-		this.interfaceCode = interfaceCode;
-	}
-
-	public Integer getRequestId() {
-		return requestId;
-	}
-
-	public void setRequestId(Integer requestId) {
-		this.requestId = requestId;
+	public void setProcessId(Integer requestId) {
+		this.processId = requestId;
 	}
 
 	public Date getRequestDate() {

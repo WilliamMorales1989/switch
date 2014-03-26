@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="WsdlTvPagada" resourceRoot="" soapui-version="4.6.4" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="WsdlTvPagadaHttpBinding" type="wsdl" bindingName="{http://www.grupotvcable.com.ec/WsdlTvPagada/}WsdlTvPagadaHttpBinding" soapVersion="1_1" anonymous="optional" definition="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl"><con:part><con:url>file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.grupotvcable.com.ec/WsdlTvPagada/" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:tns="http://www.grupotvcable.com.ec/WsdlTvPagada/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+<con:soapui-project activeEnvironment="Default" name="Aprovisionamiento" resourceRoot="" soapui-version="4.6.4" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="WsdlTvPagadaHttpBinding" type="wsdl" bindingName="{http://www.grupotvcable.com.ec/WsdlTvPagada/}WsdlTvPagadaHttpBinding" soapVersion="1_1" anonymous="optional" definition="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl"><con:part><con:url>file:/home/pablo/switchyard_workspace/switch-aprovisionamiento/src/main/resources/wsdl/WsdlTvPagada.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.grupotvcable.com.ec/WsdlTvPagada/" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:tns="http://www.grupotvcable.com.ec/WsdlTvPagada/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <wsdl:types>
     <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.grupotvcable.com.ec/WsdlTvPagada/">
       <xsd:element name="ejecutaComando" type="tns:Comando"/>
@@ -627,6 +627,41 @@
                <activityType>ACTIVATE</activityType>
                <system>TV</system>
                <Controller>1</Controller>
+               <!--Zero or more repetitions:-->
+               <Attributes>
+                  <Name>?</Name>
+                  <Values>?</Values>
+               </Attributes>
+            </Device>
+         </BodyRequest>
+      </apr:Aprovisionamiento>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/Aprovisionamiento/Aprovisionamiento"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Error Amerino"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apr="http://www.example.org/Aprovisionamiento/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <apr:Aprovisionamiento>
+         <HeaderRequest>
+            <Target>INT</Target>
+            <Entry>1</Entry>
+            <User>amerino</User>
+            <Token>123</Token>
+            <Attributes>
+               <Name>Andres</Name>
+               <Value>1</Value>
+            </Attributes>
+         </HeaderRequest>
+         <BodyRequest>
+            <processId>123</processId>
+            <!--1 or more repetitions:-->
+            <Device>
+               <deviceId>123</deviceId>
+               <deviceType>212312</deviceType>
+               <serialNumber>ANdres123</serialNumber>
+               <macAddress1>123</macAddress1>
+               <macAddress2>?</macAddress2>
+               <activityType>ACTIVATE</activityType>
+               <system>TV</system>
+               <Controller>DAC</Controller>
                <!--Zero or more repetitions:-->
                <Attributes>
                   <Name>?</Name>

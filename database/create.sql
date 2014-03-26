@@ -51,9 +51,7 @@ alter table TRANSACTION_SP add constraint PK_TRANSACTION_SP primary key(Id,Devic
 
 create table TRANSACTION_SP_RESPONSE(
 Id number,
-device_id number,
-interface number,
-request_id number,
+process_id number,
 request_date date,
 xml_response VARCHAR2(2000)
 );
