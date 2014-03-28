@@ -5,7 +5,7 @@ package com.ec.tvcable.switchaprov;
 
 import java.util.List;
 
-import com.ec.tvcable.switchaprov.exception.ConversionException;
+import com.ec.tvcable.switchaprov.exception.DataQueryException;
 import com.ec.tvcable.switchaprov.service.tvpagada.Comando;
 import com.ec.tvcable.switchaprov.service.tvpagada.Respuesta;
 
@@ -19,8 +19,6 @@ public interface TvInterfaceService {
 
 	public Respuesta invokeAprovTvpagada(Comando comando);
 
-	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoEmsInterfaces);
-	
-	public Comando createComando(DeviceProcess deviceProcess) throws ConversionException;
+	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoEmsInterfaces) throws DataQueryException;
 	
 }

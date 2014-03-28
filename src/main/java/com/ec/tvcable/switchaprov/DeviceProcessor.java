@@ -6,7 +6,7 @@ package com.ec.tvcable.switchaprov;
 import java.util.List;
 
 import com.ec.tvcable.switchaprov.exception.AprovisionamientoException;
-import com.ec.tvcable.switchaprov.jpa.InterfazAprovisionamiento;
+import com.ec.tvcable.switchaprov.exception.DataQueryException;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type;
 import com.ec.tvcable.switchaprov.service.aprov.Device;
 import com.ec.tvcable.switchaprov.service.aprov.DeviceResponse;
@@ -18,38 +18,35 @@ import com.ec.tvcable.switchaprov.service.aprov.Interface;
  */
 public class DeviceProcessor {
 
-	private static final int FAIL_DEVICE_CODE = 1;
-
-	private static int SUCCESS_MEDIATOR_CODE = 1;
-
 	private TvInterfaceService tvInterfaceService;
-	private InterfazResolver interfazResolver;
 
-	public DeviceProcessor(TvInterfaceService tvInterfaceService, InterfazResolver interfazResolver) {
+	public DeviceProcessor(TvInterfaceService tvInterfaceService) {
 		super();
 		this.tvInterfaceService = tvInterfaceService;
-		this.interfazResolver = interfazResolver;
 	}
 
 	public DeviceResponse processDevice(Device device, Aprovisionamiento_Type aprovisionamientoType) {
 
-		Operation operation = new Operation(device.getSystem(), device.getActivityType());
 		try {
-			List<InterfazAprovisionamiento> interfaces = interfazResolver.resolveInterfaces(operation);
+
 			AprovisionamientoInterfaces aprovisionamientoInterfaces = new AprovisionamientoInterfaces(
-					aprovisionamientoType, interfaces, device);
+					aprovisionamientoType, device);
 
 			List<InterfaceInvocationResponse> responses = invokeInterfaces(aprovisionamientoInterfaces);
 
 			return generateDeviceResponse(device, responses);
 
-		} catch (AprovisionamientoException e) {
-			return generateDeviceExceptionResponse(e, device);
+		} catch (DataQueryException e) {
+			System.out.println("se captura");
+			return generateDeviceExceptionResponse(e, device, Constants.DEVICE_DATA_FAIL_CODE);
+		} catch (Exception e) {
+			System.out.println("general");
+			return generateDeviceExceptionResponse(e, device, Constants.DEVICE_FAIL_CODE);
 		}
 	}
 
 	private List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces aprovisionamientoInterfaces)
-			throws AprovisionamientoException {
+			throws AprovisionamientoException, DataQueryException {
 		switch (aprovisionamientoInterfaces.getDevice().getSystem()) {
 		case "INT":
 			return null;
@@ -71,19 +68,19 @@ public class DeviceProcessor {
 			inter.setErrorMessage(iir.getDetailMessage());
 			inter.setInterfazId(iir.getInterfazInt());
 			dr.getInterfaces().add(inter);
-			if (iir.getCodError() != SUCCESS_MEDIATOR_CODE) {
-				dr.setErrorCode(FAIL_DEVICE_CODE);
+			if (iir.getFailedExecution()) {
+				dr.setErrorCode(Constants.DEVICE_FAIL_CODE);
 			}
 		}
 
 		return dr;
 	}
 
-	private DeviceResponse generateDeviceExceptionResponse(Exception e, Device device) {
+	private DeviceResponse generateDeviceExceptionResponse(Exception e, Device device, int deviceFaildCode) {
 		DeviceResponse dr = new DeviceResponse();
 		dr.setDeviceId(Integer.parseInt(device.getDeviceId()));
 		dr.setSerialNumber(device.getSerialNumber());
-		dr.setErrorCode(FAIL_DEVICE_CODE);
+		dr.setErrorCode(deviceFaildCode);
 		dr.setErrorMessage(e.getMessage());
 		return dr;
 	}

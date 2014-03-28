@@ -32,7 +32,7 @@ import com.ec.tvcable.switchaprov.exception.AprovisionamientoException;
 import com.ec.tvcable.switchaprov.exception.DataQueryException;
 import com.ec.tvcable.switchaprov.impl.TvInterfazServiceBean;
 import com.ec.tvcable.switchaprov.jpa.InterfazAprovisionamiento;
-import com.ec.tvcable.switchaprov.jpa.TransactionSpResponse;
+import com.ec.tvcable.switchaprov.jpa.TransactionHeaderResponse;
 import com.ec.tvcable.switchaprov.jpa.TransactionSpTvPagada;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento;
 import com.ec.tvcable.switchaprov.service.aprov.AprovisionamientoResponse;
@@ -64,33 +64,19 @@ public class MockTest extends BaseTest {
 		datosTvPagada = mock(DatosTvPagada.class);
 		wsdlTvPagada = mock(WsdlTvPagada.class);
 		transactionResponseService = mock(TransactionSpResponseService.class);
+		resolver = mock(InterfazResolver.class);
 
 		tvInterfaceService = new TvInterfazServiceBean();
 		tvInterfaceServiceSpy = Mockito.spy(tvInterfaceService);
 
 		Whitebox.setInternalState(tvInterfaceServiceSpy, "wsdlTvPagada", wsdlTvPagada);
 		Whitebox.setInternalState(tvInterfaceServiceSpy, "datosTvPagada", datosTvPagada);
+		Whitebox.setInternalState(tvInterfaceServiceSpy, "interfazResolver", resolver);
 
 		Whitebox.setInternalState(aprovisionamiento, "tvInterfaceService", tvInterfaceServiceSpy);
 		Whitebox.setInternalState(aprovisionamiento, "transactionResponseService", transactionResponseService);
 
-		resolver = mock(InterfazResolver.class);
-		Whitebox.setInternalState(aprovisionamiento, "interfazResolver", resolver);
-
 		requestMessage = createAprovisionamientotype();
-	}
-
-	// @Test
-	public void capturarErrorInesperado() {
-
-		addDeviceToRequest(requestMessage, "1", "activity", "serialnumber", "TV");
-		requestMessage.setBodyRequest(null);
-
-		AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
-
-		Assert.assertEquals("Erorr inesperado", response.getBodyResponse().getResponseMessage());
-		Assert.assertEquals(0, response.getBodyResponse().getResponseCode());
-
 	}
 
 	@Test
@@ -170,6 +156,8 @@ public class MockTest extends BaseTest {
 
 			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
 
+			verify(transactionResponseService).saveHeader(any(TransactionHeaderResponse.class));
+			
 			Assert.assertEquals("Device: serial-123 No existen interfaces definidas para system: ? activityType ?",
 					response.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {
@@ -196,7 +184,7 @@ public class MockTest extends BaseTest {
 			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
 
 			Assert.assertEquals(
-					"Device: serial-123 (I: 100) java.net.NoRouteToHostException: Servicio no disponibleServicio no disponible",
+					"Device: serial-123 java.net.NoRouteToHostException: Servicio no disponible",
 					response.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {
 			e.printStackTrace();
@@ -219,7 +207,6 @@ public class MockTest extends BaseTest {
 
 			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
 
-			verify(resolver).resolveInterfaces(any(Operation.class));
 			verify(tvInterfaceServiceSpy).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy).generateResponse();
@@ -248,7 +235,6 @@ public class MockTest extends BaseTest {
 
 			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
 
-			verify(resolver).resolveInterfaces(any(Operation.class));
 			verify(tvInterfaceServiceSpy).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy).generateResponse();
@@ -280,7 +266,7 @@ public class MockTest extends BaseTest {
 
 			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
 
-			verify(resolver, times(2)).resolveInterfaces(any(Operation.class));
+			verify(resolver, times(1)).resolveInterfaces(any(Operation.class));
 			verify(tvInterfaceServiceSpy, times(2)).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada, times(2)).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy, times(2)).generateResponse();
@@ -312,13 +298,14 @@ public class MockTest extends BaseTest {
 
 			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
 
-			verify(resolver, times(2)).resolveInterfaces(any(Operation.class));
+			verify(resolver, times(1)).resolveInterfaces(any(Operation.class));
 			verify(tvInterfaceServiceSpy, times(2)).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada, times(2)).findByDevice(any(DeviceProcess.class));
-			verify(tvInterfaceServiceSpy, times(2)).generateResponse();
-
+			verify(tvInterfaceServiceSpy, times(1)).generateResponse();
+			verify(transactionResponseService, times(1)).saveHeader(any(TransactionHeaderResponse.class));
+			
 			Assert.assertEquals(
-					"Device: serialnumber_2 Error al consultar datos para transaccion. No existen datos para el device 1 process 1",
+					"Device: serialnumber_2 No existen datos para el device 1 process 1",
 					emsResponse.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {
 			e.printStackTrace();
@@ -347,6 +334,7 @@ public class MockTest extends BaseTest {
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy, Mockito.times(3)).generateResponse();
 			verify(tvInterfaceServiceSpy, Mockito.times(3)).invokeAprovTvpagada(any(Comando.class));
+			verify(transactionResponseService).saveHeader(any(TransactionHeaderResponse.class));
 
 			Assert.assertEquals("Device: serie-123 (I: 600) Error de ejecucion", emsResponse.getBodyResponse()
 					.getResponseMessage());
@@ -376,7 +364,7 @@ public class MockTest extends BaseTest {
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy, Mockito.times(3)).generateResponse();
 			verify(tvInterfaceServiceSpy, Mockito.times(3)).invokeAprovTvpagada(any(Comando.class));
-			verify(transactionResponseService).store(any(TransactionSpResponse.class));
+			verify(transactionResponseService).saveHeader(any(TransactionHeaderResponse.class));
 
 			Assert.assertEquals(0, emsResponse.getBodyResponse().getResponseCode());
 			Assert.assertTrue("El mensaje de error debe estar vacio", emsResponse.getBodyResponse()

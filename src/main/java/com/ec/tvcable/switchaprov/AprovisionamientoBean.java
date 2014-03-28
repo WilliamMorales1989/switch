@@ -13,7 +13,7 @@ import javax.xml.bind.Marshaller;
 import org.switchyard.component.bean.Reference;
 import org.switchyard.component.bean.Service;
 
-import com.ec.tvcable.switchaprov.jpa.TransactionSpResponse;
+import com.ec.tvcable.switchaprov.jpa.TransactionHeaderResponse;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento;
 import com.ec.tvcable.switchaprov.service.aprov.AprovisionamientoResponse;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type;
@@ -25,12 +25,6 @@ import com.ec.tvcable.switchaprov.service.aprov.Interface;
 @Service(Aprovisionamiento.class)
 public class AprovisionamientoBean implements Aprovisionamiento {
 
-	private static final int FAIL_DEVICE_CODE = 1;
-
-	private static int SUCCESS_MEDIATOR_CODE = 1;
-
-	private static int FAIL_PROCESS_CODE = 1;
-
 	@Inject
 	@Reference
 	private TvInterfaceService tvInterfaceService;
@@ -39,15 +33,11 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 	@Reference
 	private IntrawayInterfaceService interfaz600;
 
-	@Inject
-	@Reference
-	private InterfazResolver interfazResolver;
-
 	@Reference
 	@Inject
 	private TransactionSpResponseService transactionResponseService;
 
-	private Aprovisionamiento_Type aprovisionamientoType;
+	private Aprovisionamiento_Type aprovisionamientoRequest;
 
 	private AprovisionamientoResponse response;
 
@@ -56,39 +46,42 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 	@Override
 	public AprovisionamientoResponse Aprovisionamiento(Aprovisionamiento_Type parameters) {
 
-		this.aprovisionamientoType = parameters;
+		this.aprovisionamientoRequest = parameters;
 
 		response = new AprovisionamientoResponse();
-
+		
 		processDevices();
 
-		response.setBodyResponse(buildBodyResponse());
+		saveResponse();
 
-		saveDbResponse(parameters);
+		response.setBodyResponse(buildBodyResponse());
 
 		return response;
 
 	}
 
-	private void saveDbResponse(Aprovisionamiento_Type parameters) {
-		TransactionSpResponse transactionResponse = new TransactionSpResponse();
-		transactionResponse.setXMLResponse(aprovisionamientoResponseToXMLString());
-		transactionResponse.setRequestDate(new Date());
-		transactionResponse.setProcessId(Integer.parseInt(parameters.getBodyRequest().getProcessId()));
-		transactionResponseService.store(transactionResponse);
+	private void saveResponse() {
+		TransactionHeaderResponse headerResponse = new TransactionHeaderResponse();
+		headerResponse.setProcessId(Integer.parseInt(aprovisionamientoRequest.getBodyRequest().getProcessId()));
+		headerResponse.setRequestDate(new Date());
+		headerResponse.setXMLRequest(aprovisionamientoResponseToXMLString());
+		
+		headerResponse.addDeviceResponses(deviceResponses);
+
+		transactionResponseService.saveHeader(headerResponse);
 	}
 
 	private BodyResponse buildBodyResponse() {
 		BodyResponse bodyResponse = new BodyResponse();
 
-		bodyResponse.setProcessId(Integer.parseInt(aprovisionamientoType.getBodyRequest().getProcessId()));
+		bodyResponse.setProcessId(Integer.parseInt(aprovisionamientoRequest.getBodyRequest().getProcessId()));
 
 		StringBuilder sb = new StringBuilder();
 		for (DeviceResponse dr : deviceResponses) {
 			bodyResponse.getDevices().add(dr);
 			if (errorInDeviceResponse(dr)) {
-				bodyResponse.setResponseCode(FAIL_PROCESS_CODE);
-				
+				bodyResponse.setResponseCode(Constants.PROCESS_FAIL_CODE);
+
 				sb.append(String.format("Device: %s %s", dr.getSerialNumber(), dr.getErrorMessage()));
 				sb.append(buildInterfaceDetail(dr));
 				sb.append(" | ");
@@ -109,11 +102,11 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 	}
 
 	private boolean errorInInterfaceProcess(Interface inter) {
-		return inter.getErrorCode() != SUCCESS_MEDIATOR_CODE;
+		return inter.getErrorCode() != Constants.SUCCESS_MEDIATOR_CODE;
 	}
 
 	private boolean errorInDeviceResponse(DeviceResponse dr) {
-		return dr.getErrorCode() == FAIL_DEVICE_CODE;
+		return dr.getErrorCode() == Constants.DEVICE_FAIL_CODE || dr.getErrorCode() == Constants.DEVICE_DATA_FAIL_CODE;
 	}
 
 	private String removeLastPipeFrom(StringBuilder sb) {
@@ -127,11 +120,11 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 
 		deviceResponses = new ArrayList<DeviceResponse>();
 
-		for (Device device : aprovisionamientoType.getBodyRequest().getDevice()) {
+		for (Device device : aprovisionamientoRequest.getBodyRequest().getDevice()) {
 
-			DeviceProcessor deviceProcessor = new DeviceProcessor(tvInterfaceService, interfazResolver);
+			DeviceProcessor deviceProcessor = new DeviceProcessor(tvInterfaceService);
 
-			deviceResponses.add(deviceProcessor.processDevice(device, aprovisionamientoType));
+			deviceResponses.add(deviceProcessor.processDevice(device, aprovisionamientoRequest));
 
 		}
 

@@ -3,7 +3,7 @@
  */
 package com.ec.tvcable.switchaprov;
 
-import com.ec.tvcable.switchaprov.jpa.TransactionSpResponse;
+import com.ec.tvcable.switchaprov.jpa.TransactionHeaderResponse;
 
 /**
  * @author pablo
@@ -11,6 +11,6 @@ import com.ec.tvcable.switchaprov.jpa.TransactionSpResponse;
  */
 public interface TransactionSpResponseService {
 
-	void store(TransactionSpResponse transactionResponse);
+	void saveHeader(TransactionHeaderResponse transactionHeaderResponse);
 
 }

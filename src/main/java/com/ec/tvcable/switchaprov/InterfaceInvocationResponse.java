@@ -50,4 +50,8 @@ public class InterfaceInvocationResponse {
 		return interfaz == null ? 0 : Integer.parseInt(interfaz);
 	}
 
+	public boolean getFailedExecution() {
+		return getCodError() != Constants.SUCCESS_MEDIATOR_CODE;
+	}
+
 }

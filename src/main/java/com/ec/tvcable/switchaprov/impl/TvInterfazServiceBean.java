@@ -17,7 +17,10 @@ import com.ec.tvcable.switchaprov.AprovisionamientoInterfaces;
 import com.ec.tvcable.switchaprov.DatosTvPagada;
 import com.ec.tvcable.switchaprov.DeviceProcess;
 import com.ec.tvcable.switchaprov.InterfaceInvocationResponse;
+import com.ec.tvcable.switchaprov.InterfazResolver;
+import com.ec.tvcable.switchaprov.Operation;
 import com.ec.tvcable.switchaprov.TvInterfaceService;
+import com.ec.tvcable.switchaprov.exception.AprovisionamientoException;
 import com.ec.tvcable.switchaprov.exception.ConversionException;
 import com.ec.tvcable.switchaprov.exception.DataQueryException;
 import com.ec.tvcable.switchaprov.jpa.InterfazAprovisionamiento;
@@ -43,24 +46,33 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 	@Inject
 	private DatosTvPagada datosTvPagada;
 
+	@Reference
+	@Inject
+	private InterfazResolver interfazResolver;
+	
 	private static final Logger logger = Logger.getLogger(TvInterfazServiceBean.class);
 
 	private Respuesta respuesta;
 	private String actualInterface;
 
 	@Override
-	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoInterfaces) {
+	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoInterfaces)
+			throws DataQueryException {
+
 		List<InterfaceInvocationResponse> responses = new ArrayList<InterfaceInvocationResponse>();
 
+		Operation operation = new Operation(comandoInterfaces.getDevice().getSystem(), comandoInterfaces.getDevice().getActivityType());
+		
 		actualInterface = null;
 		try {
-
 			Comando comando = createComando(new DeviceProcess(comandoInterfaces.getDevice().getDeviceId(),
 					comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId()));
 
+			List<InterfazAprovisionamiento> interfaces = interfazResolver.resolveInterfaces(operation);
+
 			assignMessageAttributes(comandoInterfaces.getDevice(), comando.getDetalle().getTVpagada());
 
-			for (InterfazAprovisionamiento interf : comandoInterfaces.getInterfaces()) {
+			for (InterfazAprovisionamiento interf : interfaces) {
 				actualInterface = interf.getInterfaceCode();
 				comando.getCabecera().setInterface(Integer.parseInt(actualInterface));
 				comando.getDetalle().getTVpagada().setAccion(interf.getAccion());
@@ -68,7 +80,7 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 				responses.add(generateResponse());
 			}
 
-		} catch (Exception e) {
+		} catch (ConversionException | AprovisionamientoException e) {
 			logger.error("Problemas al invocar interfaces: ", e);
 			buildFailedResponse(e);
 			responses.add(generateResponse());
@@ -117,13 +129,10 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 		return iir;
 	}
 
-	public Comando createComando(DeviceProcess deviceProcess) throws ConversionException {
+	private Comando createComando(DeviceProcess deviceProcess) throws ConversionException, DataQueryException {
 		AprovisionamientoConverter converter;
-		try {
-			converter = new AprovisionamientoConverter(datosTvPagada.findByDevice(deviceProcess));
-		} catch (DataQueryException e) {
-			throw new ConversionException("Error al consultar datos para transaccion. ", e);
-		}
+		System.out.println("busca por disp: " + deviceProcess.getDeviceId());
+		converter = new AprovisionamientoConverter(datosTvPagada.findByDevice(deviceProcess));
 		return converter.toComandoTv();
 	}
 

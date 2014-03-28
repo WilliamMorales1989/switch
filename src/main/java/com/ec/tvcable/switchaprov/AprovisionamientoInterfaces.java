@@ -3,9 +3,6 @@
  */
 package com.ec.tvcable.switchaprov;
 
-import java.util.List;
-
-import com.ec.tvcable.switchaprov.jpa.InterfazAprovisionamiento;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type;
 import com.ec.tvcable.switchaprov.service.aprov.Device;
 
@@ -15,17 +12,14 @@ import com.ec.tvcable.switchaprov.service.aprov.Device;
  */
 public class AprovisionamientoInterfaces {
 	
-	public AprovisionamientoInterfaces(Aprovisionamiento_Type aprovisionamientoType, List<InterfazAprovisionamiento> interfaces, Device device) {
+	public AprovisionamientoInterfaces(Aprovisionamiento_Type aprovisionamientoType, Device device) {
 		super();
 		this.aprovisionamientoType = aprovisionamientoType;
-		this.interfaces = interfaces;
 		this.device = device;
 	}
 
 	private Aprovisionamiento_Type aprovisionamientoType;
 	
-	private List<InterfazAprovisionamiento> interfaces;
-
 	private Device device;
 
 	public Aprovisionamiento_Type getAprovisionamientoType() {
@@ -34,14 +28,6 @@ public class AprovisionamientoInterfaces {
 
 	public void setAprovisionamientoType(Aprovisionamiento_Type aprovisionamientoType) {
 		this.aprovisionamientoType = aprovisionamientoType;
-	}
-
-	public List<InterfazAprovisionamiento> getInterfaces() {
-		return interfaces;
-	}
-
-	public void setInterfaces(List<InterfazAprovisionamiento> interfaces) {
-		this.interfaces = interfaces;
 	}
 
 	public Device getDevice() {

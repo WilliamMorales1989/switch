@@ -3,13 +3,12 @@
  */
 package com.ec.tvcable.switchaprov.jpa;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,14 +25,21 @@ public class TransactionSpResponse {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTION_SP_RESPONSE_SEQ")
 	private Long id;
 
+	@Column(name = "header_id")
+	private Integer headerId;
+
 	@Column(name = "process_id")
 	private Integer processId;
 
-	@Column(name = "request_date")
-	private Date requestDate;
+	@Column(name = "device_id")
+	private Integer deviceId;
 
 	@Column(name = "xml_response")
+	@Lob
 	private String XMLResponse;
+
+	@Column(name = "error_code")
+	private int errorCode = 0;
 
 	public String getXMLResponse() {
 		return XMLResponse;
@@ -59,12 +65,28 @@ public class TransactionSpResponse {
 		this.processId = requestId;
 	}
 
-	public Date getRequestDate() {
-		return requestDate;
+	public Integer getDeviceId() {
+		return deviceId;
 	}
 
-	public void setRequestDate(Date requestDate) {
-		this.requestDate = requestDate;
+	public void setDeviceId(Integer deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	public int getErrorCode() {
+		return errorCode;
+	}
+
+	public Integer getHeaderId() {
+		return headerId;
+	}
+
+	public void setHeaderId(Integer headerId) {
+		this.headerId = headerId;
 	}
 
 }

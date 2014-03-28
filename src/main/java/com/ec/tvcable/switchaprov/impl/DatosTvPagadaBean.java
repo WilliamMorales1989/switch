@@ -41,6 +41,7 @@ public class DatosTvPagadaBean implements DatosTvPagada {
 			query.setParameter("processId", Long.parseLong(deviceProcess.getProcessId()));
 			return (TransactionSpTvPagada) query.getSingleResult();
 		} catch (NoResultException e) {
+			System.out.println("no lo logra");
 			throw new DataQueryException(String.format("No existen datos para el device %s process %s ",
 					deviceProcess.getDeviceId(), deviceProcess.getProcessId()), e);
 		} catch (NonUniqueResultException e) {

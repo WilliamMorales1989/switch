@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.switchyard.component.bean.Service;
 
-import com.ec.tvcable.switchaprov.jpa.TransactionSpResponse;
+import com.ec.tvcable.switchaprov.jpa.TransactionHeaderResponse;
 
 /**
  * @author pablo
@@ -20,16 +20,9 @@ public class TransactionResponseServiceBean implements TransactionSpResponseServ
 	@PersistenceContext
 	private EntityManager em;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.ec.tvcable.switchaprov.TransactionSpResponseService#store(com.ec.
-	 * tvcable.switchaprov.jpa.TransactionSpResponse)
-	 */
 	@Override
-	public void store(TransactionSpResponse transactionResponse) {
-		em.persist(transactionResponse);
+	public void saveHeader(TransactionHeaderResponse transactionHeaderResponse) {
+		em.persist(transactionHeaderResponse);
 	}
 
 }

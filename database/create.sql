@@ -49,17 +49,32 @@ Action number
 
 alter table TRANSACTION_SP add constraint PK_TRANSACTION_SP primary key(Id,DeviceId);
 
+create table TRANSACTION_HEADER_RESPONSE(
+Id number primary key,
+process_id number,
+request_date date,
+error_code number,
+xml_request clob
+);
+
 create table TRANSACTION_SP_RESPONSE(
 Id number,
 process_id number,
-request_date date,
-xml_response VARCHAR2(2000)
+device_id number,
+header_id number,
+error_code number,
+xml_response clob
 );
 
 alter table TRANSACTION_SP_RESPONSE add constraint FK_TRANSACTION_SP_RESPONSE 
-foreign key (device_id,request_id) references TRANSACTION_SP (DeviceId,Id);
+foreign key (device_id,process_id) references TRANSACTION_SP (DeviceId,Id);
+
+alter table TRANSACTION_SP_RESPONSE add constraint FK_TRANSACTION_HEADER_RESPONSE 
+foreign key (header_id) references TRANSACTION_HEADER_RESPONSE (Id);
 
 create sequence TRANSACTION_SP_RESPONSE_SEQ start with 1 increment by 1 nocache nocycle;
+
+create sequence TRANSACTION_HEAD_RESPONSE_SEQ start with 1 increment by 1 nocache nocycle;
 
 CREATE TABLE INTERFAZ_APROVISIONAMIENTO (
 		IA_ID NUMBER(19 , 0) NOT NULL,
