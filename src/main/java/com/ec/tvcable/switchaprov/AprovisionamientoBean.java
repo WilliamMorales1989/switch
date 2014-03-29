@@ -1,14 +1,10 @@
 package com.ec.tvcable.switchaprov;
 
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import org.switchyard.component.bean.Reference;
 import org.switchyard.component.bean.Service;
@@ -39,8 +35,6 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 
 	private Aprovisionamiento_Type aprovisionamientoRequest;
 
-	private AprovisionamientoResponse response;
-
 	private List<DeviceResponse> deviceResponses;
 
 	@Override
@@ -48,24 +42,29 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 
 		this.aprovisionamientoRequest = parameters;
 
-		response = new AprovisionamientoResponse();
+		Date initialDate = new Date();
 		
 		processDevices();
 
-		saveResponse();
+		AprovisionamientoResponse response = new AprovisionamientoResponse();
+		
+		BodyResponse bodyResponse = buildBodyResponse();
+		
+		response.setBodyResponse(bodyResponse);
 
-		response.setBodyResponse(buildBodyResponse());
+		saveResponse(bodyResponse, initialDate);
 
 		return response;
 
 	}
 
-	private void saveResponse() {
+	private void saveResponse(BodyResponse bodyResponse, Date initialDate) {
 		TransactionHeaderResponse headerResponse = new TransactionHeaderResponse();
-		headerResponse.setProcessId(Integer.parseInt(aprovisionamientoRequest.getBodyRequest().getProcessId()));
-		headerResponse.setRequestDate(new Date());
-		headerResponse.setXMLRequest(aprovisionamientoResponseToXMLString());
-		
+		headerResponse.setProcessId(bodyResponse.getProcessId());
+		headerResponse.setResponseDate(new Date());
+		headerResponse.setRequestDate(initialDate);
+		headerResponse.setXMLRequest(JaxbConverter.objectToXMLString((aprovisionamientoRequest)));
+		headerResponse.setResponseCode(bodyResponse.getResponseCode());
 		headerResponse.addDeviceResponses(deviceResponses);
 
 		transactionResponseService.saveHeader(headerResponse);
@@ -128,19 +127,6 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 
 		}
 
-	}
-
-	private String aprovisionamientoResponseToXMLString() {
-		try {
-			JAXBContext context = JAXBContext.newInstance(AprovisionamientoResponse.class);
-			Marshaller marshaller = context.createMarshaller();
-			StringWriter sw = new StringWriter();
-			marshaller.marshal(response, sw);
-			return sw.toString();
-		} catch (JAXBException e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 }

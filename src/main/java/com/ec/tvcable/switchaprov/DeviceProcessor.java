@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.ec.tvcable.switchaprov.exception.AprovisionamientoException;
 import com.ec.tvcable.switchaprov.exception.DataQueryException;
+import com.ec.tvcable.switchaprov.exception.ExceptionProcessor;
 import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type;
 import com.ec.tvcable.switchaprov.service.aprov.Device;
 import com.ec.tvcable.switchaprov.service.aprov.DeviceResponse;
@@ -37,10 +38,8 @@ public class DeviceProcessor {
 			return generateDeviceResponse(device, responses);
 
 		} catch (DataQueryException e) {
-			System.out.println("se captura");
 			return generateDeviceExceptionResponse(e, device, Constants.DEVICE_DATA_FAIL_CODE);
 		} catch (Exception e) {
-			System.out.println("general");
 			return generateDeviceExceptionResponse(e, device, Constants.DEVICE_FAIL_CODE);
 		}
 	}
@@ -68,7 +67,7 @@ public class DeviceProcessor {
 			inter.setErrorMessage(iir.getDetailMessage());
 			inter.setInterfazId(iir.getInterfazInt());
 			dr.getInterfaces().add(inter);
-			if (iir.getFailedExecution()) {
+			if (iir.isFailedExecution()) {
 				dr.setErrorCode(Constants.DEVICE_FAIL_CODE);
 			}
 		}
@@ -81,7 +80,8 @@ public class DeviceProcessor {
 		dr.setDeviceId(Integer.parseInt(device.getDeviceId()));
 		dr.setSerialNumber(device.getSerialNumber());
 		dr.setErrorCode(deviceFaildCode);
-		dr.setErrorMessage(e.getMessage());
+		ExceptionProcessor ep=new ExceptionProcessor(e);
+		dr.setErrorMessage(ep.buildDetailMessage());
 		return dr;
 	}
 

@@ -18,6 +18,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.ec.tvcable.switchaprov.Constants;
 import com.ec.tvcable.switchaprov.JaxbConverter;
@@ -28,45 +30,53 @@ import com.ec.tvcable.switchaprov.service.aprov.DeviceResponse;
  * 
  */
 @Entity
-@Table(name = "transaction_header_response")
+@Table(name = "TRANSACTION_SP_RESPONSE_HEADER")
 public class TransactionHeaderResponse {
 
 	@Id
-	@SequenceGenerator(name = "TRANSACTION_HEAD_RESPONSE_SEQ", sequenceName = "TRANSACTION_HEAD_RESPONSE_SEQ", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTION_HEAD_RESPONSE_SEQ")
-	private Long id;
+	@SequenceGenerator(name = "TRANSACTION_RESPONSE_H_SEQ", sequenceName = "TRANSACTION_RESPONSE_H_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTION_RESPONSE_H_SEQ")
+	private Integer id;
 
 	@Column(name="process_id")
 	private Integer processId;
-
-	@Column(name = "request_date")
-	private Date requestDate;
-
+	
 	@Column(name = "xml_request")
 	@Lob
 	private String XMLRequest;
+	
+	@Column(name = "request_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date requestDate;
+	
+	@Column(name = "response_code")
+	private int responseCode = 0;
 
-	@Column(name = "error_code")
-	private int errorCode = 0;
-
+	@Column(name = "response_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date responseDate;
+	
 	@OneToMany(cascade = CascadeType.PERSIST)
 	@JoinColumn(referencedColumnName = "id", name = "header_Id")
 	private List<TransactionSpResponse> transactioSpResponses;
 
-	public Long getId() {
-		return id;
+	private void addDeviceResponseIfNotDataError(DeviceResponse deviceResponse) {
+		if (deviceResponse.getErrorCode() != Constants.DEVICE_DATA_FAIL_CODE) {
+			TransactionSpResponse transactionResponse = new TransactionSpResponse();
+			transactionResponse.setResponseCode(deviceResponse.getErrorCode());
+			transactionResponse.setXMLResponse(JaxbConverter.objectToXMLString(deviceResponse));
+			transactionResponse.setDeviceId(deviceResponse.getDeviceId());
+			transactionResponse
+					.setProcessId(this.id);
+			transactioSpResponses.add(transactionResponse);
+		}
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Integer getProcessId() {
-		return processId;
-	}
-
-	public void setProcessId(Integer requestId) {
-		this.processId = requestId;
+	public void addDeviceResponses(List<DeviceResponse> deviceResponses) {
+		this.transactioSpResponses = new ArrayList<TransactionSpResponse>();
+		for (DeviceResponse deviceResponse : deviceResponses) {
+			addDeviceResponseIfNotDataError(deviceResponse);
+		}
 	}
 
 	public Date getRequestDate() {
@@ -85,12 +95,12 @@ public class TransactionHeaderResponse {
 		XMLRequest = xMLRequest;
 	}
 
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
+	public void setResponseCode(int errorCode) {
+		this.responseCode = errorCode;
 	}
 
-	public int getErrorCode() {
-		return errorCode;
+	public int getResponseCode() {
+		return responseCode;
 	}
 
 	public List<TransactionSpResponse> getTransactioSpResponses() {
@@ -101,26 +111,28 @@ public class TransactionHeaderResponse {
 		this.transactioSpResponses = deviceResponses;
 	}
 
-	private void addDeviceResponseIfNotDataError(DeviceResponse deviceResponse) {
-		System.out.println(deviceResponse.getErrorCode() + " - " + Constants.DEVICE_DATA_FAIL_CODE);
-		this.transactioSpResponses = new ArrayList<TransactionSpResponse>();
-		if (deviceResponse.getErrorCode() != Constants.DEVICE_DATA_FAIL_CODE) {
-			System.out.println("son diferentes");
-			TransactionSpResponse transactionResponse = new TransactionSpResponse();
-			transactionResponse.setErrorCode(deviceResponse.getErrorCode());
-			transactionResponse.setXMLResponse(JaxbConverter.deviceResponseToXMLString(deviceResponse));
-			transactionResponse.setDeviceId(deviceResponse.getDeviceId());
-			transactionResponse
-					.setProcessId(this.processId);
-			transactioSpResponses.add(transactionResponse);
-		}
+	public Integer getId() {
+		return id;
 	}
 
-	public void addDeviceResponses(List<DeviceResponse> deviceResponses) {
-		System.out.println("devices: " + deviceResponses.size());
-		for (DeviceResponse deviceResponse : deviceResponses) {
-			addDeviceResponseIfNotDataError(deviceResponse);
-		}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getResponseDate() {
+		return responseDate;
+	}
+
+	public void setResponseDate(Date responseDate) {
+		this.responseDate = responseDate;
+	}
+
+	public Integer getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(Integer processId) {
+		this.processId = processId;
 	}
 
 }

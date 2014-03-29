@@ -38,8 +38,8 @@ public class TransactionSpResponse {
 	@Lob
 	private String XMLResponse;
 
-	@Column(name = "error_code")
-	private int errorCode = 0;
+	@Column(name = "response_code")
+	private int responseCode = 0;
 
 	public String getXMLResponse() {
 		return XMLResponse;
@@ -73,12 +73,12 @@ public class TransactionSpResponse {
 		this.deviceId = deviceId;
 	}
 
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
+	public void setResponseCode(int errorCode) {
+		this.responseCode = errorCode;
 	}
 
-	public int getErrorCode() {
-		return errorCode;
+	public int getResponseCode() {
+		return responseCode;
 	}
 
 	public Integer getHeaderId() {

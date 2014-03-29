@@ -86,8 +86,8 @@ public class MockTest extends BaseTest {
 
 		AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
 
-		Assert.assertEquals("Device: serialnumber No existe implementacion para el SYSTEM: tvpagada", response
-				.getBodyResponse().getResponseMessage());
+		Assert.assertTrue(response.getBodyResponse().getResponseMessage()
+				.contains("No existe implementacion para el SYSTEM: tvpagada"));
 
 	}
 
@@ -157,7 +157,7 @@ public class MockTest extends BaseTest {
 			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
 
 			verify(transactionResponseService).saveHeader(any(TransactionHeaderResponse.class));
-			
+
 			Assert.assertEquals("Device: serial-123 No existen interfaces definidas para system: ? activityType ?",
 					response.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {
@@ -183,9 +183,8 @@ public class MockTest extends BaseTest {
 
 			AprovisionamientoResponse response = aprovisionamiento.Aprovisionamiento(requestMessage);
 
-			Assert.assertEquals(
-					"Device: serial-123 java.net.NoRouteToHostException: Servicio no disponible",
-					response.getBodyResponse().getResponseMessage());
+			Assert.assertTrue(response.getBodyResponse().getResponseMessage()
+					.contains("java.net.NoRouteToHostException: Servicio no disponible"));
 		} catch (DataQueryException e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -211,8 +210,9 @@ public class MockTest extends BaseTest {
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy).generateResponse();
 
-			Assert.assertEquals("Device: serial-123 Error de conversion de datos para el campo [Negocio]For input string: \"\"", response
-					.getBodyResponse().getResponseMessage());
+			Assert.assertEquals(
+					"Device: serial-123 Error de conversion de datos para el campo [Negocio]For input string: \"\"",
+					response.getBodyResponse().getResponseMessage());
 		} catch (DataQueryException e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -283,6 +283,34 @@ public class MockTest extends BaseTest {
 	}
 
 	@Test
+	public void errorNoHayRegistroDeDatosPrimerDevice() {
+		try {
+			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber_1", "TV");
+
+			when(datosTvPagada.findByDevice(any(DeviceProcess.class))).thenThrow(
+					new DataQueryException("No existen datos para el device 1 process 1"));
+
+			when(wsdlTvPagada.AprovTvPagada(any(Comando.class))).thenReturn(createTvPagadaSuccessResponse());
+			when(resolver.resolveInterfaces(any(Operation.class))).thenReturn(buildInterfaceStub("702"));
+
+			AprovisionamientoResponse emsResponse = aprovisionamiento.Aprovisionamiento(requestMessage);
+
+			verify(tvInterfaceServiceSpy, times(1)).invokeInterfaces(any(AprovisionamientoInterfaces.class));
+			verify(datosTvPagada, times(1)).findByDevice(any(DeviceProcess.class));
+			verify(transactionResponseService, times(1)).saveHeader(any(TransactionHeaderResponse.class));
+
+			Assert.assertTrue(emsResponse.getBodyResponse().getResponseMessage()
+					.contains("No existen datos para el device 1 process 1"));
+		} catch (DataQueryException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (AprovisionamientoException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+
+	@Test
 	public void errorSiNoHayRegistroDeDatosEnSegundoDevice() {
 		try {
 			addDeviceToRequest(requestMessage, "1", "activity", "serialnumber_1", "TV");
@@ -303,10 +331,9 @@ public class MockTest extends BaseTest {
 			verify(datosTvPagada, times(2)).findByDevice(any(DeviceProcess.class));
 			verify(tvInterfaceServiceSpy, times(1)).generateResponse();
 			verify(transactionResponseService, times(1)).saveHeader(any(TransactionHeaderResponse.class));
-			
-			Assert.assertEquals(
-					"Device: serialnumber_2 No existen datos para el device 1 process 1",
-					emsResponse.getBodyResponse().getResponseMessage());
+
+			Assert.assertTrue(emsResponse.getBodyResponse().getResponseMessage()
+					.contains("No existen datos para el device 1 process 1"));
 		} catch (DataQueryException e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -362,8 +389,8 @@ public class MockTest extends BaseTest {
 			verify(resolver).resolveInterfaces(any(Operation.class));
 			verify(tvInterfaceServiceSpy).invokeInterfaces(any(AprovisionamientoInterfaces.class));
 			verify(datosTvPagada).findByDevice(any(DeviceProcess.class));
-			verify(tvInterfaceServiceSpy, Mockito.times(3)).generateResponse();
-			verify(tvInterfaceServiceSpy, Mockito.times(3)).invokeAprovTvpagada(any(Comando.class));
+			verify(tvInterfaceServiceSpy, times(3)).generateResponse();
+			verify(tvInterfaceServiceSpy, times(3)).invokeAprovTvpagada(any(Comando.class));
 			verify(transactionResponseService).saveHeader(any(TransactionHeaderResponse.class));
 
 			Assert.assertEquals(0, emsResponse.getBodyResponse().getResponseCode());

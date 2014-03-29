@@ -131,7 +131,6 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 
 	private Comando createComando(DeviceProcess deviceProcess) throws ConversionException, DataQueryException {
 		AprovisionamientoConverter converter;
-		System.out.println("busca por disp: " + deviceProcess.getDeviceId());
 		converter = new AprovisionamientoConverter(datosTvPagada.findByDevice(deviceProcess));
 		return converter.toComandoTv();
 	}

@@ -1,3 +1,10 @@
+drop table INTERFAZ_APROVISIONAMIENTO;
+drop table TRANSACTION_SP_RESPONSE;
+drop table TRANSACTION_SP_RESPONSE_HEADER;
+drop table TRANSACTION_SP;
+
+drop sequence TRANSACTION_SP_RESPONSE_SEQ;
+
 create table TRANSACTION_SP(
 Id number,
 DeviceId number not null,
@@ -49,11 +56,17 @@ Action number
 
 alter table TRANSACTION_SP add constraint PK_TRANSACTION_SP primary key(Id,DeviceId);
 
-create table TRANSACTION_HEADER_RESPONSE(
+ALTER TABLE TRANSACTION_SP
+	ADD ( CONSTRAINT uk_transaction_sp
+	UNIQUE (DEVICEID, PROCESSID)
+	 INITIALLY  );
+
+create table TRANSACTION_SP_RESPONSE_HEADER(
 Id number primary key,
-process_id number,
-request_date date,
-error_code number,
+process_Id number,
+request_date timestamp,
+response_date timestamp,
+response_code number,
 xml_request clob
 );
 
@@ -62,19 +75,19 @@ Id number,
 process_id number,
 device_id number,
 header_id number,
-error_code number,
+response_code number,
 xml_response clob
 );
 
 alter table TRANSACTION_SP_RESPONSE add constraint FK_TRANSACTION_SP_RESPONSE 
-foreign key (device_id,process_id) references TRANSACTION_SP (DeviceId,Id);
+foreign key (device_id,process_id) references TRANSACTION_SP (DeviceId,ProcessId);
 
 alter table TRANSACTION_SP_RESPONSE add constraint FK_TRANSACTION_HEADER_RESPONSE 
-foreign key (header_id) references TRANSACTION_HEADER_RESPONSE (Id);
+foreign key (header_id) references TRANSACTION_SP_RESPONSE_HEADER (Id);
 
 create sequence TRANSACTION_SP_RESPONSE_SEQ start with 1 increment by 1 nocache nocycle;
 
-create sequence TRANSACTION_HEAD_RESPONSE_SEQ start with 1 increment by 1 nocache nocycle;
+create sequence TRANSACTION_RESPONSE_H_SEQ start with 1 increment by 1 nocache nocycle;
 
 CREATE TABLE INTERFAZ_APROVISIONAMIENTO (
 		IA_ID NUMBER(19 , 0) NOT NULL,

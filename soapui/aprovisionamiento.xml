@@ -639,9 +639,14 @@
                <serialNumber>ser-222</serialNumber>
                <macAddress1>123</macAddress1>
                <macAddress2>?</macAddress2>
-               <activityType>ACTIVATE</activityType>
+               <activityType>CANCEL</activityType>
                <system>TV</system>
                <Controller>1</Controller>
+               <!--Zero or more repetitions:-->
+               <Attributes>
+                  <Name>?</Name>
+                  <Values>?</Values>
+               </Attributes>
             </Device>
          </BodyRequest>
       </apr:Aprovisionamiento>
@@ -692,8 +697,8 @@
             <wsd:Secuencia>1</wsd:Secuencia>
          </wsd:Cabecera>
          <wsd:Mensaje>
-            <wsd:CodError>0</wsd:CodError>
-            <wsd:DetMensaje></wsd:DetMensaje>
+            <wsd:CodError>1</wsd:CodError>
+            <wsd:DetMensaje>Exitosa</wsd:DetMensaje>
             <wsd:DatosExtrasTVP>
                <wsd:IdServ>1</wsd:IdServ>
                <wsd:NumPaq wsd:CantP="1">
