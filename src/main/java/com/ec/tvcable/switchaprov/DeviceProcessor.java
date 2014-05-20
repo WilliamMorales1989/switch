@@ -20,10 +20,22 @@ import com.ec.tvcable.switchaprov.service.aprov.Interface;
 public class DeviceProcessor {
 
 	private TvInterfaceService tvInterfaceService;
+	private IntrawayInterfaceService intrawayInterfaceService;
 
 	public DeviceProcessor(TvInterfaceService tvInterfaceService) {
 		super();
 		this.tvInterfaceService = tvInterfaceService;
+	}
+	
+	public DeviceProcessor(IntrawayInterfaceService intrawayInterfaceService) {
+		super();
+		this.intrawayInterfaceService = intrawayInterfaceService;
+	}
+	
+	public DeviceProcessor(TvInterfaceService tvInterfaceService, IntrawayInterfaceService intrawayInterfaceService) {
+		super();
+		this.tvInterfaceService = tvInterfaceService;
+		this.intrawayInterfaceService = intrawayInterfaceService;
 	}
 
 	public DeviceResponse processDevice(Device device, Aprovisionamiento_Type aprovisionamientoType) {
@@ -48,8 +60,10 @@ public class DeviceProcessor {
 			throws AprovisionamientoException, DataQueryException {
 		switch (aprovisionamientoInterfaces.getDevice().getSystem()) {
 		case "INT":
-			return null;
+			System.out.println("INT");
+			return intrawayInterfaceService.invokeInterfaces(aprovisionamientoInterfaces);
 		case "TV":
+			System.out.println("TV");
 			return tvInterfaceService.invokeInterfaces(aprovisionamientoInterfaces);
 		default:
 			throw new AprovisionamientoException(String.format("No existe implementacion para el SYSTEM: %s",

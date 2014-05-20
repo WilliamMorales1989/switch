@@ -16,4 +16,6 @@ public interface IntrawayInterfaceService  {
 
 	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoEmsInterfaces);
 
+	InterfaceInvocationResponse generateResponseIntraway();
+
 }

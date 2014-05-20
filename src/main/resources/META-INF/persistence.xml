@@ -7,6 +7,7 @@
 	<persistence-unit name="switch-aprovisionamiento">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:jboss/datasources/oracle/TvcableDS</jta-data-source>
+		<class>com.ec.tvcable.switchaprov.jpa.TransactionSpIntraway</class>
       
 		<properties>
 			<property name="hibernate.show_sql" value="false" />

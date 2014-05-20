@@ -21,12 +21,11 @@ import com.ec.tvcable.switchaprov.exception.ConversionException;
  */
 @Entity
 @Table(name = "transaction_sp")
-@NamedQuery(name = "findByDeviceAndProcess", query = "select tvp from TransactionSpTvPagada tvp where tvp.deviceId = :deviceId and tvp.processId = :processId")
+@NamedQuery(name = "findByDeviceAndProcessTV", query = "select tvp from TransactionSpTvPagada tvp where tvp.deviceId = :deviceId and tvp.processId = :processId")
 public class TransactionSpTvPagada {
 
 	@Id
 	private Long id;
-
 	
 	@Column(name = "DEVICEID")
 	private Long deviceId;

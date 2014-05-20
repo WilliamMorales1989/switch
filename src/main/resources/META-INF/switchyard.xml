@@ -1,6 +1,29 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <sy:switchyard xmlns:bean="urn:switchyard-component-bean:config:1.1" xmlns:camel="urn:switchyard-component-camel:config:1.1" xmlns:file="urn:switchyard-component-camel-file:config:1.1" xmlns:jpa="urn:switchyard-component-camel-jpa:config:1.1" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:soap="urn:switchyard-component-soap:config:1.1" xmlns:sy="urn:switchyard-config:switchyard:1.1" xmlns:transform="urn:switchyard-config:transform:1.1" name="switch-aprovisionamiento" targetNamespace="urn:com.ec.tvcable.switchaprov:switch-aprovisionamiento:1.0">
   <sca:composite name="switch-aprovisionamiento" targetNamespace="urn:com.ec.tvcable.switchaprov:switch-aprovisionamiento:1.0">
+    <sca:service name="Aprovisionamiento" promote="AprovisionamientoBean/Aprovisionamiento">
+      <sca:interface.wsdl interface="wsdl/Aprovisionamiento.wsdl#wsdl.porttype(Aprovisionamiento)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/Aprovisionamiento.wsdl</soap:wsdl>
+        <soap:wsdlPort>AprovisionamientoSOAP</soap:wsdlPort>
+        <soap:contextPath>switch-aprovisionamiento</soap:contextPath>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:reference name="WsdlTvPagada" multiplicity="0..1" promote="TvInterfaceService/WsdlTvPagada">
+      <sca:interface.wsdl interface="wsdl/WsdlTvPagada.wsdl#wsdl.porttype(WsdlTvPagada)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/WsdlTvPagada.wsdl</soap:wsdl>
+        <soap:endpointAddress>http://${TVPAGADA_SERVER:localhost}:${TVPAGADA_PORT:8088}/${TVPAGADA_CONTEXT:mockWsdlTvPagadaHttpBinding}</soap:endpointAddress>
+      </soap:binding.soap>
+    </sca:reference>
+    <sca:reference name="WsdlIntraway" multiplicity="0..1" promote="IntrawayInterfaceService/WsdlIntraway">
+      <sca:interface.wsdl interface="wsdl/WsdlIntraway.wsdl#wsdl.porttype(WsdlIntraway)"/>
+      <soap:binding.soap name="soap1">
+        <soap:contextMapper soapHeadersType="VALUE"/>
+        <soap:wsdl>wsdl/WsdlIntraway.wsdl</soap:wsdl>
+        <soap:endpointAddress>http://${INTRAWAY_SERVER:192.168.21.205}:${INTRAWAY_PORT:80}/${INTRAWAY_CONTEXT:WsAprovisionamiento2}/services/WsdlIntraway</soap:endpointAddress>
+      </soap:binding.soap>
+    </sca:reference>
     <sca:component name="TvInterfaceService">
       <bean:implementation.bean requires="noManagedTransaction" class="com.ec.tvcable.switchaprov.impl.TvInterfazServiceBean"/>
       <sca:service name="TvInterfaceService">
@@ -12,6 +35,9 @@
       <sca:reference name="DatosTvPagada">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.DatosTvPagada"/>
       </sca:reference>
+      <sca:reference name="InterfazResolver">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.InterfazResolver"/>
+      </sca:reference>
     </sca:component>
     <sca:component name="IntrawayInterfaceService">
       <bean:implementation.bean class="com.ec.tvcable.switchaprov.impl.IntrawayInterfaceServiceBean"/>
@@ -20,6 +46,12 @@
       </sca:service>
       <sca:reference name="WsdlIntraway">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.service.intraway.WsdlIntraway"/>
+      </sca:reference>
+      <sca:reference name="DatosIntraway">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.DatosIntraway"/>
+      </sca:reference>
+      <sca:reference name="InterfazResolver">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.InterfazResolver"/>
       </sca:reference>
     </sca:component>
     <sca:component name="InterfazResolverBean">
@@ -31,42 +63,17 @@
         <sca:interface.java interface="com.ec.tvcable.switchaprov.InterfazAprovServicio"/>
       </sca:reference>
     </sca:component>
-    <sca:reference name="WsdlTvPagada" multiplicity="0..1" promote="TvInterfaceService/WsdlTvPagada">
-      <sca:interface.wsdl interface="wsdl/WsdlTvPagada.wsdl#wsdl.porttype(WsdlTvPagada)"/>
-      <soap:binding.soap name="soap1">
-        <soap:wsdl>wsdl/WsdlTvPagada.wsdl</soap:wsdl>
-        <soap:endpointAddress>http://${TVPAGADA_SERVER:localhost}:${TVPAGADA_PORT:8088}/${TVPAGADA_CONTEXT:mockWsdlTvPagadaHttpBinding}</soap:endpointAddress>
-      </soap:binding.soap>
-    </sca:reference>
     <sca:component name="InterfazAprovServicioBean">
       <bean:implementation.bean class="com.ec.tvcable.switchaprov.impl.InterfazAprovServicioBean"/>
       <sca:service name="InterfazAprovServicio">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.InterfazAprovServicio"/>
       </sca:service>
     </sca:component>
-    <sca:reference name="WsdlIntraway" multiplicity="0..1" promote="IntrawayInterfaceService/WsdlIntraway">
-      <sca:interface.wsdl interface="wsdl/WsdlIntraway.wsdl#wsdl.porttype(WsdlIntraway)"/>
-      <soap:binding.soap name="soap1">
-        <soap:wsdl>wsdl/WsdlIntraway.wsdl</soap:wsdl>
-        <soap:endpointAddress>http://pablo-a6200:8088/mockWsdlIntrawayHttpBinding</soap:endpointAddress>
-      </soap:binding.soap>
-    </sca:reference>
-    <sca:service name="Aprovisionamiento" promote="AprovisionamientoBean/Aprovisionamiento">
-      <sca:interface.wsdl interface="wsdl/Aprovisionamiento.wsdl#wsdl.porttype(Aprovisionamiento)"/>
-      <soap:binding.soap name="soap1">
-        <soap:wsdl>wsdl/Aprovisionamiento.wsdl</soap:wsdl>
-        <soap:wsdlPort>AprovisionamientoSOAP</soap:wsdlPort>
-        <soap:contextPath>switch-aprovisionamiento</soap:contextPath>
-      </soap:binding.soap>
-    </sca:service>
     <sca:component name="AprovisionamientoBean">
       <bean:implementation.bean requires="managedTransaction.Global" class="com.ec.tvcable.switchaprov.AprovisionamientoBean"/>
       <sca:service name="Aprovisionamiento">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento"/>
       </sca:service>
-      <sca:reference name="InterfazResolver">
-        <sca:interface.java interface="com.ec.tvcable.switchaprov.InterfazResolver"/>
-      </sca:reference>
       <sca:reference name="IntrawayInterfaceService">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.IntrawayInterfaceService"/>
       </sca:reference>
@@ -89,8 +96,16 @@
         <sca:interface.java interface="com.ec.tvcable.switchaprov.TransactionSpResponseService"/>
       </sca:service>
     </sca:component>
+    <sca:component name="DatosIntrawayBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.impl.DatosIntrawayBean"/>
+      <sca:service name="DatosIntraway">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.DatosIntraway"/>
+      </sca:service>
+    </sca:component>
   </sca:composite>
   <sy:transforms>
+    <transform:transform.java from="java:java.lang.String" to="{urn:com.ec.tvcable.switchaprov:switch-aprovisionamiento:1.0}saludarResponse" class="com.ec.tvcable.switchaprov.SaludarTransformer"/>
+    <transform:transform.java from="{urn:com.ec.tvcable.switchaprov:switch-aprovisionamiento:1.0}saludar" to="java:java.lang.String" class="com.ec.tvcable.switchaprov.SaludarTransformer"/>
     <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.service.tvpagada.Comando" to="{http://www.grupotvcable.com.ec/WsdlTvPagada/}ejecutaComando" contextPath="com.ec.tvcable.switchaprov.service.tvpagada"/>
     <transform:transform.jaxb from="{http://www.grupotvcable.com.ec/WsdlTvPagada/}consultaRespuesta" to="java:com.ec.tvcable.switchaprov.service.tvpagada.Respuesta" contextPath="com.ec.tvcable.switchaprov.service.tvpagada"/>
     <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.service.intraway.Comando" to="{http://www.grupotvcable.com.ec/WsdlIntraway/}ejecutaComando" contextPath="com.ec.tvcable.switchaprov.service.intraway"/>
@@ -98,4 +113,7 @@
     <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.service.aprov.AprovisionamientoResponse" to="{http://www.example.org/Aprovisionamiento/}AprovisionamientoResponse" contextPath="com.ec.tvcable.switchaprov.service.aprov"/>
     <transform:transform.jaxb from="{http://www.example.org/Aprovisionamiento/}Aprovisionamiento" to="java:com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type" contextPath="com.ec.tvcable.switchaprov.service.aprov"/>
   </sy:transforms>
+  <sy:domain>
+    <sy:properties/>
+  </sy:domain>
 </sy:switchyard>

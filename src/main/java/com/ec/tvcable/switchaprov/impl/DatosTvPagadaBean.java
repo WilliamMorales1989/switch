@@ -35,7 +35,7 @@ public class DatosTvPagadaBean implements DatosTvPagada {
 	 */
 	@Override
 	public TransactionSpTvPagada findByDevice(DeviceProcess deviceProcess) throws DataQueryException {
-		Query query = em.createNamedQuery("findByDeviceAndProcess");
+		Query query = em.createNamedQuery("findByDeviceAndProcessTV");
 		try {
 			query.setParameter("deviceId", Long.parseLong(deviceProcess.getDeviceId()));
 			query.setParameter("processId", Long.parseLong(deviceProcess.getProcessId()));

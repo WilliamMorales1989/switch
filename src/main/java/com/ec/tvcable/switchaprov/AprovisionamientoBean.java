@@ -27,7 +27,7 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 
 	@Inject
 	@Reference
-	private IntrawayInterfaceService interfaz600;
+	private IntrawayInterfaceService intrawayInterfaceService;
 
 	@Reference
 	@Inject
@@ -83,7 +83,7 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 
 				sb.append(String.format("Device: %s %s", dr.getSerialNumber(), dr.getErrorMessage()));
 				sb.append(buildInterfaceDetail(dr));
-				sb.append(" | ");
+				sb.append(" | ");				
 			}
 		}
 		bodyResponse.setResponseMessage(removeLastPipeFrom(sb));
@@ -121,7 +121,8 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 
 		for (Device device : aprovisionamientoRequest.getBodyRequest().getDevice()) {
 
-			DeviceProcessor deviceProcessor = new DeviceProcessor(tvInterfaceService);
+			//DeviceProcessor deviceProcessor = new DeviceProcessor(tvInterfaceService);
+			DeviceProcessor deviceProcessor = new DeviceProcessor(tvInterfaceService,intrawayInterfaceService);
 
 			deviceResponses.add(deviceProcessor.processDevice(device, aprovisionamientoRequest));
 

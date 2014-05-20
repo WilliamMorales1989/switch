@@ -56,19 +56,19 @@ public class Estandar {
     @XmlElement(name = "AuthKey", required = true)
     protected String authKey;
     @XmlElement(name = "ClienteCRM")
-    protected int clienteCRM;
+    protected Long clienteCRM;
     @XmlElement(name = "IdProducto")
-    protected int idProducto;
+    protected Long idProducto;
     @XmlElement(name = "IdProductoPadre")
-    protected int idProductoPadre;
+    protected Long idProductoPadre;
     @XmlElement(name = "IdServicio")
-    protected int idServicio;
+    protected Long idServicio;
     @XmlElement(name = "IdServicioPadre")
-    protected int idServicioPadre;
+    protected Long idServicioPadre;
     @XmlElement(name = "IdVenta")
-    protected int idVenta;
+    protected Long idVenta;
     @XmlElement(name = "IdVentaPadre")
-    protected int idVentaPadre;
+    protected Long idVentaPadre;
     @XmlElement(name = "IdPromotor", required = true)
     protected String idPromotor;
     @XmlElement(name = "FechaDiferida", required = true)
@@ -105,7 +105,7 @@ public class Estandar {
      * Gets the value of the clienteCRM property.
      * 
      */
-    public int getClienteCRM() {
+    public Long getClienteCRM() {
         return clienteCRM;
     }
 
@@ -113,7 +113,7 @@ public class Estandar {
      * Sets the value of the clienteCRM property.
      * 
      */
-    public void setClienteCRM(int value) {
+    public void setClienteCRM(Long value) {
         this.clienteCRM = value;
     }
 
@@ -121,7 +121,7 @@ public class Estandar {
      * Gets the value of the idProducto property.
      * 
      */
-    public int getIdProducto() {
+    public Long getIdProducto() {
         return idProducto;
     }
 
@@ -129,7 +129,7 @@ public class Estandar {
      * Sets the value of the idProducto property.
      * 
      */
-    public void setIdProducto(int value) {
+    public void setIdProducto(Long value) {
         this.idProducto = value;
     }
 
@@ -137,7 +137,7 @@ public class Estandar {
      * Gets the value of the idProductoPadre property.
      * 
      */
-    public int getIdProductoPadre() {
+    public Long getIdProductoPadre() {
         return idProductoPadre;
     }
 
@@ -145,7 +145,7 @@ public class Estandar {
      * Sets the value of the idProductoPadre property.
      * 
      */
-    public void setIdProductoPadre(int value) {
+    public void setIdProductoPadre(Long value) {
         this.idProductoPadre = value;
     }
 
@@ -153,7 +153,7 @@ public class Estandar {
      * Gets the value of the idServicio property.
      * 
      */
-    public int getIdServicio() {
+    public Long getIdServicio() {
         return idServicio;
     }
 
@@ -161,7 +161,7 @@ public class Estandar {
      * Sets the value of the idServicio property.
      * 
      */
-    public void setIdServicio(int value) {
+    public void setIdServicio(Long value) {
         this.idServicio = value;
     }
 
@@ -169,7 +169,7 @@ public class Estandar {
      * Gets the value of the idServicioPadre property.
      * 
      */
-    public int getIdServicioPadre() {
+    public Long getIdServicioPadre() {
         return idServicioPadre;
     }
 
@@ -177,7 +177,7 @@ public class Estandar {
      * Sets the value of the idServicioPadre property.
      * 
      */
-    public void setIdServicioPadre(int value) {
+    public void setIdServicioPadre(Long value) {
         this.idServicioPadre = value;
     }
 
@@ -185,7 +185,7 @@ public class Estandar {
      * Gets the value of the idVenta property.
      * 
      */
-    public int getIdVenta() {
+    public Long getIdVenta() {
         return idVenta;
     }
 
@@ -193,7 +193,7 @@ public class Estandar {
      * Sets the value of the idVenta property.
      * 
      */
-    public void setIdVenta(int value) {
+    public void setIdVenta(Long value) {
         this.idVenta = value;
     }
 
@@ -201,7 +201,7 @@ public class Estandar {
      * Gets the value of the idVentaPadre property.
      * 
      */
-    public int getIdVentaPadre() {
+    public Long getIdVentaPadre() {
         return idVentaPadre;
     }
 
@@ -209,7 +209,7 @@ public class Estandar {
      * Sets the value of the idVentaPadre property.
      * 
      */
-    public void setIdVentaPadre(int value) {
+    public void setIdVentaPadre(Long value) {
         this.idVentaPadre = value;
     }
 

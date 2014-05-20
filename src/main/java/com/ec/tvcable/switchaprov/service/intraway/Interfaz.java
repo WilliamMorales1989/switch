@@ -70,6 +70,13 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="Customer2" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Customer3" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Customer4" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="DeviceId" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="Interface" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="Action" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="Id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="IdEmpresa" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="Negocio" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Secuencia" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -132,7 +139,14 @@ import javax.xml.bind.annotation.XmlType;
     "customer1",
     "customer2",
     "customer3",
-    "customer4"
+    "customer4",
+    "deviceid",
+    "interfaces",
+    "action",
+    "id",
+    "idEmpresa",
+    "negocio",
+    "secuencia"
 })
 public class Interfaz {
 
@@ -149,21 +163,21 @@ public class Interfaz {
     @XmlElement(required = true)
     protected String idCicloFactCRM;
     @XmlElement(name = "ServicTypeCRMId")
-    protected int servicTypeCRMId;
+    protected Long servicTypeCRMId;
     @XmlElement(name = "MessageCRMID", required = true)
     protected String messageCRMID;
     @XmlElement(name = "Cantidad")
-    protected int cantidad;
+    protected Long cantidad;
     @XmlElement(name = "Quotamax")
-    protected int quotamax;
+    protected Long quotamax;
     @XmlElement(name = "ServidorEmailCRMId", required = true)
     protected String servidorEmailCRMId;
     @XmlElement(name = "Dominio", required = true)
     protected String dominio;
     @XmlElement(name = "DiskQuota")
-    protected int diskQuota;
+    protected Long diskQuota;
     @XmlElement(name = "Noticias")
-    protected int noticias;
+    protected Long noticias;
     @XmlElement(name = "Name", required = true)
     protected String name;
     @XmlElement(name = "ServicePackageCRMId", required = true)
@@ -177,9 +191,9 @@ public class Interfaz {
     @XmlElement(name = "ActivactionCode", required = true)
     protected String activactionCode;
     @XmlElement(name = "IspMtaCrmId")
-    protected int ispMtaCrmId;
+    protected String ispMtaCrmId;
     @XmlElement(name = "BuscarTagCRM")
-    protected int buscarTagCRM;
+    protected Long buscarTagCRM;
     @XmlElement(name = "Docsis", required = true)
     protected String docsis;
     @XmlElement(name = "EnableAccounting", required = true)
@@ -191,15 +205,15 @@ public class Interfaz {
     @XmlElement(name = "PrepaidPolicyCRMId", required = true)
     protected String prepaidPolicyCRMId;
     @XmlElement(name = "CantCPE")
-    protected int cantCPE;
+    protected Long cantCPE;
     @XmlElement(name = "USChannelID")
-    protected int usChannelID;
+    protected Long usChannelID;
     @XmlElement(name = "StartingBalance")
-    protected int startingBalance;
+    protected Long startingBalance;
     @XmlElement(name = "DSFreq")
-    protected int dsFreq;
+    protected Long dsFreq;
     @XmlElement(name = "PeriodicalBaseBalance")
-    protected int periodicalBaseBalance;
+    protected Long periodicalBaseBalance;
     @XmlElement(name = "NoBoot")
     protected boolean noBoot;
     @XmlElement(name = "MACAddress", required = true)
@@ -211,17 +225,17 @@ public class Interfaz {
     @XmlElement(name = "CmsCMDID", required = true)
     protected String cmsCMDID;
     @XmlElement(name = "Provisioning")
-    protected int provisioning;
+    protected Long provisioning;
     @XmlElement(name = "ProfileCRMId", required = true)
     protected String profileCRMId;
     @XmlElement(name = "SendtoController", required = true)
     protected String sendtoController;
     @XmlElement(name = "LinesQTy")
-    protected int linesQTy;
+    protected Long linesQTy;
     @XmlElement(name = "MtaModelCRMId", required = true)
     protected String mtaModelCRMId;
     @XmlElement(name = "EndpointNumber")
-    protected int endpointNumber;
+    protected Long endpointNumber;
     @XmlElement(name = "Tn", required = true)
     protected String tn;
     @XmlElement(name = "HomeExchangeCRMId", required = true)
@@ -229,7 +243,7 @@ public class Interfaz {
     @XmlElement(name = "FeatureCrmId", required = true)
     protected String featureCrmId;
     @XmlElement(name = "Active")
-    protected int active;
+    protected Long active;
     @XmlElement(name = "DatoI1", required = true)
     protected String datoI1;
     @XmlElement(name = "DatoI2", required = true)
@@ -242,6 +256,20 @@ public class Interfaz {
     protected String customer3;
     @XmlElement(name = "Customer4", required = true)
     protected String customer4;
+    @XmlElement(name = "DeviceId", required = true)
+    protected int deviceid;
+    @XmlElement(name = "Interface", required = true)
+    protected Long interfaces;
+    @XmlElement(name = "Action")
+    protected Long action;
+    @XmlElement(name = "Id", required = true)
+    protected Long id;
+    @XmlElement(name = "IdEmpresa", required = true)
+    protected Long idEmpresa;
+    @XmlElement(name = "Negocio", required = true)
+    protected String negocio;
+    @XmlElement(name = "Secuencia", required = true)
+    protected Long secuencia;
 
     /**
      * Gets the value of the nombre property.
@@ -391,7 +419,7 @@ public class Interfaz {
      * Gets the value of the servicTypeCRMId property.
      * 
      */
-    public int getServicTypeCRMId() {
+    public Long getServicTypeCRMId() {
         return servicTypeCRMId;
     }
 
@@ -399,7 +427,7 @@ public class Interfaz {
      * Sets the value of the servicTypeCRMId property.
      * 
      */
-    public void setServicTypeCRMId(int value) {
+    public void setServicTypeCRMId(Long value) {
         this.servicTypeCRMId = value;
     }
 
@@ -431,7 +459,7 @@ public class Interfaz {
      * Gets the value of the cantidad property.
      * 
      */
-    public int getCantidad() {
+    public Long getCantidad() {
         return cantidad;
     }
 
@@ -439,7 +467,7 @@ public class Interfaz {
      * Sets the value of the cantidad property.
      * 
      */
-    public void setCantidad(int value) {
+    public void setCantidad(Long value) {
         this.cantidad = value;
     }
 
@@ -447,7 +475,7 @@ public class Interfaz {
      * Gets the value of the quotamax property.
      * 
      */
-    public int getQuotamax() {
+    public Long getQuotamax() {
         return quotamax;
     }
 
@@ -455,7 +483,7 @@ public class Interfaz {
      * Sets the value of the quotamax property.
      * 
      */
-    public void setQuotamax(int value) {
+    public void setQuotamax(Long value) {
         this.quotamax = value;
     }
 
@@ -511,7 +539,7 @@ public class Interfaz {
      * Gets the value of the diskQuota property.
      * 
      */
-    public int getDiskQuota() {
+    public Long getDiskQuota() {
         return diskQuota;
     }
 
@@ -519,7 +547,7 @@ public class Interfaz {
      * Sets the value of the diskQuota property.
      * 
      */
-    public void setDiskQuota(int value) {
+    public void setDiskQuota(Long value) {
         this.diskQuota = value;
     }
 
@@ -527,7 +555,7 @@ public class Interfaz {
      * Gets the value of the noticias property.
      * 
      */
-    public int getNoticias() {
+    public Long getNoticias() {
         return noticias;
     }
 
@@ -535,7 +563,7 @@ public class Interfaz {
      * Sets the value of the noticias property.
      * 
      */
-    public void setNoticias(int value) {
+    public void setNoticias(Long value) {
         this.noticias = value;
     }
 
@@ -687,7 +715,7 @@ public class Interfaz {
      * Gets the value of the ispMtaCrmId property.
      * 
      */
-    public int getIspMtaCrmId() {
+    public String getIspMtaCrmId() {
         return ispMtaCrmId;
     }
 
@@ -695,7 +723,7 @@ public class Interfaz {
      * Sets the value of the ispMtaCrmId property.
      * 
      */
-    public void setIspMtaCrmId(int value) {
+    public void setIspMtaCrmId(String value) {
         this.ispMtaCrmId = value;
     }
 
@@ -703,7 +731,7 @@ public class Interfaz {
      * Gets the value of the buscarTagCRM property.
      * 
      */
-    public int getBuscarTagCRM() {
+    public Long getBuscarTagCRM() {
         return buscarTagCRM;
     }
 
@@ -711,7 +739,7 @@ public class Interfaz {
      * Sets the value of the buscarTagCRM property.
      * 
      */
-    public void setBuscarTagCRM(int value) {
+    public void setBuscarTagCRM(Long value) {
         this.buscarTagCRM = value;
     }
 
@@ -839,7 +867,7 @@ public class Interfaz {
      * Gets the value of the cantCPE property.
      * 
      */
-    public int getCantCPE() {
+    public Long getCantCPE() {
         return cantCPE;
     }
 
@@ -847,7 +875,7 @@ public class Interfaz {
      * Sets the value of the cantCPE property.
      * 
      */
-    public void setCantCPE(int value) {
+    public void setCantCPE(Long value) {
         this.cantCPE = value;
     }
 
@@ -855,7 +883,7 @@ public class Interfaz {
      * Gets the value of the usChannelID property.
      * 
      */
-    public int getUSChannelID() {
+    public Long getUSChannelID() {
         return usChannelID;
     }
 
@@ -863,7 +891,7 @@ public class Interfaz {
      * Sets the value of the usChannelID property.
      * 
      */
-    public void setUSChannelID(int value) {
+    public void setUSChannelID(Long value) {
         this.usChannelID = value;
     }
 
@@ -871,7 +899,7 @@ public class Interfaz {
      * Gets the value of the startingBalance property.
      * 
      */
-    public int getStartingBalance() {
+    public Long getStartingBalance() {
         return startingBalance;
     }
 
@@ -879,7 +907,7 @@ public class Interfaz {
      * Sets the value of the startingBalance property.
      * 
      */
-    public void setStartingBalance(int value) {
+    public void setStartingBalance(Long value) {
         this.startingBalance = value;
     }
 
@@ -887,7 +915,7 @@ public class Interfaz {
      * Gets the value of the dsFreq property.
      * 
      */
-    public int getDSFreq() {
+    public Long getDSFreq() {
         return dsFreq;
     }
 
@@ -895,7 +923,7 @@ public class Interfaz {
      * Sets the value of the dsFreq property.
      * 
      */
-    public void setDSFreq(int value) {
+    public void setDSFreq(Long value) {
         this.dsFreq = value;
     }
 
@@ -903,7 +931,7 @@ public class Interfaz {
      * Gets the value of the periodicalBaseBalance property.
      * 
      */
-    public int getPeriodicalBaseBalance() {
+    public Long getPeriodicalBaseBalance() {
         return periodicalBaseBalance;
     }
 
@@ -911,7 +939,7 @@ public class Interfaz {
      * Sets the value of the periodicalBaseBalance property.
      * 
      */
-    public void setPeriodicalBaseBalance(int value) {
+    public void setPeriodicalBaseBalance(Long value) {
         this.periodicalBaseBalance = value;
     }
 
@@ -1031,7 +1059,7 @@ public class Interfaz {
      * Gets the value of the provisioning property.
      * 
      */
-    public int getProvisioning() {
+    public Long getProvisioning() {
         return provisioning;
     }
 
@@ -1039,7 +1067,7 @@ public class Interfaz {
      * Sets the value of the provisioning property.
      * 
      */
-    public void setProvisioning(int value) {
+    public void setProvisioning(Long value) {
         this.provisioning = value;
     }
 
@@ -1095,7 +1123,7 @@ public class Interfaz {
      * Gets the value of the linesQTy property.
      * 
      */
-    public int getLinesQTy() {
+    public Long getLinesQTy() {
         return linesQTy;
     }
 
@@ -1103,7 +1131,7 @@ public class Interfaz {
      * Sets the value of the linesQTy property.
      * 
      */
-    public void setLinesQTy(int value) {
+    public void setLinesQTy(Long value) {
         this.linesQTy = value;
     }
 
@@ -1135,7 +1163,7 @@ public class Interfaz {
      * Gets the value of the endpointNumber property.
      * 
      */
-    public int getEndpointNumber() {
+    public Long getEndpointNumber() {
         return endpointNumber;
     }
 
@@ -1143,7 +1171,7 @@ public class Interfaz {
      * Sets the value of the endpointNumber property.
      * 
      */
-    public void setEndpointNumber(int value) {
+    public void setEndpointNumber(Long value) {
         this.endpointNumber = value;
     }
 
@@ -1223,7 +1251,7 @@ public class Interfaz {
      * Gets the value of the active property.
      * 
      */
-    public int getActive() {
+    public Long getActive() {
         return active;
     }
 
@@ -1231,7 +1259,7 @@ public class Interfaz {
      * Sets the value of the active property.
      * 
      */
-    public void setActive(int value) {
+    public void setActive(Long value) {
         this.active = value;
     }
 
@@ -1377,6 +1405,167 @@ public class Interfaz {
      */
     public void setCustomer4(String value) {
         this.customer4 = value;
+    }
+    /**
+     * Gets the value of the deviceid property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public int getDeviceId() {
+        return deviceid;
+    }
+
+    /**
+     * Sets the value of the deviceid property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDeviceId(int value) {
+        this.deviceid = value;
+    }
+    /**
+     * Gets the value of the interfaces property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public Long getInterface() {
+        return interfaces;
+    }
+
+    /**
+     * Sets the value of the interface property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setInterface(Long value) {
+        this.interfaces = value;
+    }
+    /**
+     * Gets the value of the action property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public Long getAction() {
+        return action;
+    }
+
+    /**
+     * Sets the value of the action property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAction(Long value) {
+        this.action = value;
+    }
+    /**
+     * Gets the value of the id property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setId(Long value) {
+        this.id = value;
+    }
+    /**
+     * Gets the value of the idEmpresa property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public Long getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    /**
+     * Sets the value of the idEmpresa property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIdEmpresa(Long value) {
+        this.idEmpresa = value;
+    }
+    /**
+     * Gets the value of the negocio property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNegocio() {
+        return negocio;
+    }
+
+    /**
+     * Sets the value of the negocio property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNegocio(String value) {
+        this.negocio = value;
+    }
+    /**
+     * Gets the value of the secuencia property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public Long getSecuencia() {
+        return secuencia;
+    }
+
+    /**
+     * Sets the value of the secuencia property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSecuencia(Long value) {
+        this.secuencia = value;
     }
 
 }

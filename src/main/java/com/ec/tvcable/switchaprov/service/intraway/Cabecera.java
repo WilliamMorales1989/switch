@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="IDEmpresa" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="Negocio" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="Negocio" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Interface" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="Secuencia" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
@@ -39,19 +39,19 @@ import javax.xml.bind.annotation.XmlType;
 public class Cabecera {
 
     @XmlElement(name = "IDEmpresa")
-    protected int idEmpresa;
+    protected Long idEmpresa;
     @XmlElement(name = "Negocio")
-    protected int negocio;
+    protected String negocio;
     @XmlElement(name = "Interface")
     protected int _interface;
     @XmlElement(name = "Secuencia")
-    protected int secuencia;
+    protected Long secuencia;
 
     /**
      * Gets the value of the idEmpresa property.
      * 
      */
-    public int getIDEmpresa() {
+    public Long getIDEmpresa() {
         return idEmpresa;
     }
 
@@ -59,7 +59,7 @@ public class Cabecera {
      * Sets the value of the idEmpresa property.
      * 
      */
-    public void setIDEmpresa(int value) {
+    public void setIDEmpresa(Long value) {
         this.idEmpresa = value;
     }
 
@@ -67,7 +67,7 @@ public class Cabecera {
      * Gets the value of the negocio property.
      * 
      */
-    public int getNegocio() {
+    public String getNegocio() {
         return negocio;
     }
 
@@ -75,7 +75,7 @@ public class Cabecera {
      * Sets the value of the negocio property.
      * 
      */
-    public void setNegocio(int value) {
+    public void setNegocio(String value) {
         this.negocio = value;
     }
 
@@ -99,7 +99,7 @@ public class Cabecera {
      * Gets the value of the secuencia property.
      * 
      */
-    public int getSecuencia() {
+    public Long getSecuencia() {
         return secuencia;
     }
 
@@ -107,7 +107,7 @@ public class Cabecera {
      * Sets the value of the secuencia property.
      * 
      */
-    public void setSecuencia(int value) {
+    public void setSecuencia(Long value) {
         this.secuencia = value;
     }
 
