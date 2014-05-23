@@ -36,12 +36,14 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 	private Aprovisionamiento_Type aprovisionamientoRequest;
 
 	private List<DeviceResponse> deviceResponses;
+	
+	private String deviceFlag;
 
 	@Override
-	public AprovisionamientoResponse Aprovisionamiento(Aprovisionamiento_Type parameters) {
+	public AprovisionamientoResponse aprovisionamientoResp(Aprovisionamiento_Type parameters) {
 
 		this.aprovisionamientoRequest = parameters;
-
+		deviceFlag = "N";
 		Date initialDate = new Date();
 		
 		processDevices();
@@ -63,6 +65,8 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 		headerResponse.setProcessId(bodyResponse.getProcessId());
 		headerResponse.setResponseDate(new Date());
 		headerResponse.setRequestDate(initialDate);
+		System.out.println("Request_"+bodyResponse.getProcessId()+":");
+		System.out.println(JaxbConverter.objectToXMLString((aprovisionamientoRequest)));
 		headerResponse.setXMLRequest(JaxbConverter.objectToXMLString((aprovisionamientoRequest)));
 		headerResponse.setResponseCode(bodyResponse.getResponseCode());
 		headerResponse.addDeviceResponses(deviceResponses);
@@ -74,6 +78,7 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 		BodyResponse bodyResponse = new BodyResponse();
 
 		bodyResponse.setProcessId(Integer.parseInt(aprovisionamientoRequest.getBodyRequest().getProcessId()));
+		checkDeviceSize();
 
 		StringBuilder sb = new StringBuilder();
 		for (DeviceResponse dr : deviceResponses) {
@@ -121,13 +126,22 @@ public class AprovisionamientoBean implements Aprovisionamiento {
 
 		for (Device device : aprovisionamientoRequest.getBodyRequest().getDevice()) {
 
-			//DeviceProcessor deviceProcessor = new DeviceProcessor(tvInterfaceService);
+			deviceFlag = "Y";
 			DeviceProcessor deviceProcessor = new DeviceProcessor(tvInterfaceService,intrawayInterfaceService);
 
 			deviceResponses.add(deviceProcessor.processDevice(device, aprovisionamientoRequest));
 
 		}
 
+	}
+	
+	private void checkDeviceSize(){
+		if (deviceFlag == "N") {
+			DeviceResponse deviceResponse = new DeviceResponse();
+			deviceResponse.setErrorCode(Constants.DEVICE_FAIL_CODE);
+			deviceResponse.setErrorMessage("No existen 'Devices' para la solicitud enviada");
+			deviceResponses.add(deviceResponse);			
+		}
 	}
 
 }
