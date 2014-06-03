@@ -52,6 +52,7 @@ public class DeviceProcessor {
 		} catch (DataQueryException e) {
 			return generateDeviceExceptionResponse(e, device, Constants.DEVICE_DATA_FAIL_CODE);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return generateDeviceExceptionResponse(e, device, Constants.DEVICE_FAIL_CODE);
 		}
 	}

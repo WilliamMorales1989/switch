@@ -79,6 +79,7 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 				comando.getCabecera().setInterface(Integer.parseInt(actualInterface));
 				respuesta = invokeAprovIntraway(comando);
 				responses.add(generateResponseIntraway());
+				
 			}
 
 		} catch (ConversionException | AprovisionamientoException| DataQueryException  e) {
@@ -134,6 +135,7 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 	private Comando createComando(DeviceProcess deviceProcess) throws ConversionException, DataQueryException {
 		AprovisionamientoConverterIntraway converter;
 		TransactionSpIntraway transactionSpIntraway =  datosIntraway.findByDevice(deviceProcess);
+		System.out.println("transactionSpIntraway: " + transactionSpIntraway); 
 		converter = new AprovisionamientoConverterIntraway(transactionSpIntraway );
 		return converter.toComandoIntraway();
 	}

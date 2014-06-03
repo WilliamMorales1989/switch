@@ -40,7 +40,7 @@
       </sca:reference>
     </sca:component>
     <sca:component name="IntrawayInterfaceService">
-      <bean:implementation.bean class="com.ec.tvcable.switchaprov.impl.IntrawayInterfaceServiceBean"/>
+      <bean:implementation.bean requires="noManagedTransaction" class="com.ec.tvcable.switchaprov.impl.IntrawayInterfaceServiceBean"/>
       <sca:service name="IntrawayInterfaceService">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.IntrawayInterfaceService"/>
       </sca:service>

@@ -1,127 +1,119 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Aprovisionamiento/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aprovisionamiento" targetNamespace="http://www.example.org/Aprovisionamiento/">
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.example.org/Aprovisionamiento/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Aprovisionamiento" targetNamespace="http://www.example.org/Aprovisionamiento/">
   <wsdl:types>
-    <xsd:schema targetNamespace="http://www.example.org/Aprovisionamiento/">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.example.org/Aprovisionamiento/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://www.example.org/Aprovisionamiento/">
       <xsd:element name="Aprovisionamiento">
-      	<xsd:complexType>
-      		<xsd:sequence>
-      			<xsd:element name="HeaderRequest"
-      				type="tns:HeaderRequest" />
-      			<xsd:element name="BodyRequest"
-      				type="tns:BodyRequest">
-      			</xsd:element>
-      		</xsd:sequence>
-      	</xsd:complexType>
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="HeaderRequest" type="tns:HeaderRequest"/>
+          	<xsd:element name="BodyRequest" type="tns:BodyRequest"/>
+          </xsd:sequence>
+        </xsd:complexType>
       </xsd:element>
       <xsd:element name="AprovisionamientoResponse">
         <xsd:complexType>
           <xsd:sequence>
-          	<xsd:element name="HeaderResponse"
-          		type="tns:HeaderResponse" />
-          	<xsd:element name="BodyResponse" type="tns:BodyResponse"></xsd:element>
+          	<xsd:element name="HeaderResponse" type="tns:HeaderResponse"/>
+          	<xsd:element name="BodyResponse" type="tns:BodyResponse"/>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
     
       <xsd:complexType name="HeaderRequest">
       	<xsd:sequence>
-      		<xsd:element name="Target" type="xsd:string"></xsd:element>
-      		<xsd:element name="Entry" type="xsd:string"></xsd:element>
-      		<xsd:element name="User" type="xsd:string"></xsd:element>
-      		<xsd:element name="Token" type="xsd:string"></xsd:element>
-      		<xsd:element name="Attributes" type="tns:AttributesRequest"></xsd:element>
+      		<xsd:element name="Target" type="xsd:string"/>
+      		<xsd:element name="Entry" type="xsd:string"/>
+      		<xsd:element name="User" type="xsd:string"/>
+      		<xsd:element name="Token" type="xsd:string"/>
+      		<xsd:element name="Attributes" type="tns:AttributesRequest"/>
       	</xsd:sequence>
       </xsd:complexType>
 
       <xsd:complexType name="BodyRequest">
       	<xsd:sequence>
-      		<xsd:element name="processId" type="xsd:string"></xsd:element>
-      		<xsd:element name="Device" type="tns:Device"
-      			maxOccurs="unbounded" minOccurs="1">
-      		</xsd:element>
+      		<xsd:element name="processId" type="xsd:string"/>
+      		<xsd:element maxOccurs="unbounded" minOccurs="1" name="Device" type="tns:Device">
+      		</xsd:element>
+
       	</xsd:sequence>
       </xsd:complexType>
 
 
       <xsd:complexType name="AttributesRequest">
             	<xsd:sequence>
-            		<xsd:element name="Name" type="xsd:string"></xsd:element>
-            		<xsd:element name="Value" type="xsd:string"></xsd:element>
+            		<xsd:element name="Name" type="xsd:string"/>
+            		<xsd:element name="Value" type="xsd:string"/>
             	</xsd:sequence>
             </xsd:complexType>
 
       <xsd:complexType name="Device">
       	<xsd:sequence>
-      		<xsd:element name="deviceId" type="xsd:string"></xsd:element>
-      		<xsd:element name="deviceType" type="xsd:string"></xsd:element>
+      		<xsd:element name="deviceId" type="xsd:string"/>
+      		<xsd:element name="deviceType" type="xsd:string"/>
       		<xsd:element name="serialNumber" type="xsd:string">
       		</xsd:element>
-      		<xsd:element name="macAddress1" type="xsd:string"></xsd:element>
-      		<xsd:element name="macAddress2" type="xsd:string"></xsd:element>
+      		<xsd:element name="macAddress1" type="xsd:string"/>
+      		<xsd:element name="macAddress2" type="xsd:string"/>
 
       		<xsd:element name="activityType" type="xsd:string">
       		</xsd:element>
-      		<xsd:element name="system" type="xsd:string"></xsd:element>
-      		<xsd:element name="Controller" type="xsd:string"></xsd:element>
-      		<xsd:element name="Attributes" type="tns:Attribute" maxOccurs="unbounded" minOccurs="0">
+      		<xsd:element name="system" type="xsd:string"/>
+      		<xsd:element name="Controller" type="xsd:string"/>
+      		<xsd:element maxOccurs="unbounded" minOccurs="0" name="Attributes" type="tns:Attribute">
       		</xsd:element>
       	</xsd:sequence>
       </xsd:complexType>
 
       <xsd:complexType name="Attribute">
             	<xsd:sequence>
-            		<xsd:element name="Name" type="xsd:string"></xsd:element>
-            		<xsd:element name="Values" type="xsd:string"></xsd:element>
+            		<xsd:element name="Name" type="xsd:string"/>
+            		<xsd:element name="Values" type="xsd:string"/>
             	</xsd:sequence>
             </xsd:complexType>
     
             <xsd:complexType name="HeaderResponse">
             	<xsd:sequence>
-            		<xsd:element name="Target" type="xsd:string"></xsd:element>
-            		<xsd:element name="Entry" type="xsd:string"></xsd:element>
-            		<xsd:element name="User" type="xsd:string"></xsd:element>
-            		<xsd:element name="Token" type="xsd:string"></xsd:element>
-            		<xsd:element name="AttributesResponse" type="tns:AttributesResponse"></xsd:element>
+            		<xsd:element name="Target" type="xsd:string"/>
+            		<xsd:element name="Entry" type="xsd:string"/>
+            		<xsd:element name="User" type="xsd:string"/>
+            		<xsd:element name="Token" type="xsd:string"/>
+            		<xsd:element name="AttributesResponse" type="tns:AttributesResponse"/>
             	</xsd:sequence>
             </xsd:complexType>
             
             <xsd:complexType name="BodyResponse">
             	<xsd:sequence>
-            		<xsd:element name="ResponseCode" type="xsd:int"></xsd:element>
-            		<xsd:element name="ResponseMessage"
-            			type="xsd:string">
+            		<xsd:element name="ResponseCode" type="xsd:int"/>
+            		<xsd:element name="ResponseMessage" type="xsd:string">
             		</xsd:element>
-            		<xsd:element name="ProcessId" type="xsd:int"></xsd:element>
-            		<xsd:element name="Devices" type="tns:DeviceResponse" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+            		<xsd:element name="ProcessId" type="xsd:int"/>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="Devices" type="tns:DeviceResponse"/>
             	</xsd:sequence>
             </xsd:complexType>
             
             <xsd:complexType name="AttributesResponse">
             	<xsd:sequence>
-            		<xsd:element name="Name" type="xsd:string"></xsd:element>
-            		<xsd:element name="Values" type="xsd:string"></xsd:element>
+            		<xsd:element name="Name" type="xsd:string"/>
+            		<xsd:element name="Values" type="xsd:string"/>
             	</xsd:sequence>
             </xsd:complexType>
     
             <xsd:complexType name="DeviceResponse">
             	<xsd:sequence>
-            		<xsd:element name="DeviceId" type="xsd:int"></xsd:element>
-            		<xsd:element name="Interfaces" type="tns:Interface"
-            			maxOccurs="unbounded" minOccurs="1">
+            		<xsd:element name="DeviceId" type="xsd:int"/>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="Interfaces" type="tns:Interface">
             		</xsd:element>
-            		<xsd:element name="SerialNumber"
-            			type="xsd:string">
+            		<xsd:element name="SerialNumber" type="xsd:string">
             		</xsd:element>
-            		<xsd:element name="ErrorCode" type="xsd:int"></xsd:element>
-            		<xsd:element name="ErrorMessage" type="xsd:string"></xsd:element>
+            		<xsd:element name="ErrorCode" type="xsd:int"/>
+            		<xsd:element name="ErrorMessage" type="xsd:string"/>
             	</xsd:sequence>
             </xsd:complexType>
     
             <xsd:complexType name="Interface">
             	<xsd:sequence>
-            		<xsd:element name="InterfazId" type="xsd:int"></xsd:element>
-            		<xsd:element name="ErrorCode" type="xsd:int"></xsd:element>
-            		<xsd:element name="ErrorMessage" type="xsd:string"></xsd:element>
+            		<xsd:element name="InterfazId" type="xsd:int"/>
+            		<xsd:element name="ErrorCode" type="xsd:int"/>
+            		<xsd:element name="ErrorMessage" type="xsd:string"/>
             	</xsd:sequence>
             </xsd:complexType>
     
@@ -129,15 +121,19 @@
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="AprovisionamientoRequest">
-    <wsdl:part element="tns:Aprovisionamiento" name="parameters"/>
+    <wsdl:part element="tns:Aprovisionamiento" name="parameters">
+    </wsdl:part>
   </wsdl:message>
   <wsdl:message name="AprovisionamientoResponse">
-    <wsdl:part element="tns:AprovisionamientoResponse" name="parameters"/>
+    <wsdl:part element="tns:AprovisionamientoResponse" name="parameters">
+    </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="Aprovisionamiento">
     <wsdl:operation name="Aprovisionamiento">
-      <wsdl:input message="tns:AprovisionamientoRequest"/>
-      <wsdl:output message="tns:AprovisionamientoResponse"/>
+      <wsdl:input message="tns:AprovisionamientoRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:AprovisionamientoResponse">
+    </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="AprovisionamientoSOAP" type="tns:Aprovisionamiento">

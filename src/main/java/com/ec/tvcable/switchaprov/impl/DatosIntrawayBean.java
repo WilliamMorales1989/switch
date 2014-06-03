@@ -3,6 +3,8 @@
  */
 package com.ec.tvcable.switchaprov.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -14,7 +16,9 @@ import org.switchyard.component.bean.Service;
 import com.ec.tvcable.switchaprov.DatosIntraway;
 import com.ec.tvcable.switchaprov.DeviceProcess;
 import com.ec.tvcable.switchaprov.exception.DataQueryException;
-import com.ec.tvcable.switchaprov.jpa.TransactionSpIntraway;;
+import com.ec.tvcable.switchaprov.jpa.TransactionSpIntraway;
+
+;
 
 /**
  * @author pablo
@@ -30,29 +34,36 @@ public class DatosIntrawayBean implements DatosIntraway {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.ec.tvcable.switchaprov.DatosIntraway#findByDevice(java.lang.String
-	 * )
+	 * com.ec.tvcable.switchaprov.DatosIntraway#findByDevice(java.lang.String )
 	 */
-	
+
 	@Override
 	public TransactionSpIntraway findByDevice(DeviceProcess deviceProcess) throws DataQueryException {
 		Query query = em.createNamedQuery("findByDeviceAndProcessIntraway");
-		
+
 		try {
-			query.setParameter("deviceId", Integer.parseInt(deviceProcess.getDeviceId()) );
+			query.setParameter("deviceId", Integer.parseInt(deviceProcess.getDeviceId()));
 			query.setParameter("processId", Long.parseLong(deviceProcess.getProcessId()));
-			return (TransactionSpIntraway)query.getSingleResult() ;
+			
+			List resultList = query.getResultList();
+			System.out.println(resultList.size());
+			TransactionSpIntraway spi = (TransactionSpIntraway) resultList.get(0);
+			
+			System.out.println(spi);
+			
+			return (TransactionSpIntraway) query.getSingleResult();
 		} catch (NoResultException e) {
 			throw new DataQueryException(String.format("No existen datos de Intraway el device %s process %s ",
 					deviceProcess.getDeviceId(), deviceProcess.getProcessId()), e);
 		} catch (NonUniqueResultException e) {
-			throw new DataQueryException(String.format("Existen varios registros de Intrawaypara el device %s process %s ",
-					deviceProcess.getDeviceId(), deviceProcess.getProcessId()), e);
+			throw new DataQueryException(String.format(
+					"Existen varios registros de Intrawaypara el device %s process %s ", deviceProcess.getDeviceId(),
+					deviceProcess.getProcessId()), e);
 		} catch (Exception e) {
 			throw new DataQueryException(String.format(
-					"No se pudo consultar datos de Intraway para el device %s process %s , error: %s", deviceProcess.getDeviceId(),
-					deviceProcess.getProcessId(), e.getMessage()), e);
-		} 
+					"No se pudo consultar datos de Intraway para el device %s process %s , error: %s",
+					deviceProcess.getDeviceId(), deviceProcess.getProcessId(), e.getMessage()), e);
+		}
 	}
 
 }
