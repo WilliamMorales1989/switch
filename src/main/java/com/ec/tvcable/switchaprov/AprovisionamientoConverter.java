@@ -3,6 +3,10 @@
  */
 package com.ec.tvcable.switchaprov;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.ec.tvcable.switchaprov.exception.ConversionException;
 import com.ec.tvcable.switchaprov.jpa.TransactionSpTvPagada;
 import com.ec.tvcable.switchaprov.service.tvpagada.Cabecera;
@@ -11,6 +15,7 @@ import com.ec.tvcable.switchaprov.service.tvpagada.Comienzo;
 import com.ec.tvcable.switchaprov.service.tvpagada.Detalle;
 import com.ec.tvcable.switchaprov.service.tvpagada.Final;
 import com.ec.tvcable.switchaprov.service.tvpagada.IdEventos;
+import com.ec.tvcable.switchaprov.service.tvpagada.IdPaquete;
 import com.ec.tvcable.switchaprov.service.tvpagada.IdPaquetes;
 import com.ec.tvcable.switchaprov.service.tvpagada.TVpagada;
 
@@ -74,9 +79,18 @@ public class AprovisionamientoConverter {
 		IdEventos idEventos = new IdEventos();
 		idEventos.setCantE(transactionSp.getValorEnteroDe("IdEventos"));
 		tvPagada.setIdEventos(idEventos);
-
+		
 		IdPaquetes idPaquetes = new IdPaquetes();
-		idPaquetes.setCantP(transactionSp.getValorEnteroDe("IdPaquetes"));
+		IdPaquete idPaquete = new IdPaquete();
+		System.out.println("transactionSp.getIdPaquetes()="+transactionSp.getIdPaquetes());
+		List<String> paquetes = new ArrayList<String>(Arrays.asList(transactionSp.getIdPaquetes().split(",")));
+		System.out.println("paquetes.size():"+paquetes.size());
+		for (int i=0; i<paquetes.size(); i++){
+			System.out.println("paquetes.get(i):"+paquetes.get(i));
+			idPaquete.setIdPaquete(Integer.parseInt(paquetes.get(i)));
+			idPaquetes.getIdPaquete().add(idPaquete);
+		}
+		idPaquetes.setCantP(paquetes.size());		
 		tvPagada.setIdPaquetes(idPaquetes);
 
 		tvPagada.setIdServicio(transactionSp.getValorEnteroDe("IdServicio"));

@@ -13,7 +13,7 @@
       <sca:interface.wsdl interface="wsdl/WsdlTvPagada.wsdl#wsdl.porttype(WsdlTvPagada)"/>
       <soap:binding.soap name="soap1">
         <soap:wsdl>wsdl/WsdlTvPagada.wsdl</soap:wsdl>
-        <soap:endpointAddress>http://${TVPAGADA_SERVER:localhost}:${TVPAGADA_PORT:8088}/${TVPAGADA_CONTEXT:mockWsdlTvPagadaHttpBinding}</soap:endpointAddress>
+        <soap:endpointAddress>http://${TVPAGADA_SERVER:192.168.21.205}:${TVPAGADA_PORT:8081}/${TVPAGADA_CONTEXT:WsAprovisionamiento/services/WsdlTvPagada}</soap:endpointAddress>
       </soap:binding.soap>
     </sca:reference>
     <sca:reference name="WsdlIntraway" multiplicity="0..1" promote="IntrawayInterfaceService/WsdlIntraway">
