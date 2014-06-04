@@ -3,8 +3,6 @@
  */
 package com.ec.tvcable.switchaprov.impl;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -44,13 +42,6 @@ public class DatosIntrawayBean implements DatosIntraway {
 		try {
 			query.setParameter("deviceId", Integer.parseInt(deviceProcess.getDeviceId()));
 			query.setParameter("processId", Long.parseLong(deviceProcess.getProcessId()));
-			
-			List resultList = query.getResultList();
-			System.out.println(resultList.size());
-			TransactionSpIntraway spi = (TransactionSpIntraway) resultList.get(0);
-			
-			System.out.println(spi);
-			
 			return (TransactionSpIntraway) query.getSingleResult();
 		} catch (NoResultException e) {
 			throw new DataQueryException(String.format("No existen datos de Intraway el device %s process %s ",

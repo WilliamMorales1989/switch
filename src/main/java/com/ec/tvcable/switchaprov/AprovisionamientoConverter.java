@@ -81,14 +81,11 @@ public class AprovisionamientoConverter {
 		tvPagada.setIdEventos(idEventos);
 		
 		IdPaquetes idPaquetes = new IdPaquetes();
-		IdPaquete idPaquete = new IdPaquete();
-		System.out.println("transactionSp.getIdPaquetes()="+transactionSp.getIdPaquetes());
 		List<String> paquetes = new ArrayList<String>(Arrays.asList(transactionSp.getIdPaquetes().split(",")));
-		System.out.println("paquetes.size():"+paquetes.size());
 		for (int i=0; i<paquetes.size(); i++){
-			System.out.println("paquetes.get(i):"+paquetes.get(i));
+			IdPaquete idPaquete = new IdPaquete();
 			idPaquete.setIdPaquete(Integer.parseInt(paquetes.get(i)));
-			idPaquetes.getIdPaquete().add(idPaquete);
+			idPaquetes.getIdPaquete().add(i,idPaquete);
 		}
 		idPaquetes.setCantP(paquetes.size());		
 		tvPagada.setIdPaquetes(idPaquetes);
