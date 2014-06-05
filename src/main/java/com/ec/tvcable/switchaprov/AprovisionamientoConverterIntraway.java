@@ -49,8 +49,8 @@ public class AprovisionamientoConverterIntraway {
 		System.out.println("createHeader");		
 		cabecera.setIDEmpresa(transactionSp.getidEmpresa());
 		cabecera.setNegocio(transactionSp.getNegocio());
-		cabecera.setInterface(transactionSp.getDeviceId());
-		cabecera.setSecuencia(transactionSp.getSecuencia());		
+		cabecera.setInterface(transactionSp.getInterface());
+		cabecera.setSecuencia(transactionSp.getId() );		
 		return cabecera;
 	}
 	
@@ -74,7 +74,7 @@ public class AprovisionamientoConverterIntraway {
 	private Interfaz createInterfaz(TransactionSpIntraway transactionSp) throws ConversionException {
 		Interfaz interfaz = new Interfaz();
 		System.out.println("createInterfaz");
-		try{
+		
 		interfaz.setNombre(transactionSp.getNombre());
 		interfaz.setUsername(transactionSp.getuserName());
 		interfaz.setPassword(transactionSp.getPassword());
@@ -128,12 +128,7 @@ public class AprovisionamientoConverterIntraway {
 		interfaz.setCustomer2(transactionSp.getCustomer2());
 		interfaz.setCustomer3(transactionSp.getCustomer3());
 		interfaz.setCustomer4(transactionSp.getCustomer4());
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			
-		}
+		
 		return interfaz;
 	}
 

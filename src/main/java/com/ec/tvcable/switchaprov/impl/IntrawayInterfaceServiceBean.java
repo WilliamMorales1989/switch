@@ -19,6 +19,7 @@ import com.ec.tvcable.switchaprov.DeviceProcess;
 import com.ec.tvcable.switchaprov.InterfaceInvocationResponse;
 import com.ec.tvcable.switchaprov.InterfazResolver;
 import com.ec.tvcable.switchaprov.IntrawayInterfaceService;
+import com.ec.tvcable.switchaprov.JaxbConverter;
 import com.ec.tvcable.switchaprov.Operation;
 import com.ec.tvcable.switchaprov.exception.AprovisionamientoException;
 import com.ec.tvcable.switchaprov.exception.ConversionException;
@@ -77,7 +78,11 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 			for (InterfazAprovisionamiento interf : interfaces) {
 				actualInterface = interf.getInterfaceCode();
 				comando.getCabecera().setInterface(Integer.parseInt(actualInterface));
+				System.out.println("request Internet:");
+				System.out.println(JaxbConverter.objectToXMLString((comando)));
 				respuesta = invokeAprovIntraway(comando);
+				System.out.println("response Internet:");
+				System.out.println(JaxbConverter.objectToXMLString((respuesta)));
 				responses.add(generateResponseIntraway());
 				
 			}
@@ -104,7 +109,7 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 	}
 
 	private void assignMessageAttributes(Device device, Intraway comando) {
-		comando.getInterfaz().setMACAddress(device.getSerialNumber());
+		comando.getInterfaz().setMACAddress(device.getMacAddress1());
 		//comando.setTipoD(Integer.parseInt(device.getDeviceType()));
 		//comando.setIdConvertidor(device.getMacAddress1());
 	}
