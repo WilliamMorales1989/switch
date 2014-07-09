@@ -57,6 +57,11 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 
 	private Respuesta respuesta;
 	private String actualInterface;
+	private int accion;
+	private Long emtaCitemId;
+	private boolean provisioningEmta;
+	private String telfFlag = new String("TELF");
+	private String terminateFlag = new String("TERMINATE");
 
 	
 	@Override
@@ -73,17 +78,32 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 
 			List<InterfazAprovisionamiento> interfaces = interfazResolver.resolveInterfaces(operation);
 
+			defineProvisioningEmta();
 			assignMessageAttributes(comandoInterfaces.getDevice(), comando.getDetalle().getIntraway());
 
 			for (InterfazAprovisionamiento interf : interfaces) {
+				
 				actualInterface = interf.getInterfaceCode();
+				accion = interf.getAccion();
 				comando.getCabecera().setInterface(Integer.parseInt(actualInterface));
+				comando.getDetalle().getIntraway().getEstandar().setIdEstado(accion);
+			
 				System.out.println("request Internet:");
 				System.out.println(JaxbConverter.objectToXMLString((comando)));
+				
 				respuesta = invokeAprovIntraway(comando);
+				
 				System.out.println("response Internet:");
 				System.out.println(JaxbConverter.objectToXMLString((respuesta)));
+				
 				responses.add(generateResponseIntraway());
+				
+				if (provisioningEmta){
+					System.out.println("Aprovisionamiento Emta:"+String.valueOf(emtaCitemId));
+					comandoInterfaces.getDevice().setDeviceId(String.valueOf(emtaCitemId));
+					comandoInterfaces.getDevice().setSystem(telfFlag);
+					responses.addAll((List<InterfaceInvocationResponse>) invokeInterfaces(comandoInterfaces));
+				}
 				
 			}
 
@@ -94,6 +114,18 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 			e.printStackTrace();
 		}
 		return responses;
+	}
+	
+	private void defineProvisioningEmta(){
+		try{
+			if (emtaCitemId > 0)
+				provisioningEmta = true;
+			else
+				provisioningEmta = false;
+		}
+		catch(NullPointerException e){
+			provisioningEmta = false;
+		}
 	}
 
 	private String buildDetailExceptionMessage(Throwable e) {
@@ -109,9 +141,15 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 	}
 
 	private void assignMessageAttributes(Device device, Intraway comando) {
-		comando.getInterfaz().setMACAddress(device.getMacAddress1());
-		//comando.setTipoD(Integer.parseInt(device.getDeviceType()));
-		//comando.setIdConvertidor(device.getMacAddress1());
+		
+		if (device.getActivityType().equals(terminateFlag) )
+			comando.getInterfaz().setMACAddress("");
+		else
+			if (device.getSystem().equals(telfFlag))	
+				comando.getInterfaz().setMACAddress(device.getMacAddress2());
+			else
+				comando.getInterfaz().setMACAddress(device.getMacAddress1());
+		comando.getInterfaz().setMtaModelCRMId(device.getDeviceType());
 	}
 
 	public void buildFailedResponse(Exception e) {
@@ -140,8 +178,8 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 	private Comando createComando(DeviceProcess deviceProcess) throws ConversionException, DataQueryException {
 		AprovisionamientoConverterIntraway converter;
 		TransactionSpIntraway transactionSpIntraway =  datosIntraway.findByDevice(deviceProcess);
-		System.out.println("transactionSpIntraway: " + transactionSpIntraway); 
 		converter = new AprovisionamientoConverterIntraway(transactionSpIntraway );
+		emtaCitemId = transactionSpIntraway.getEmtaCitemId();
 		return converter.toComandoIntraway();
 	}
 

@@ -63,6 +63,9 @@ public class DeviceProcessor {
 		case "INT":
 			System.out.println("INT");
 			return intrawayInterfaceService.invokeInterfaces(aprovisionamientoInterfaces);
+		case "TELF":
+			System.out.println("TELF");
+			return intrawayInterfaceService.invokeInterfaces(aprovisionamientoInterfaces);
 		case "TV":
 			System.out.println("TV");
 			return tvInterfaceService.invokeInterfaces(aprovisionamientoInterfaces);

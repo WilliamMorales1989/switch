@@ -161,6 +161,8 @@ public class TransactionSpIntraway implements Serializable {
 	private String enableAccounting;
 	@Column(name = "IDSERVICIO")
 	private Long idServicio;
+	@Column(name = "EMTACITEMID")
+	private Long emtaCitemId;
 
 	public TransactionSpIntraway() {
 	}
@@ -750,6 +752,14 @@ public class TransactionSpIntraway implements Serializable {
 
 	public void setidInterface(int idInterface) {
 		this.idInterface = idInterface;
+	}
+	
+	public Long getEmtaCitemId() {
+		return emtaCitemId;
+	}
+
+	public void setEmtaCitemId(Long emtaCitemId) {
+		this.emtaCitemId = emtaCitemId;
 	}
 
 }
