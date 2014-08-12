@@ -83,6 +83,9 @@
       <sca:reference name="TransactionSpResponseService">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.TransactionSpResponseService"/>
       </sca:reference>
+      <sca:reference name="YtblSPCommandsIway">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.YtblSPCommandsIway"/>
+      </sca:reference>
     </sca:component>
     <sca:component name="DatosTvPagadaBean">
       <bean:implementation.bean class="com.ec.tvcable.switchaprov.impl.DatosTvPagadaBean"/>
@@ -91,7 +94,7 @@
       </sca:service>
     </sca:component>
     <sca:component name="TransactionSpResponseServiceBean">
-      <bean:implementation.bean class="com.ec.tvcable.switchaprov.TransactionResponseServiceBean"/>
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.impl.TransactionResponseServiceBean"/>
       <sca:service name="TransactionSpResponseService">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.TransactionSpResponseService"/>
       </sca:service>
@@ -100,6 +103,12 @@
       <bean:implementation.bean class="com.ec.tvcable.switchaprov.impl.DatosIntrawayBean"/>
       <sca:service name="DatosIntraway">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.DatosIntraway"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="YtblSPCommandsIwayBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.impl.YtblSPCommandsIwayBean"/>
+      <sca:service name="YtblSPCommandsIway">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.YtblSPCommandsIway"/>
       </sca:service>
     </sca:component>
   </sca:composite>

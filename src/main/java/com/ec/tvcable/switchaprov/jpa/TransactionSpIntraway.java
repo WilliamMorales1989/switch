@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TRANSACTION_SP_INTRAWAY")
-@NamedQuery(name = "findByDeviceAndProcessIntraway", query = "select iway from TransactionSpIntraway iway where iway.deviceId = :deviceId and iway.processId = :processId")
+@NamedQuery(name = "findByDeviceProcessAndInterfaceIntraway", query = "select iway from TransactionSpIntraway iway where iway.deviceId = :deviceId and iway.processId = :processId and iway.idInterface = :idInterface ")
 public class TransactionSpIntraway implements Serializable {
 
 	private static final long serialVersionUID = 1L;

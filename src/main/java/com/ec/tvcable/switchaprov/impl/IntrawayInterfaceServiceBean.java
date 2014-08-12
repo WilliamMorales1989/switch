@@ -71,17 +71,18 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 		
 		Operation operation = new Operation(comandoInterfaces.getDevice().getSystem(), comandoInterfaces.getDevice().getActivityType());
 		
-		actualInterface = null;
 		try {
-			Comando comando = createComando(new DeviceProcess(comandoInterfaces.getDevice().getDeviceId(),
-					comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId()));
-
+		
 			List<InterfazAprovisionamiento> interfaces = interfazResolver.resolveInterfaces(operation);
 
-			defineProvisioningEmta();
-			assignMessageAttributes(comandoInterfaces.getDevice(), comando.getDetalle().getIntraway());
-
 			for (InterfazAprovisionamiento interf : interfaces) {
+				actualInterface = null;
+				
+				Comando comando = createComando(new DeviceProcess(comandoInterfaces.getDevice().getDeviceId(),
+						comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId(), interf.getInterfaceCode() ));
+				
+				defineProvisioningEmta();
+				assignMessageAttributes(comandoInterfaces.getDevice(), comando.getDetalle().getIntraway());
 				
 				actualInterface = interf.getInterfaceCode();
 				accion = interf.getAccion();

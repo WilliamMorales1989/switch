@@ -37,23 +37,24 @@ public class DatosIntrawayBean implements DatosIntraway {
 
 	@Override
 	public TransactionSpIntraway findByDevice(DeviceProcess deviceProcess) throws DataQueryException {
-		Query query = em.createNamedQuery("findByDeviceAndProcessIntraway");
+		Query query = em.createNamedQuery("findByDeviceProcessAndInterfaceIntraway");
 
 		try {
 			query.setParameter("deviceId", Integer.parseInt(deviceProcess.getDeviceId()));
 			query.setParameter("processId", Long.parseLong(deviceProcess.getProcessId()));
+			query.setParameter("idInterface", Integer.parseInt(deviceProcess.getInterfaceId()));
 			return (TransactionSpIntraway) query.getSingleResult();
 		} catch (NoResultException e) {
-			throw new DataQueryException(String.format("No existen datos de Intraway el device %s process %s ",
-					deviceProcess.getDeviceId(), deviceProcess.getProcessId()), e);
+			throw new DataQueryException(String.format("No existen datos de Intraway el device %s process %s interface %s",
+					deviceProcess.getDeviceId(), deviceProcess.getProcessId(), deviceProcess.getInterfaceId()),  e);
 		} catch (NonUniqueResultException e) {
 			throw new DataQueryException(String.format(
-					"Existen varios registros de Intrawaypara el device %s process %s ", deviceProcess.getDeviceId(),
-					deviceProcess.getProcessId()), e);
+					"Existen varios registros de Intraway para el device %s process %s interface %s", deviceProcess.getDeviceId(),
+					deviceProcess.getProcessId(), deviceProcess.getInterfaceId()), e);
 		} catch (Exception e) {
 			throw new DataQueryException(String.format(
-					"No se pudo consultar datos de Intraway para el device %s process %s , error: %s",
-					deviceProcess.getDeviceId(), deviceProcess.getProcessId(), e.getMessage()), e);
+					"No se pudo consultar datos de Intraway para el device %s process %s , interface %s , error: %s",
+					deviceProcess.getDeviceId(), deviceProcess.getProcessId(), deviceProcess.getInterfaceId() , e.getMessage()), e);
 		}
 	}
 

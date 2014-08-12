@@ -1,13 +1,14 @@
 /**
  * 
  */
-package com.ec.tvcable.switchaprov;
+package com.ec.tvcable.switchaprov.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.switchyard.component.bean.Service;
 
+import com.ec.tvcable.switchaprov.TransactionSpResponseService;
 import com.ec.tvcable.switchaprov.jpa.TransactionHeaderResponse;
 
 /**

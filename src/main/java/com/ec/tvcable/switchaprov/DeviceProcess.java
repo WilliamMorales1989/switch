@@ -15,8 +15,16 @@ public class DeviceProcess {
 		this.processId = processId;
 	}
 	
+	public DeviceProcess(String deviceId, String processId, String interfaceId ) {
+		super();
+		this.deviceId = deviceId;
+		this.processId = processId;
+		this.interfaceId = interfaceId;
+	}
+	
 	private String deviceId;
 	private String processId;
+	private String interfaceId;
 	
 	public String getDeviceId() {
 		return deviceId;
@@ -29,5 +37,11 @@ public class DeviceProcess {
 	}
 	public void setProcessId(String processId) {
 		this.processId = processId;
+	}
+	public String getInterfaceId() {
+		return interfaceId;
+	}
+	public void setInterfaceId(String interfaceId) {
+		this.interfaceId = interfaceId;
 	}
 }
