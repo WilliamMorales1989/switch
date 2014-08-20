@@ -12,7 +12,6 @@
 		<class>com.ec.tvcable.switchaprov.jpa.TransactionSpResponse</class>
 		<class>com.ec.tvcable.switchaprov.jpa.TransactionSpTvPagada</class>
 		<class>com.ec.tvcable.switchaprov.jpa.TransactionSpIntraway</class>
-		<class>com.ec.tvcable.switchaprov.jpa.YtblSpcommandsiway</class>
       
 		<properties>
 			<property name="hibernate.show_sql" value="false" />
