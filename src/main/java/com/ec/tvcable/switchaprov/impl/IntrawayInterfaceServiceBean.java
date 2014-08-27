@@ -62,12 +62,16 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 	private boolean provisioningEmta;
 	private String telfFlag = new String("TELF");
 	private String terminateFlag = new String("TERMINATE");
-
+	private static final String interfaceInt = new String("666");
+	private static final String interfaceTelf = new String("888");
+	private boolean sendMacAddressEmpty;
 	
 	@Override
 	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoInterfaces) {
 		
 		List<InterfaceInvocationResponse> responses = new ArrayList<InterfaceInvocationResponse>();
+		System.out.println(".......................................................................................");
+		System.out.println("comandoInterfaces.getDevice().getSystem() = "+comandoInterfaces.getDevice().getSystem());
 		
 		Operation operation = new Operation(comandoInterfaces.getDevice().getSystem(), comandoInterfaces.getDevice().getActivityType());
 		
@@ -76,7 +80,8 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 			List<InterfazAprovisionamiento> interfaces = interfazResolver.resolveInterfaces(operation);
 
 			for (InterfazAprovisionamiento interf : interfaces) {
-				actualInterface = null;
+				//actualInterface = null;
+				actualInterface = setActualInterface(interf.getInterfaceCode());				
 				Comando comando;
 				
 				try{
@@ -88,20 +93,20 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 							comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId(), "0" ));
 				}
 				
+				//actualInterface = interf.getInterfaceCode();
 				defineProvisioningEmta();
-				assignMessageAttributes(comandoInterfaces.getDevice(), comando.getDetalle().getIntraway());
+				assignMessageAttributes(comandoInterfaces.getDevice(), comando.getDetalle().getIntraway());				
+				accion = interf.getAccion();				
 				
-				actualInterface = interf.getInterfaceCode();
-				accion = interf.getAccion();
 				comando.getCabecera().setInterface(Integer.parseInt(actualInterface));
 				comando.getDetalle().getIntraway().getEstandar().setIdEstado(accion);
 			
-				System.out.println("request Internet:");
+				System.out.println("request Internet " + actualInterface);
 				System.out.println(JaxbConverter.objectToXMLString((comando)));
 				
 				respuesta = invokeAprovIntraway(comando);
 				
-				System.out.println("response Internet:");
+				System.out.println("response Internet " + actualInterface);
 				System.out.println(JaxbConverter.objectToXMLString((respuesta)));
 				
 				responses.add(generateResponseIntraway());
@@ -126,10 +131,13 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 	
 	private void defineProvisioningEmta(){
 		try{
-			if (emtaCitemId > 0)
-				provisioningEmta = true;
-			else
+			if (sendMacAddressEmpty)
 				provisioningEmta = false;
+			else
+				if (emtaCitemId > 0)
+					provisioningEmta = true;
+				else
+					provisioningEmta = false;
 		}
 		catch(NullPointerException e){
 			provisioningEmta = false;
@@ -153,11 +161,15 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 		if (device.getActivityType().equals(terminateFlag) )
 			comando.getInterfaz().setMACAddress("");
 		else
-			if (device.getSystem().equals(telfFlag))	
-				comando.getInterfaz().setMACAddress(device.getMacAddress2());
+			if (sendMacAddressEmpty)
+				comando.getInterfaz().setMACAddress("");
 			else
-				comando.getInterfaz().setMACAddress(device.getMacAddress1());
+				if (device.getSystem().equals(telfFlag))	
+					comando.getInterfaz().setMACAddress(device.getMacAddress2());
+				else
+					comando.getInterfaz().setMACAddress(device.getMacAddress1());
 		comando.getInterfaz().setMtaModelCRMId(device.getDeviceType());
+		System.out.println("comando.getInterfaz().getMACAddress(): "+comando.getInterfaz().getMACAddress() + " comando.getInterfaz().getDeviceId()="+comando.getInterfaz().getDeviceId());
 	}
 
 	public void buildFailedResponse(Exception e) {
@@ -189,6 +201,29 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 		converter = new AprovisionamientoConverterIntraway(transactionSpIntraway );
 		emtaCitemId = transactionSpIntraway.getEmtaCitemId();
 		return converter.toComandoIntraway();
+	}
+	
+	private String setActualInterface(String interf)
+	{
+		String result = null;
+		if (interf.equals(interfaceInt))
+		{
+			result = "622";
+			sendMacAddressEmpty = true;
+		}
+		else if (interf.equals(interfaceTelf))
+		{
+			result = "822";
+			sendMacAddressEmpty = true;
+		}
+		else
+		{
+			result = interf;
+			sendMacAddressEmpty = false;
+		}
+		System.out.println("resultado Interface ="+result);
+		
+		return result;
 	}
 
 }

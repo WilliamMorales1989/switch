@@ -37,7 +37,6 @@ public class AprovisionamientoConverterIntraway {
 
 	private Intraway createIntraway(TransactionSpIntraway transactionSp) throws ConversionException {
 		Intraway intraway = new Intraway();
-		System.out.println("createIntraway");
 		intraway.setEstandar(createEstandar(transactionSp));
 		intraway.setInterfaz(createInterfaz(transactionSp));
 		
@@ -45,8 +44,7 @@ public class AprovisionamientoConverterIntraway {
 	}
 
 	private Cabecera createHeader(TransactionSpIntraway transactionSp) throws ConversionException {
-		Cabecera cabecera = new Cabecera();
-		System.out.println("createHeader");		
+		Cabecera cabecera = new Cabecera();	
 		cabecera.setIDEmpresa(transactionSp.getidEmpresa());
 		cabecera.setNegocio(transactionSp.getNegocio());
 		cabecera.setInterface(transactionSp.getInterface());
@@ -56,7 +54,6 @@ public class AprovisionamientoConverterIntraway {
 	
 	private Estandar createEstandar(TransactionSpIntraway transactionSp) throws ConversionException {
 		Estandar estandar = new Estandar();
-		System.out.println("createEstandar");
 		estandar.setAuthKey(transactionSp.getAuthKey());
 		estandar.setClienteCRM(transactionSp.getClienteCrm());
 		estandar.setIdProducto(transactionSp.getIdProducto());
@@ -73,7 +70,6 @@ public class AprovisionamientoConverterIntraway {
 
 	private Interfaz createInterfaz(TransactionSpIntraway transactionSp) throws ConversionException {
 		Interfaz interfaz = new Interfaz();
-		System.out.println("createInterfaz");
 		
 		interfaz.setNombre(transactionSp.getNombre());
 		interfaz.setUsername(transactionSp.getuserName());

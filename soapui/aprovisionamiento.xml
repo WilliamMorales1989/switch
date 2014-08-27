@@ -173,7 +173,7 @@
   </wsdl:binding>
   <wsdl:service name="WsdlTvPagada">
     <wsdl:port name="WsdlTvPagadaHttpPort" binding="tns:WsdlTvPagadaHttpBinding">
-      <wsdlsoap:address location="http://192.168.21.205/WsAprovisionamiento2/services/WsdlTvPagada"/>
+      <wsdlsoap:address location="http://192.168.21.205/WsAprovisionamiento/services/WsdlTvPagada"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:endpoint>http://pablo-A6200:8088/mockWsdlTvPagadaHttpBinding</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.grupotvcable.com.ec/WsdlTvPagada/AprovTvPagada" name="AprovTvPagada" bindingOperationName="AprovTvPagada" type="Request-Response" outputName="AprovTvPagadaResponse" inputName="AprovTvPagadaRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/switch-aprovisionamiento/Aprovisionamiento</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsd="http://www.grupotvcable.com.ec/WsdlTvPagada/">
@@ -386,10 +386,10 @@
   </wsdl:binding>
   <wsdl:service name="WsdlIntraway">
     <wsdl:port name="WsdlIntrawayHttpPort" binding="tns:WsdlIntrawayHttpBinding">
-      <wsdlsoap:address location="http://192.168.21.205/WsAprovisionamiento2/services/WsdlIntraway"/>
+      <wsdlsoap:address location="http://192.168.21.205/WsAprovisionamiento/services/WsdlIntraway"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://192.168.21.205/WsAprovisionamiento2/services/WsdlIntraway</con:endpoint><con:endpoint>http://pablo-A6200:8088/mockWsdlIntrawayHttpBinding</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway" name="AprovIntraway" bindingOperationName="AprovIntraway" type="Request-Response" outputName="AprovIntrawayResponse" inputName="AprovIntrawayRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.21.205/WsAprovisionamiento2/services/WsdlIntraway</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsd="http://www.grupotvcable.com.ec/WsdlIntraway/">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://192.168.21.205/WsAprovisionamiento/services/WsdlIntraway</con:endpoint><con:endpoint>http://pablo-A6200:8088/mockWsdlIntrawayHttpBinding</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.grupotvcable.com.ec/WsdlIntraway/AprovIntraway" name="AprovIntraway" bindingOperationName="AprovIntraway" type="Request-Response" outputName="AprovIntrawayResponse" inputName="AprovIntrawayRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.21.205/WsAprovisionamiento2/services/WsdlIntraway</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsd="http://www.grupotvcable.com.ec/WsdlIntraway/">
    <soapenv:Header/>
    <soapenv:Body>
       <wsd:ejecutaComando>
