@@ -173,7 +173,7 @@
   </wsdl:binding>
   <wsdl:service name="WsdlTvPagada">
     <wsdl:port name="WsdlTvPagadaHttpPort" binding="tns:WsdlTvPagadaHttpBinding">
-      <wsdlsoap:address location="http://192.168.21.205/WsAprovisionamiento/services/WsdlTvPagada"/>
+      <wsdlsoap:address location="http://192.168.21.205/WsAprovisionamientoFSM/services/WsdlTvPagada"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

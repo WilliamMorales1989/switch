@@ -13,7 +13,7 @@
       <sca:interface.wsdl interface="wsdl/WsdlTvPagada.wsdl#wsdl.porttype(WsdlTvPagada)"/>
       <soap:binding.soap name="soap1">
         <soap:wsdl>wsdl/WsdlTvPagada.wsdl</soap:wsdl>
-        <soap:endpointAddress>http://${TVPAGADA_SERVER:192.168.21.205}:${TVPAGADA_PORT:8081}/${TVPAGADA_CONTEXT:WsAprovisionamiento/services/WsdlTvPagada}</soap:endpointAddress>
+        <soap:endpointAddress>http://${TVPAGADA_SERVER:192.168.21.205}:${TVPAGADA_PORT:80}/${TVPAGADA_CONTEXT:WsAprovisionamientoFSM/services/WsdlTvPagada}</soap:endpointAddress>
       </soap:binding.soap>
     </sca:reference>
     <sca:reference name="WsdlIntraway" multiplicity="0..1" promote="IntrawayInterfaceService/WsdlIntraway">
@@ -21,7 +21,7 @@
       <soap:binding.soap name="soap1">
         <soap:contextMapper soapHeadersType="VALUE"/>
         <soap:wsdl>wsdl/WsdlIntraway.wsdl</soap:wsdl>
-        <soap:endpointAddress>http://${INTRAWAY_SERVER:192.168.21.205}:${INTRAWAY_PORT:80}/${INTRAWAY_CONTEXT:WsAprovisionamiento/services/WsdlIntraway}</soap:endpointAddress>
+        <soap:endpointAddress>http://${INTRAWAY_SERVER:192.168.21.205}:${INTRAWAY_PORT:80}/${INTRAWAY_CONTEXT:WsAprovisionamientoFSM/services/WsdlIntraway}</soap:endpointAddress>
       </soap:binding.soap>
     </sca:reference>
     <sca:component name="TvInterfaceService">

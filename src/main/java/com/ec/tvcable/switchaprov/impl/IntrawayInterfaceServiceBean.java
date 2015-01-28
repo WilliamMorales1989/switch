@@ -101,14 +101,14 @@ public class IntrawayInterfaceServiceBean implements IntrawayInterfaceService {
 				comando.getCabecera().setInterface(Integer.parseInt(actualInterface));
 				comando.getDetalle().getIntraway().getEstandar().setIdEstado(accion);
 			
-				//System.out.println("request Internet " + actualInterface);
-				//TODO para verificar los valores q se envía a mediador
-				//System.out.println(JaxbConverter.objectToXMLString((comando)));
+				System.out.println("request Internet " + actualInterface);
+				//TODO para verificar los valores q se envía a mediador 777
+				System.out.println(JaxbConverter.objectToXMLString((comando)));
 				
 				respuesta = invokeAprovIntraway(comando);
 				
-				//System.out.println("response Internet " + actualInterface);
-				//System.out.println(JaxbConverter.objectToXMLString((respuesta)));
+				System.out.println("response Internet " + actualInterface);
+				System.out.println(JaxbConverter.objectToXMLString((respuesta)));
 				
 				responses.add(generateResponseIntraway());
 				
