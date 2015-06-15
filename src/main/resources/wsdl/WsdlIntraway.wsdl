@@ -141,7 +141,7 @@
   </wsdl:binding>
   <wsdl:service name="WsdlIntraway">
     <wsdl:port name="WsdlIntrawayHttpPort" binding="tns:WsdlIntrawayHttpBinding">
-      <wsdlsoap:address location="http://192.168.21.205/WsAprovisionamientoFSM/services/WsdlIntraway"/>
+      <wsdlsoap:address location="http://192.168.21.205:8081/WsAprovisionamientoFSMTest/services/WsdlIntraway"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

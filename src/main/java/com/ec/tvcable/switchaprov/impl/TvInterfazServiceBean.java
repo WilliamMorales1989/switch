@@ -24,12 +24,21 @@ import com.ec.tvcable.switchaprov.exception.AprovisionamientoException;
 import com.ec.tvcable.switchaprov.exception.ConversionException;
 import com.ec.tvcable.switchaprov.exception.DataQueryException;
 import com.ec.tvcable.switchaprov.jpa.InterfazAprovisionamiento;
+import com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type;
+import com.ec.tvcable.switchaprov.service.aprov.BodyRequest;
+import com.ec.tvcable.switchaprov.service.aprov.BodyResponse;
 import com.ec.tvcable.switchaprov.service.aprov.Device;
 import com.ec.tvcable.switchaprov.service.tvpagada.Comando;
 import com.ec.tvcable.switchaprov.service.tvpagada.Mensaje;
 import com.ec.tvcable.switchaprov.service.tvpagada.Respuesta;
 import com.ec.tvcable.switchaprov.service.tvpagada.TVpagada;
 import com.ec.tvcable.switchaprov.service.tvpagada.WsdlTvPagada;
+//import com.ec.tvcable.switchaprov.service.conax.AprovConaxResponse;
+//import com.ec.tvcable.switchaprov.service.conax.conax_fsm;
+//import com.ec.tvcable.switchaprov.service.conax.AprovConax;
+import com.thoughtworks.xstream.io.json.JsonWriter.Format;
+//import com.ec.tvcable.switchaprov.service.conax.Confsm;
+
 
 /**
  * @author pablo
@@ -50,15 +59,27 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 	@Inject
 	private InterfazResolver interfazResolver;
 	
+	/**@Reference
+	@Inject
+	private Confsm conax_fsm;**/
+	
+	/**@Reference
+	@Inject
+	private conax_fsm conax_fsm;**/
+	
+		
 	private static final Logger logger = Logger.getLogger(TvInterfazServiceBean.class);
 
 	private Respuesta respuesta;
 	private String actualInterface;
-
+	/* (non-Javadoc)
+	 * @see com.ec.tvcable.switchaprov.TvInterfaceService#invokeInterfaces(com.ec.tvcable.switchaprov.AprovisionamientoInterfaces)
+	 */
 	@Override
 	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoInterfaces)
 			throws DataQueryException {
 
+			
 		List<InterfaceInvocationResponse> responses = new ArrayList<InterfaceInvocationResponse>();
 
 		Operation operation = new Operation(comandoInterfaces.getDevice().getSystem(), comandoInterfaces.getDevice().getActivityType());
@@ -67,19 +88,61 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 		try {
 			Comando comando = createComando(new DeviceProcess(comandoInterfaces.getDevice().getDeviceId(),
 					comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId()));
-
-			List<InterfazAprovisionamiento> interfaces = interfazResolver.resolveInterfaces(operation);
-
-			assignMessageAttributes(comandoInterfaces.getDevice(), comando.getDetalle().getTVpagada());
-
-			for (InterfazAprovisionamiento interf : interfaces) {
-				actualInterface = interf.getInterfaceCode();
-				comando.getCabecera().setInterface(Integer.parseInt(actualInterface));
-				comando.getDetalle().getTVpagada().setAccion(interf.getAccion());
-				respuesta = invokeAprovTvpagada(comando);
-				responses.add(generateResponse());
+			
+			
+			/************************************************************************************************/
+			System.out.println(comandoInterfaces.getDevice().getController());
+			
+			if (comandoInterfaces.getDevice().getController().equals("Conax")){
+			
+				//AprovConax parametro = new AprovConax();
+				
+				//parametro.setProcessId(comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId());
+				//parametro.setActivityType(comandoInterfaces.getDevice().getActivityType());
+				//parametro.setCitemId(comandoInterfaces.getDevice().getDeviceId());
+				//.setSerial(comandoInterfaces.getDevice().getSerialNumber());
+				
+				
+				//String str_process = parametro.getProcessId();
+				
+				//String str_activity = parametro.getActivityType();
+				
+				//String str_citem = parametro.getCitemId();
+				
+				//String str_serial = parametro.getSerial();
+				
+				//System.out.println(str_process);
+				//System.out.println(str_activity);
+				//System.out.println(str_citem);
+				//System.out.println(str_serial);
+				
+				try{
+					//ConaxFsm conax_fsm = new ConaxFsmClass();
+					//conax_fsm.Aprov_conax(str_process, str_citem, str_activity, str_serial);
+					//conax_fsm.Aprov_conax(str_process, str_citem, str_activity, str_serial);
+				}catch(Exception e){
+					
+					//System.out.println("Error conax:" + e);
+				}
+		
+				
 			}
+				else {
+				
+					List<InterfazAprovisionamiento> interfaces = interfazResolver.resolveInterfaces(operation);
 
+					assignMessageAttributes(comandoInterfaces.getDevice(), comando.getDetalle().getTVpagada());
+
+					for (InterfazAprovisionamiento interf : interfaces) {
+						actualInterface = interf.getInterfaceCode();
+						comando.getCabecera().setInterface(Integer.parseInt(actualInterface));
+						comando.getDetalle().getTVpagada().setAccion(interf.getAccion());
+						respuesta = invokeAprovTvpagada(comando);
+						responses.add(generateResponse());
+					}
+			}
+			
+			
 		} catch (ConversionException | AprovisionamientoException e) {
 			logger.error("Problemas al invocar interfaces: ", e);
 			buildFailedResponse(e);
@@ -135,4 +198,5 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 		return converter.toComandoTv();
 	}
 
+	
 }

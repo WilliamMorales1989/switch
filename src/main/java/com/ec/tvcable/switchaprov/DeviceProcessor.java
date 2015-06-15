@@ -79,6 +79,7 @@ public class DeviceProcessor {
 		DeviceResponse dr = new DeviceResponse();
 		dr.setDeviceId(Integer.parseInt(device.getDeviceId()));
 		dr.setSerialNumber(device.getSerialNumber());
+		try {
 		for (InterfaceInvocationResponse iir : responses) {
 			Interface inter = new Interface();
 			inter.setErrorCode(iir.getCodError());
@@ -91,6 +92,10 @@ public class DeviceProcessor {
 		}
 
 		return dr;
+		}catch(Exception e) {
+			System.out.println("Eror conax: " + e);
+			return dr;
+			}
 	}
 
 	private DeviceResponse generateDeviceExceptionResponse(Exception e, Device device, int deviceFaildCode) {

@@ -1,0 +1,50 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://pkg_conax/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="conax_fsm" targetNamespace="http://pkg_conax/">
+<wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://pkg_conax/" elementFormDefault="unqualified" targetNamespace="http://pkg_conax/" version="1.0">
+<xs:element name="Aprov_conax" type="tns:Aprov_conax"/>
+<xs:element name="Aprov_conaxResponse" type="tns:Aprov_conaxResponse"/>
+<xs:complexType name="Aprov_conax">
+<xs:sequence>
+<xs:element minOccurs="0" name="process_id" type="xs:string"/>
+<xs:element minOccurs="0" name="citem_id" type="xs:string"/>
+<xs:element minOccurs="0" name="activity_type" type="xs:string"/>
+<xs:element minOccurs="0" name="serial" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Aprov_conaxResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+</wsdl:types>
+<wsdl:message name="Aprov_conaxResponse">
+<wsdl:part element="tns:Aprov_conaxResponse" name="parameters"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="Aprov_conax">
+<wsdl:part element="tns:Aprov_conax" name="parameters"></wsdl:part>
+</wsdl:message>
+<wsdl:portType name="conax_fsm">
+<wsdl:operation name="Aprov_conax">
+<wsdl:input message="tns:Aprov_conax" name="Aprov_conax"></wsdl:input>
+<wsdl:output message="tns:Aprov_conaxResponse" name="Aprov_conaxResponse"></wsdl:output>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="conax_fsmSoapBinding" type="tns:conax_fsm">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="Aprov_conax">
+<soap:operation soapAction="" style="document"/>
+<wsdl:input name="Aprov_conax">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="Aprov_conaxResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="conax_fsm">
+<wsdl:port binding="tns:conax_fsmSoapBinding" name="conax_fsmPort">
+<soap:address location="http://localhost:8080/Aprovisionamiento_conax/conax_fsm"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

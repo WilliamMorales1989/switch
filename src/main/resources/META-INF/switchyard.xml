@@ -13,7 +13,7 @@
       <sca:interface.wsdl interface="wsdl/WsdlTvPagada.wsdl#wsdl.porttype(WsdlTvPagada)"/>
       <soap:binding.soap name="soap1">
         <soap:wsdl>wsdl/WsdlTvPagada.wsdl</soap:wsdl>
-        <soap:endpointAddress>http://${TVPAGADA_SERVER:192.168.21.205}:${TVPAGADA_PORT:80}/${TVPAGADA_CONTEXT:WsAprovisionamientoFSM/services/WsdlTvPagada}</soap:endpointAddress>
+        <soap:endpointAddress>http://${TVPAGADA_SERVER:192.168.21.205}:${TVPAGADA_PORT:8081}/${TVPAGADA_CONTEXT:WsAprovisionamientoFSMTest/services/WsdlTvPagada}</soap:endpointAddress>
       </soap:binding.soap>
     </sca:reference>
     <sca:reference name="WsdlIntraway" multiplicity="0..1" promote="IntrawayInterfaceService/WsdlIntraway">
@@ -21,7 +21,7 @@
       <soap:binding.soap name="soap1">
         <soap:contextMapper soapHeadersType="VALUE"/>
         <soap:wsdl>wsdl/WsdlIntraway.wsdl</soap:wsdl>
-        <soap:endpointAddress>http://${INTRAWAY_SERVER:192.168.21.205}:${INTRAWAY_PORT:80}/${INTRAWAY_CONTEXT:WsAprovisionamientoFSM/services/WsdlIntraway}</soap:endpointAddress>
+        <soap:endpointAddress>http://${INTRAWAY_SERVER:192.168.21.205}:${INTRAWAY_PORT:8081}/${INTRAWAY_CONTEXT:WsAprovisionamientoFSMTest/services/WsdlIntraway}</soap:endpointAddress>
       </soap:binding.soap>
     </sca:reference>
     <sca:component name="TvInterfaceService">
@@ -37,6 +37,9 @@
       </sca:reference>
       <sca:reference name="InterfazResolver">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.InterfazResolver"/>
+      </sca:reference>
+      <sca:reference name="conax_fsm">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.service.conax.ConaxFsm"/>
       </sca:reference>
     </sca:component>
     <sca:component name="IntrawayInterfaceService">
@@ -102,6 +105,12 @@
         <sca:interface.java interface="com.ec.tvcable.switchaprov.DatosIntraway"/>
       </sca:service>
     </sca:component>
+    <sca:reference name="conax_fsm" multiplicity="0..1">
+      <sca:interface.wsdl interface="wsdl/aprovisionamiento_conax.wsdl#wsdl.porttype(conax_fsm)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/aprovisionamiento_conax.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:reference>
   </sca:composite>
   <sy:transforms>
     <transform:transform.java from="java:java.lang.String" to="{urn:com.ec.tvcable.switchaprov:switch-aprovisionamiento:1.0}saludarResponse" class="com.ec.tvcable.switchaprov.SaludarTransformer"/>
