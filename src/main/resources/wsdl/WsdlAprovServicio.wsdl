@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="AprovServicio" targetNamespace="urn:com.example.switchyard:ServicioConax:1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com.example.switchyard:ServicioConax:1.0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:com.example.switchyard:ServicioConax:1.0" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:com.example.switchyard:ServicioConax:1.0">
+  <xs:complexType name="datosServicio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activity" type="xs:string"/>
+      <xs:element name="citem_id" type="xs:int"/>
+      <xs:element name="process_id" type="xs:int"/>
+      <xs:element minOccurs="0" name="serial" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="respuestaServicoConax">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="estado" type="xs:string"/>
+      <xs:element minOccurs="0" name="xml" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="respuestaServico" type="respuestaServico"/>
+  <xs:complexType name="respuestaServico">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datosServicio" type="datosServicio"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="respuestaServicoResponse" type="respuestaServicoResponse"/>
+  <xs:complexType name="respuestaServicoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="respuestaServicoConax" type="respuestaServicoConax"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="respuestaServico">
+    <wsdl:part name="parameters" element="tns:respuestaServico">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="respuestaServicoResponse">
+    <wsdl:part name="parameters" element="tns:respuestaServicoResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AprovServicioPortType">
+    <wsdl:operation name="respuestaServico">
+      <wsdl:input name="respuestaServico" message="tns:respuestaServico">
+    </wsdl:input>
+      <wsdl:output name="respuestaServicoResponse" message="tns:respuestaServicoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AprovServicioSoapBinding" type="tns:AprovServicioPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="respuestaServico">
+      <soap:operation soapAction="respuestaServico" style="document"/>
+      <wsdl:input name="respuestaServico">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="respuestaServicoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AprovServicio">
+    <wsdl:port name="AprovServicioPort" binding="tns:AprovServicioSoapBinding">
+      <soap:address location="http://localhost:8080/ServicioConax/AprovServicio"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

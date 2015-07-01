@@ -38,8 +38,8 @@
       <sca:reference name="InterfazResolver">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.InterfazResolver"/>
       </sca:reference>
-      <sca:reference name="conax_fsm">
-        <sca:interface.java interface="com.ec.tvcable.switchaprov.service.conax.ConaxFsm"/>
+      <sca:reference name="AprovServicioPortType">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.service.tvconax.AprovServicioPortType"/>
       </sca:reference>
     </sca:component>
     <sca:component name="IntrawayInterfaceService">
@@ -105,10 +105,10 @@
         <sca:interface.java interface="com.ec.tvcable.switchaprov.DatosIntraway"/>
       </sca:service>
     </sca:component>
-    <sca:reference name="conax_fsm" multiplicity="0..1">
-      <sca:interface.wsdl interface="wsdl/aprovisionamiento_conax.wsdl#wsdl.porttype(conax_fsm)"/>
+    <sca:reference name="AprovServicioPortType" multiplicity="0..1">
+      <sca:interface.wsdl interface="wsdl/WsdlAprovServicio.wsdl#wsdl.porttype(AprovServicioPortType)"/>
       <soap:binding.soap name="soap1">
-        <soap:wsdl>wsdl/aprovisionamiento_conax.wsdl</soap:wsdl>
+        <soap:wsdl>wsdl/WsdlAprovServicio.wsdl</soap:wsdl>
       </soap:binding.soap>
     </sca:reference>
   </sca:composite>

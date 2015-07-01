@@ -1,5 +1,5 @@
 
-package com.ec.tvcable.switchaprov.service.conax;
+package com.ec.tvcable.switchaprov.service.tvconax;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,18 +8,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Aprov_conax complex type.
+ * <p>Java class for datosServicio complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Aprov_conax">
+ * &lt;complexType name="datosServicio">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="process_id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="citem_id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="activity_type" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="activity" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="citem_id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="process_id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="serial" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -30,92 +30,75 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Aprov_conax", propOrder = {
-    "processId",
+@XmlType(name = "datosServicio", propOrder = {
+    "activity",
     "citemId",
-    "activityType",
+    "processId",
     "serial"
 })
-public class AprovConax {
+public class DatosServicio {
 
-    @XmlElement(name = "process_id")
-    protected String processId;
+    protected String activity;
     @XmlElement(name = "citem_id")
-    protected String citemId;
-    @XmlElement(name = "activity_type")
-    protected String activityType;
+    protected int citemId;
+    @XmlElement(name = "process_id")
+    protected int processId;
     protected String serial;
 
     /**
-     * Gets the value of the processId property.
+     * Gets the value of the activity property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getProcessId() {
-        return processId;
+    public String getActivity() {
+        return activity;
     }
 
     /**
-     * Sets the value of the processId property.
+     * Sets the value of the activity property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setProcessId(String value) {
-        this.processId = value;
+    public void setActivity(String value) {
+        this.activity = value;
     }
 
     /**
      * Gets the value of the citemId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getCitemId() {
+    public int getCitemId() {
         return citemId;
     }
 
     /**
      * Sets the value of the citemId property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setCitemId(String value) {
+    public void setCitemId(int value) {
         this.citemId = value;
     }
 
     /**
-     * Gets the value of the activityType property.
+     * Gets the value of the processId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getActivityType() {
-        return activityType;
+    public int getProcessId() {
+        return processId;
     }
 
     /**
-     * Sets the value of the activityType property.
+     * Sets the value of the processId property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setActivityType(String value) {
-        this.activityType = value;
+    public void setProcessId(int value) {
+        this.processId = value;
     }
 
     /**

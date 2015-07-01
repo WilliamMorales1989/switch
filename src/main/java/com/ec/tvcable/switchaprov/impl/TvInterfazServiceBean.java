@@ -33,11 +33,13 @@ import com.ec.tvcable.switchaprov.service.tvpagada.Mensaje;
 import com.ec.tvcable.switchaprov.service.tvpagada.Respuesta;
 import com.ec.tvcable.switchaprov.service.tvpagada.TVpagada;
 import com.ec.tvcable.switchaprov.service.tvpagada.WsdlTvPagada;
-//import com.ec.tvcable.switchaprov.service.conax.AprovConaxResponse;
-//import com.ec.tvcable.switchaprov.service.conax.conax_fsm;
-//import com.ec.tvcable.switchaprov.service.conax.AprovConax;
+import com.ec.tvcable.switchaprov.service.tvconax.AprovServicioPortType;
+import com.ec.tvcable.switchaprov.service.tvconax.DatosServicio;
+import com.ec.tvcable.switchaprov.service.tvconax.RespuestaServicoConax;
+//import com.ec.tvcable.switchaprov.service.tvconax.EstadoConax;
+//import com.ec.tvcable.switchaprov.service.tvconax.EstadoConaxResponse;
+//import com.ec.tvcable.switchaprov.service.tvconax.RespuestaConax;
 import com.thoughtworks.xstream.io.json.JsonWriter.Format;
-//import com.ec.tvcable.switchaprov.service.conax.Confsm;
 
 
 /**
@@ -59,9 +61,9 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 	@Inject
 	private InterfazResolver interfazResolver;
 	
-	/**@Reference
+	@Reference
 	@Inject
-	private Confsm conax_fsm;**/
+	private AprovServicioPortType wsdlaprov_conaxPortType;
 	
 	/**@Reference
 	@Inject
@@ -95,36 +97,14 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 			
 			if (comandoInterfaces.getDevice().getController().equals("Conax")){
 			
-				//AprovConax parametro = new AprovConax();
+				DatosServicio datosservicio = new DatosServicio();
 				
-				//parametro.setProcessId(comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId());
-				//parametro.setActivityType(comandoInterfaces.getDevice().getActivityType());
-				//parametro.setCitemId(comandoInterfaces.getDevice().getDeviceId());
-				//.setSerial(comandoInterfaces.getDevice().getSerialNumber());
-				
-				
-				//String str_process = parametro.getProcessId();
-				
-				//String str_activity = parametro.getActivityType();
-				
-				//String str_citem = parametro.getCitemId();
-				
-				//String str_serial = parametro.getSerial();
-				
-				//System.out.println(str_process);
-				//System.out.println(str_activity);
-				//System.out.println(str_citem);
-				//System.out.println(str_serial);
-				
-				try{
-					//ConaxFsm conax_fsm = new ConaxFsmClass();
-					//conax_fsm.Aprov_conax(str_process, str_citem, str_activity, str_serial);
-					//conax_fsm.Aprov_conax(str_process, str_citem, str_activity, str_serial);
-				}catch(Exception e){
-					
-					//System.out.println("Error conax:" + e);
-				}
-		
+				datosservicio.setActivity(comandoInterfaces.getDevice().getActivityType());
+				datosservicio.setCitemId(Integer.parseInt(comandoInterfaces.getDevice().getDeviceId()));
+				datosservicio.setProcessId(Integer.parseInt(comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId()));
+				datosservicio.setSerial(comandoInterfaces.getDevice().getSerialNumber());
+								
+				invokeDatosConax(datosservicio);
 				
 			}
 				else {
@@ -151,6 +131,12 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 		return responses;
 	}
 
+	/***********************************************************************************************/
+	public RespuestaServicoConax invokeDatosConax(DatosServicio datosServicio) {
+		return wsdlaprov_conaxPortType.respuestaServico(datosServicio);
+	}
+	/************************************************************************************************/
+	
 	private String buildDetailExceptionMessage(Throwable e) {
 		StringBuilder sb = new StringBuilder(120);
 
