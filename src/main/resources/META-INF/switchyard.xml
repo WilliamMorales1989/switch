@@ -38,8 +38,8 @@
       <sca:reference name="InterfazResolver">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.InterfazResolver"/>
       </sca:reference>
-      <sca:reference name="AprovServicioPortType">
-        <sca:interface.java interface="com.ec.tvcable.switchaprov.service.tvconax.AprovServicioPortType"/>
+      <sca:reference name="Aprov_Conax">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.Aprov_Conax"/>
       </sca:reference>
     </sca:component>
     <sca:component name="IntrawayInterfaceService">
@@ -105,12 +105,12 @@
         <sca:interface.java interface="com.ec.tvcable.switchaprov.DatosIntraway"/>
       </sca:service>
     </sca:component>
-    <sca:reference name="AprovServicioPortType" multiplicity="0..1">
-      <sca:interface.wsdl interface="wsdl/WsdlAprovServicio.wsdl#wsdl.porttype(AprovServicioPortType)"/>
-      <soap:binding.soap name="soap1">
-        <soap:wsdl>wsdl/WsdlAprovServicio.wsdl</soap:wsdl>
-      </soap:binding.soap>
-    </sca:reference>
+    <sca:component name="Aprov_ConaxBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.service.tvconax.Aprov_ConaxBean"/>
+      <sca:service name="Aprov_Conax">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.Aprov_Conax"/>
+      </sca:service>
+    </sca:component>
   </sca:composite>
   <sy:transforms>
     <transform:transform.java from="java:java.lang.String" to="{urn:com.ec.tvcable.switchaprov:switch-aprovisionamiento:1.0}saludarResponse" class="com.ec.tvcable.switchaprov.SaludarTransformer"/>

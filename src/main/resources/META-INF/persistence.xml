@@ -18,6 +18,9 @@
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.ejb.entitymanager_factory_name" value="switch-aprovisionamiento2" />
+			<property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
+			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver"/>
 		</properties>
 	</persistence-unit>
 </persistence>

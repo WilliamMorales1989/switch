@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.switchyard.component.bean.Reference;
 import org.switchyard.component.bean.Service;
 
+import com.ec.tvcable.switchaprov.Aprov_Conax;
 import com.ec.tvcable.switchaprov.AprovisionamientoConverter;
 import com.ec.tvcable.switchaprov.AprovisionamientoInterfaces;
 import com.ec.tvcable.switchaprov.DatosTvPagada;
@@ -33,13 +34,12 @@ import com.ec.tvcable.switchaprov.service.tvpagada.Mensaje;
 import com.ec.tvcable.switchaprov.service.tvpagada.Respuesta;
 import com.ec.tvcable.switchaprov.service.tvpagada.TVpagada;
 import com.ec.tvcable.switchaprov.service.tvpagada.WsdlTvPagada;
-import com.ec.tvcable.switchaprov.service.tvconax.AprovServicioPortType;
-import com.ec.tvcable.switchaprov.service.tvconax.DatosServicio;
-import com.ec.tvcable.switchaprov.service.tvconax.RespuestaServicoConax;
-//import com.ec.tvcable.switchaprov.service.tvconax.EstadoConax;
-//import com.ec.tvcable.switchaprov.service.tvconax.EstadoConaxResponse;
-//import com.ec.tvcable.switchaprov.service.tvconax.RespuestaConax;
-import com.thoughtworks.xstream.io.json.JsonWriter.Format;
+import com.ec.tvcable.switchaprov.service.tvconax.Aprov_ConaxBean;
+/*import com.ec.tvcable.switchaprov.service.tvconax.DatosServicio;
+import com.ec.tvcable.switchaprov.service.tvconax.RespuestaServico;
+import com.ec.tvcable.switchaprov.service.tvconax.RespuestaServicoResponse;
+import com.thoughtworks.xstream.io.json.JsonWriter.Format;*/
+import com.ec.tvcable.switchaprov.service.tvconax.ParametrosConax;
 
 
 /**
@@ -63,11 +63,7 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 	
 	@Reference
 	@Inject
-	private AprovServicioPortType wsdlaprov_conaxPortType;
-	
-	/**@Reference
-	@Inject
-	private conax_fsm conax_fsm;**/
+	private Aprov_Conax aprov_Conax;
 	
 		
 	private static final Logger logger = Logger.getLogger(TvInterfazServiceBean.class);
@@ -97,14 +93,30 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 			
 			if (comandoInterfaces.getDevice().getController().equals("Conax")){
 			
-				DatosServicio datosservicio = new DatosServicio();
+				ParametrosConax paramConax = new ParametrosConax();
+				
+				paramConax.setActivity(comandoInterfaces.getDevice().getActivityType());
+				paramConax.setCitem_id(Integer.parseInt(comandoInterfaces.getDevice().getDeviceId()));
+				paramConax.setProcess_id(Integer.parseInt(comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId()));
+				paramConax.setSerial(comandoInterfaces.getDevice().getSerialNumber());
+				
+				aprov_Conax.respConax(paramConax);
+				
+				
+				
+				/*DatosServicio consultaDatos = crearDatosServicio(comandoInterfaces);
+				
+				RespuestaServicoConax respuestaConax = wsdlaprov_conaxPortType.respuestaServico(consultaDatos);
+				
+				/*DatosServicio datosservicio = new DatosServicio();
 				
 				datosservicio.setActivity(comandoInterfaces.getDevice().getActivityType());
 				datosservicio.setCitemId(Integer.parseInt(comandoInterfaces.getDevice().getDeviceId()));
 				datosservicio.setProcessId(Integer.parseInt(comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId()));
 				datosservicio.setSerial(comandoInterfaces.getDevice().getSerialNumber());
-								
-				invokeDatosConax(datosservicio);
+				
+				//wsdlaprov_conaxPortType.respuestaServico(datosservicio);
+				invokeDatosConax(datosservicio);*/
 				
 			}
 				else {
@@ -132,9 +144,24 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 	}
 
 	/***********************************************************************************************/
+		
+	/*private DatosServicio crearDatosServicio(
+			 AprovisionamientoInterfaces comandoInterfaces) {
+		DatosServicio aprovConax = new DatosServicio();
+		
+		aprovConax.setActivity(aprovConax.getActivity());
+		aprovConax.setCitemId(aprovConax.getCitemId());
+		aprovConax.setProcessId(aprovConax.getProcessId());
+		aprovConax.setSerial(aprovConax.getSerial());
+		
+		return aprovConax;
+	}
+	
+	
+	
 	public RespuestaServicoConax invokeDatosConax(DatosServicio datosServicio) {
 		return wsdlaprov_conaxPortType.respuestaServico(datosServicio);
-	}
+	}*/
 	/************************************************************************************************/
 	
 	private String buildDetailExceptionMessage(Throwable e) {
