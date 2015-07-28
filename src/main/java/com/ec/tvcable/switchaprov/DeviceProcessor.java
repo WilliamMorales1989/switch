@@ -5,6 +5,8 @@ package com.ec.tvcable.switchaprov;
 
 import java.util.List;
 
+import org.mockito.internal.matchers.Not;
+
 import com.ec.tvcable.switchaprov.exception.AprovisionamientoException;
 import com.ec.tvcable.switchaprov.exception.DataQueryException;
 import com.ec.tvcable.switchaprov.exception.ExceptionProcessor;
@@ -82,12 +84,41 @@ public class DeviceProcessor {
 		try {
 		for (InterfaceInvocationResponse iir : responses) {
 			Interface inter = new Interface();
+			
+			String msg_error = "(I: 822) Codigo de Producto y/o Producto Padre ya Exite y/o se encuentra en otro Cliente. SRV_INTEGRITY_ERROR. Los+parametros+ingresados+no+son+validos";
+	
+			/*System.out.println("william: "+iir.getDetailMessage().compareTo(msg_error));
+			System.out.println("william: "+iir.getDetailMessage().compareTo(msg_error+"1"));*/
+
+			if (iir.getDetailMessage().compareTo(msg_error)==0){
+				inter.setErrorCode(1);
+				iir.setCodError(1);
+				inter.setErrorMessage("(I: 822) Proceso Realizado con Éxito.Operation Success");
+				inter.setInterfazId(iir.getInterfazInt());
+				dr.getInterfaces().add(inter);
+			}else{
+				
 			inter.setErrorCode(iir.getCodError());
 			inter.setErrorMessage(iir.getDetailMessage());
 			inter.setInterfazId(iir.getInterfazInt());
 			dr.getInterfaces().add(inter);
-			if (iir.isFailedExecution()) {
-				dr.setErrorCode(Constants.DEVICE_FAIL_CODE);
+			
+			}
+			
+			if (device.getController().equals("Conax"))
+			{
+				if (inter.getErrorCode() == 0){
+					dr.setErrorCode(iir.getCodError());
+				}else{
+					dr.setErrorCode(1);
+					
+				}
+				
+			}else{
+				boolean flag1 = iir.isFailedExecution();
+				if (flag1 == true) {
+					dr.setErrorCode(Constants.DEVICE_FAIL_CODE);
+				}
 			}
 		}
 

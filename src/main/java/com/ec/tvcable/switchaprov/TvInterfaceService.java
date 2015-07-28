@@ -20,5 +20,7 @@ public interface TvInterfaceService {
 	public Respuesta invokeAprovTvpagada(Comando comando);
 
 	public List<InterfaceInvocationResponse> invokeInterfaces(AprovisionamientoInterfaces comandoEmsInterfaces) throws DataQueryException;
+
+	InterfaceInvocationResponse generateResponseConax();
 	
 }

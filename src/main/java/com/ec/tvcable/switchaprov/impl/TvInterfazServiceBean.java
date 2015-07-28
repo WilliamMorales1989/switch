@@ -40,6 +40,7 @@ import com.ec.tvcable.switchaprov.service.tvconax.RespuestaServico;
 import com.ec.tvcable.switchaprov.service.tvconax.RespuestaServicoResponse;
 import com.thoughtworks.xstream.io.json.JsonWriter.Format;*/
 import com.ec.tvcable.switchaprov.service.tvconax.ParametrosConax;
+import com.ec.tvcable.switchaprov.service.tvconax.RespuestaConax;
 
 
 /**
@@ -70,6 +71,7 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 
 	private Respuesta respuesta;
 	private String actualInterface;
+	private RespuestaConax respuestaconax;
 	/* (non-Javadoc)
 	 * @see com.ec.tvcable.switchaprov.TvInterfaceService#invokeInterfaces(com.ec.tvcable.switchaprov.AprovisionamientoInterfaces)
 	 */
@@ -100,24 +102,9 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 				paramConax.setProcess_id(Integer.parseInt(comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId()));
 				paramConax.setSerial(comandoInterfaces.getDevice().getSerialNumber());
 				
-				aprov_Conax.respConax(paramConax);
-				
-				
-				
-				/*DatosServicio consultaDatos = crearDatosServicio(comandoInterfaces);
-				
-				RespuestaServicoConax respuestaConax = wsdlaprov_conaxPortType.respuestaServico(consultaDatos);
-				
-				/*DatosServicio datosservicio = new DatosServicio();
-				
-				datosservicio.setActivity(comandoInterfaces.getDevice().getActivityType());
-				datosservicio.setCitemId(Integer.parseInt(comandoInterfaces.getDevice().getDeviceId()));
-				datosservicio.setProcessId(Integer.parseInt(comandoInterfaces.getAprovisionamientoType().getBodyRequest().getProcessId()));
-				datosservicio.setSerial(comandoInterfaces.getDevice().getSerialNumber());
-				
-				//wsdlaprov_conaxPortType.respuestaServico(datosservicio);
-				invokeDatosConax(datosservicio);*/
-				
+				respuestaconax = aprov_Conax.respConax(paramConax);
+						
+				responses.add(generateResponseConax());
 			}
 				else {
 				
@@ -144,24 +131,14 @@ public class TvInterfazServiceBean implements TvInterfaceService {
 	}
 
 	/***********************************************************************************************/
-		
-	/*private DatosServicio crearDatosServicio(
-			 AprovisionamientoInterfaces comandoInterfaces) {
-		DatosServicio aprovConax = new DatosServicio();
-		
-		aprovConax.setActivity(aprovConax.getActivity());
-		aprovConax.setCitemId(aprovConax.getCitemId());
-		aprovConax.setProcessId(aprovConax.getProcessId());
-		aprovConax.setSerial(aprovConax.getSerial());
-		
-		return aprovConax;
+	@Override
+	public InterfaceInvocationResponse generateResponseConax() {
+		InterfaceInvocationResponse iir = new InterfaceInvocationResponse();
+		iir.setInterfaz(actualInterface);
+		iir.setCodError(Integer.parseInt(respuestaconax.getErrorNo()));
+		iir.setDetMensaje(respuestaconax.getErrorMessage());
+		return iir;
 	}
-	
-	
-	
-	public RespuestaServicoConax invokeDatosConax(DatosServicio datosServicio) {
-		return wsdlaprov_conaxPortType.respuestaServico(datosServicio);
-	}*/
 	/************************************************************************************************/
 	
 	private String buildDetailExceptionMessage(Throwable e) {

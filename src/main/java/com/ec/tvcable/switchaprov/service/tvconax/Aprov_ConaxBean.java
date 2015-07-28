@@ -7,17 +7,14 @@ import com.ec.tvcable.switchaprov.Aprov_Conax;
 @Service(Aprov_Conax.class)
 public class Aprov_ConaxBean implements Aprov_Conax {
 
+	private RespuestaConax respuestaconax;
 	@Override
 	public RespuestaConax respConax(ParametrosConax paramConax) {
 		
 		Yprd_apro_conax yprd_apro = new Yprd_apro_conax();
-		yprd_apro.resConax(paramConax);
+		respuestaconax = yprd_apro.resConax(paramConax);
 		
-		RespuestaConax respuesta = new RespuestaConax();
-		respuesta.setEstado("A");
-		respuesta.setXml("xml");
-		
-		return respuesta;
+		return respuestaconax;
 	}
 	
 
