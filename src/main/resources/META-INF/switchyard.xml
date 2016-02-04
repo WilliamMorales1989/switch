@@ -111,6 +111,57 @@
         <sca:interface.java interface="com.ec.tvcable.switchaprov.Aprov_Conax"/>
       </sca:service>
     </sca:component>
+    <sca:component name="AprovSGRBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.AprovSGR.AprovSGRBean"/>
+      <sca:service name="AprovSGR">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.AprovSGR.AprovSGR"/>
+      </sca:service>
+      <sca:reference name="TvPagadaSGR">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.TvPagadaSGR.TvPagadaSGR"/>
+      </sca:reference>
+      <sca:reference name="InternetSGR">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.InternetSGR.InternetSGR"/>
+      </sca:reference>
+    </sca:component>
+    <sca:component name="TvPagadaSGRBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.TvPagadaSGR.TvPagadaSGRBean"/>
+      <sca:service name="TvPagadaSGR">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.TvPagadaSGR.TvPagadaSGR"/>
+      </sca:service>
+      <sca:reference name="WsdlTvPagada">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.service.tvpagada.WsdlTvPagada"/>
+      </sca:reference>
+      <sca:reference name="DatosTvpadaSGR">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.DatosTvpadaSGR.DatosTvpadaSGR"/>
+      </sca:reference>
+      <sca:reference name="CreacionConax">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.conax.CreacionConax"/>
+      </sca:reference>
+    </sca:component>
+    <sca:component name="DatosTvpadaSGRBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.DatosTvpadaSGR.DatosTvpadaSGRBean"/>
+      <sca:service name="DatosTvpadaSGR">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.DatosTvpadaSGR.DatosTvpadaSGR"/>
+      </sca:service>
+    </sca:component>
+    <sca:service name="AprovisionamientoSGR" promote="AprovSGRBean/AprovSGR">
+      <sca:interface.wsdl interface="wsdl/AprovisionamientoSGR.wsdl#wsdl.porttype(Aprovisionamiento)"/>
+      <soap:binding.soap name="soap1">
+        <soap:wsdl>wsdl/AprovisionamientoSGR.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:service>
+    <sca:component name="InternetSGRBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.InternetSGR.InternetSGRBean"/>
+      <sca:service name="InternetSGR">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.InternetSGR.InternetSGR"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="CreacionConaxBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.conax.CreacionConaxBean"/>
+      <sca:service name="CreacionConax">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.conax.CreacionConax"/>
+      </sca:service>
+    </sca:component>
   </sca:composite>
   <sy:transforms>
     <transform:transform.java from="java:java.lang.String" to="{urn:com.ec.tvcable.switchaprov:switch-aprovisionamiento:1.0}saludarResponse" class="com.ec.tvcable.switchaprov.SaludarTransformer"/>
@@ -121,6 +172,8 @@
     <transform:transform.jaxb from="{http://www.grupotvcable.com.ec/WsdlIntraway/}consultaRespuesta" to="java:com.ec.tvcable.switchaprov.service.intraway.Respuesta" contextPath="com.ec.tvcable.switchaprov.service.intraway"/>
     <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.service.aprov.AprovisionamientoResponse" to="{http://www.example.org/Aprovisionamiento/}AprovisionamientoResponse" contextPath="com.ec.tvcable.switchaprov.service.aprov"/>
     <transform:transform.jaxb from="{http://www.example.org/Aprovisionamiento/}Aprovisionamiento" to="java:com.ec.tvcable.switchaprov.service.aprov.Aprovisionamiento_Type" contextPath="com.ec.tvcable.switchaprov.service.aprov"/>
+    <transform:transform.jaxb from="java:com.ec.tvcable.switchaprov.AprovisionamientoSGR.AprovisionamientoResponse" to="{http://www.example.org/Aprovisionamiento/}AprovisionamientoResponse" contextPath="com.ec.tvcable.switchaprov.AprovisionamientoSGR"/>
+    <transform:transform.jaxb from="{http://www.example.org/Aprovisionamiento/}Aprovisionamiento" to="java:com.ec.tvcable.switchaprov.AprovisionamientoSGR.Aprovisionamiento_Type" contextPath="com.ec.tvcable.switchaprov.AprovisionamientoSGR"/>
   </sy:transforms>
   <sy:domain>
     <sy:properties/>

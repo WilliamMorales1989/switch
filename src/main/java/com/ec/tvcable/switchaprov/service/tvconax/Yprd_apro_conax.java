@@ -59,13 +59,13 @@ public class Yprd_apro_conax {
 							.setParameter(1, parConax.getCitem_id());
 							
 					errorno = query4.getResultList().get(0).toString();
-					System.out.println("errorno = "+errorno);
+					/*System.out.println("errorno = "+errorno);*/
 					
 					Query query5 = enmanager.createNativeQuery("select w.errormessage from ytbl_conax w where w.id = (select max(q.id) from ytbl_conax q where q.citem_id = ?) and w.errorno is not null")
 							.setParameter(1, parConax.getCitem_id());
 							
 					errormessage = query5.getResultList().get(0).toString();
-					System.out.println("errormessage = "+errormessage);
+					/*System.out.println("errormessage = "+errormessage);*/
 					
 				}
 				

@@ -1,0 +1,2354 @@
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://tempuri.org/">
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+			<s:element name="Install">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="codeSettopBox" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="brandSettopBox" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="modelSettopBox" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="firmwareSettopBox" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack1" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack2" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack3" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="masterCard" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="InstallResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="InstallResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="Disconnect">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="DisconnectResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="DisconnectResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="Reconnect">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack1" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack2" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack3" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ReconnectResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="ReconnectResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="Uninstall">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UninstallResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="UninstallResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AddPacks">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack1" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack2" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack3" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AddPacksResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="AddPacksResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="RemovePacks">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack1" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack2" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pack3" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="RemovePacksResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="RemovePacksResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ReSendKey">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ReSendKeyResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="ReSendKeyResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UpdatePin">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pin" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UpdatePinResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="UpdatePinResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="SendMessage">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="message" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="SendMessageResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="SendMessageResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UpdateFirmware">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UpdateFirmwareResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="UpdateFirmwareResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ReScanChannels">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ReScanChannelsResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="ReScanChannelsResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AddCarrier">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="carrier" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="AddCarrierResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="AddCarrierResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ViewSetTopBoxID">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ViewSetTopBoxIDResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="ViewSetTopBoxIDResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ResetSetTopBox">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ResetSetTopBoxResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="ResetSetTopBoxResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UpdateCodeZone">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="code" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UpdateCodeZoneResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="UpdateCodeZoneResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="RebootSetTopBox">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="RebootSetTopBoxResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="RebootSetTopBoxResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ForceUpdateFirmware">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="ForceUpdateFirmwareResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="ForceUpdateFirmwareResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UpdateControlParentall">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pin" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UpdateControlParentallResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="UpdateControlParentallResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UpdateMenuPass">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="pin" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="UpdateMenuPassResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="UpdateMenuPassResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="Status">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="StatusResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="StatusResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="GetSmartCardsInfo">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="GetSmartCardsInfoResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="GetSmartCardsInfoResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="GetInformation">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="password" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="sequence" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="smartCards" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="referenceNumber" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string"/>
+						<s:element minOccurs="0" maxOccurs="1" name="zone" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="GetInformationResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" maxOccurs="1" name="GetInformationResult" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="string" nillable="true" type="s:string"/>
+		</s:schema>
+	</wsdl:types>
+	<wsdl:message name="InstallSoapIn">
+		<wsdl:part name="parameters" element="tns:Install"/>
+	</wsdl:message>
+	<wsdl:message name="InstallSoapOut">
+		<wsdl:part name="parameters" element="tns:InstallResponse"/>
+	</wsdl:message>
+	<wsdl:message name="DisconnectSoapIn">
+		<wsdl:part name="parameters" element="tns:Disconnect"/>
+	</wsdl:message>
+	<wsdl:message name="DisconnectSoapOut">
+		<wsdl:part name="parameters" element="tns:DisconnectResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ReconnectSoapIn">
+		<wsdl:part name="parameters" element="tns:Reconnect"/>
+	</wsdl:message>
+	<wsdl:message name="ReconnectSoapOut">
+		<wsdl:part name="parameters" element="tns:ReconnectResponse"/>
+	</wsdl:message>
+	<wsdl:message name="UninstallSoapIn">
+		<wsdl:part name="parameters" element="tns:Uninstall"/>
+	</wsdl:message>
+	<wsdl:message name="UninstallSoapOut">
+		<wsdl:part name="parameters" element="tns:UninstallResponse"/>
+	</wsdl:message>
+	<wsdl:message name="AddPacksSoapIn">
+		<wsdl:part name="parameters" element="tns:AddPacks"/>
+	</wsdl:message>
+	<wsdl:message name="AddPacksSoapOut">
+		<wsdl:part name="parameters" element="tns:AddPacksResponse"/>
+	</wsdl:message>
+	<wsdl:message name="RemovePacksSoapIn">
+		<wsdl:part name="parameters" element="tns:RemovePacks"/>
+	</wsdl:message>
+	<wsdl:message name="RemovePacksSoapOut">
+		<wsdl:part name="parameters" element="tns:RemovePacksResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ReSendKeySoapIn">
+		<wsdl:part name="parameters" element="tns:ReSendKey"/>
+	</wsdl:message>
+	<wsdl:message name="ReSendKeySoapOut">
+		<wsdl:part name="parameters" element="tns:ReSendKeyResponse"/>
+	</wsdl:message>
+	<wsdl:message name="UpdatePinSoapIn">
+		<wsdl:part name="parameters" element="tns:UpdatePin"/>
+	</wsdl:message>
+	<wsdl:message name="UpdatePinSoapOut">
+		<wsdl:part name="parameters" element="tns:UpdatePinResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SendMessageSoapIn">
+		<wsdl:part name="parameters" element="tns:SendMessage"/>
+	</wsdl:message>
+	<wsdl:message name="SendMessageSoapOut">
+		<wsdl:part name="parameters" element="tns:SendMessageResponse"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateFirmwareSoapIn">
+		<wsdl:part name="parameters" element="tns:UpdateFirmware"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateFirmwareSoapOut">
+		<wsdl:part name="parameters" element="tns:UpdateFirmwareResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ReScanChannelsSoapIn">
+		<wsdl:part name="parameters" element="tns:ReScanChannels"/>
+	</wsdl:message>
+	<wsdl:message name="ReScanChannelsSoapOut">
+		<wsdl:part name="parameters" element="tns:ReScanChannelsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="AddCarrierSoapIn">
+		<wsdl:part name="parameters" element="tns:AddCarrier"/>
+	</wsdl:message>
+	<wsdl:message name="AddCarrierSoapOut">
+		<wsdl:part name="parameters" element="tns:AddCarrierResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ViewSetTopBoxIDSoapIn">
+		<wsdl:part name="parameters" element="tns:ViewSetTopBoxID"/>
+	</wsdl:message>
+	<wsdl:message name="ViewSetTopBoxIDSoapOut">
+		<wsdl:part name="parameters" element="tns:ViewSetTopBoxIDResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ResetSetTopBoxSoapIn">
+		<wsdl:part name="parameters" element="tns:ResetSetTopBox"/>
+	</wsdl:message>
+	<wsdl:message name="ResetSetTopBoxSoapOut">
+		<wsdl:part name="parameters" element="tns:ResetSetTopBoxResponse"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateCodeZoneSoapIn">
+		<wsdl:part name="parameters" element="tns:UpdateCodeZone"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateCodeZoneSoapOut">
+		<wsdl:part name="parameters" element="tns:UpdateCodeZoneResponse"/>
+	</wsdl:message>
+	<wsdl:message name="RebootSetTopBoxSoapIn">
+		<wsdl:part name="parameters" element="tns:RebootSetTopBox"/>
+	</wsdl:message>
+	<wsdl:message name="RebootSetTopBoxSoapOut">
+		<wsdl:part name="parameters" element="tns:RebootSetTopBoxResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ForceUpdateFirmwareSoapIn">
+		<wsdl:part name="parameters" element="tns:ForceUpdateFirmware"/>
+	</wsdl:message>
+	<wsdl:message name="ForceUpdateFirmwareSoapOut">
+		<wsdl:part name="parameters" element="tns:ForceUpdateFirmwareResponse"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateControlParentallSoapIn">
+		<wsdl:part name="parameters" element="tns:UpdateControlParentall"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateControlParentallSoapOut">
+		<wsdl:part name="parameters" element="tns:UpdateControlParentallResponse"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateMenuPassSoapIn">
+		<wsdl:part name="parameters" element="tns:UpdateMenuPass"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateMenuPassSoapOut">
+		<wsdl:part name="parameters" element="tns:UpdateMenuPassResponse"/>
+	</wsdl:message>
+	<wsdl:message name="StatusSoapIn">
+		<wsdl:part name="parameters" element="tns:Status"/>
+	</wsdl:message>
+	<wsdl:message name="StatusSoapOut">
+		<wsdl:part name="parameters" element="tns:StatusResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetSmartCardsInfoSoapIn">
+		<wsdl:part name="parameters" element="tns:GetSmartCardsInfo"/>
+	</wsdl:message>
+	<wsdl:message name="GetSmartCardsInfoSoapOut">
+		<wsdl:part name="parameters" element="tns:GetSmartCardsInfoResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetInformationSoapIn">
+		<wsdl:part name="parameters" element="tns:GetInformation"/>
+	</wsdl:message>
+	<wsdl:message name="GetInformationSoapOut">
+		<wsdl:part name="parameters" element="tns:GetInformationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="InstallHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="codeSettopBox" type="s:string"/>
+		<wsdl:part name="brandSettopBox" type="s:string"/>
+		<wsdl:part name="modelSettopBox" type="s:string"/>
+		<wsdl:part name="firmwareSettopBox" type="s:string"/>
+		<wsdl:part name="pack1" type="s:string"/>
+		<wsdl:part name="pack2" type="s:string"/>
+		<wsdl:part name="pack3" type="s:string"/>
+		<wsdl:part name="masterCard" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="InstallHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="DisconnectHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="DisconnectHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReconnectHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pack1" type="s:string"/>
+		<wsdl:part name="pack2" type="s:string"/>
+		<wsdl:part name="pack3" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReconnectHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UninstallHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UninstallHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="AddPacksHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pack1" type="s:string"/>
+		<wsdl:part name="pack2" type="s:string"/>
+		<wsdl:part name="pack3" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="AddPacksHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="RemovePacksHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pack1" type="s:string"/>
+		<wsdl:part name="pack2" type="s:string"/>
+		<wsdl:part name="pack3" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="RemovePacksHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReSendKeyHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReSendKeyHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdatePinHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pin" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdatePinHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="SendMessageHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="message" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="SendMessageHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateFirmwareHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateFirmwareHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReScanChannelsHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReScanChannelsHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="AddCarrierHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="carrier" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="AddCarrierHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ViewSetTopBoxIDHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ViewSetTopBoxIDHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ResetSetTopBoxHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ResetSetTopBoxHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateCodeZoneHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="code" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateCodeZoneHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="RebootSetTopBoxHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="RebootSetTopBoxHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ForceUpdateFirmwareHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ForceUpdateFirmwareHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateControlParentallHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pin" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateControlParentallHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateMenuPassHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pin" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateMenuPassHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="StatusHttpGetIn">
+		<wsdl:part name="usuario" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="StatusHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="GetSmartCardsInfoHttpGetIn">
+		<wsdl:part name="usuario" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="GetSmartCardsInfoHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="GetInformationHttpGetIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="GetInformationHttpGetOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="InstallHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="codeSettopBox" type="s:string"/>
+		<wsdl:part name="brandSettopBox" type="s:string"/>
+		<wsdl:part name="modelSettopBox" type="s:string"/>
+		<wsdl:part name="firmwareSettopBox" type="s:string"/>
+		<wsdl:part name="pack1" type="s:string"/>
+		<wsdl:part name="pack2" type="s:string"/>
+		<wsdl:part name="pack3" type="s:string"/>
+		<wsdl:part name="masterCard" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="InstallHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="DisconnectHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="DisconnectHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReconnectHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pack1" type="s:string"/>
+		<wsdl:part name="pack2" type="s:string"/>
+		<wsdl:part name="pack3" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReconnectHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UninstallHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UninstallHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="AddPacksHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pack1" type="s:string"/>
+		<wsdl:part name="pack2" type="s:string"/>
+		<wsdl:part name="pack3" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="AddPacksHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="RemovePacksHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pack1" type="s:string"/>
+		<wsdl:part name="pack2" type="s:string"/>
+		<wsdl:part name="pack3" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="RemovePacksHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReSendKeyHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReSendKeyHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdatePinHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pin" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdatePinHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="SendMessageHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="message" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="SendMessageHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateFirmwareHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateFirmwareHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReScanChannelsHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ReScanChannelsHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="AddCarrierHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="carrier" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="AddCarrierHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ViewSetTopBoxIDHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ViewSetTopBoxIDHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ResetSetTopBoxHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ResetSetTopBoxHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateCodeZoneHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="code" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateCodeZoneHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="RebootSetTopBoxHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="RebootSetTopBoxHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="ForceUpdateFirmwareHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="ForceUpdateFirmwareHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateControlParentallHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pin" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateControlParentallHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateMenuPassHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="pin" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateMenuPassHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="StatusHttpPostIn">
+		<wsdl:part name="usuario" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="StatusHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="GetSmartCardsInfoHttpPostIn">
+		<wsdl:part name="usuario" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="GetSmartCardsInfoHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:message name="GetInformationHttpPostIn">
+		<wsdl:part name="userName" type="s:string"/>
+		<wsdl:part name="password" type="s:string"/>
+		<wsdl:part name="sequence" type="s:string"/>
+		<wsdl:part name="smartCards" type="s:string"/>
+		<wsdl:part name="userId" type="s:string"/>
+		<wsdl:part name="referenceNumber" type="s:string"/>
+		<wsdl:part name="notes" type="s:string"/>
+		<wsdl:part name="customerId" type="s:string"/>
+		<wsdl:part name="zone" type="s:string"/>
+	</wsdl:message>
+	<wsdl:message name="GetInformationHttpPostOut">
+		<wsdl:part name="Body" element="tns:string"/>
+	</wsdl:message>
+	<wsdl:portType name="TvCableIntegrationServiceInternalSoap">
+		<wsdl:operation name="Install">
+			<wsdl:input message="tns:InstallSoapIn"/>
+			<wsdl:output message="tns:InstallSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Disconnect">
+			<wsdl:input message="tns:DisconnectSoapIn"/>
+			<wsdl:output message="tns:DisconnectSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Reconnect">
+			<wsdl:input message="tns:ReconnectSoapIn"/>
+			<wsdl:output message="tns:ReconnectSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Uninstall">
+			<wsdl:input message="tns:UninstallSoapIn"/>
+			<wsdl:output message="tns:UninstallSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="AddPacks">
+			<wsdl:input message="tns:AddPacksSoapIn"/>
+			<wsdl:output message="tns:AddPacksSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="RemovePacks">
+			<wsdl:input message="tns:RemovePacksSoapIn"/>
+			<wsdl:output message="tns:RemovePacksSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReSendKey">
+			<wsdl:input message="tns:ReSendKeySoapIn"/>
+			<wsdl:output message="tns:ReSendKeySoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdatePin">
+			<wsdl:input message="tns:UpdatePinSoapIn"/>
+			<wsdl:output message="tns:UpdatePinSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="SendMessage">
+			<wsdl:input message="tns:SendMessageSoapIn"/>
+			<wsdl:output message="tns:SendMessageSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateFirmware">
+			<wsdl:input message="tns:UpdateFirmwareSoapIn"/>
+			<wsdl:output message="tns:UpdateFirmwareSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReScanChannels">
+			<wsdl:input message="tns:ReScanChannelsSoapIn"/>
+			<wsdl:output message="tns:ReScanChannelsSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="AddCarrier">
+			<wsdl:input message="tns:AddCarrierSoapIn"/>
+			<wsdl:output message="tns:AddCarrierSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ViewSetTopBoxID">
+			<wsdl:input message="tns:ViewSetTopBoxIDSoapIn"/>
+			<wsdl:output message="tns:ViewSetTopBoxIDSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ResetSetTopBox">
+			<wsdl:input message="tns:ResetSetTopBoxSoapIn"/>
+			<wsdl:output message="tns:ResetSetTopBoxSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCodeZone">
+			<wsdl:input message="tns:UpdateCodeZoneSoapIn"/>
+			<wsdl:output message="tns:UpdateCodeZoneSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="RebootSetTopBox">
+			<wsdl:input message="tns:RebootSetTopBoxSoapIn"/>
+			<wsdl:output message="tns:RebootSetTopBoxSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ForceUpdateFirmware">
+			<wsdl:input message="tns:ForceUpdateFirmwareSoapIn"/>
+			<wsdl:output message="tns:ForceUpdateFirmwareSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateControlParentall">
+			<wsdl:input message="tns:UpdateControlParentallSoapIn"/>
+			<wsdl:output message="tns:UpdateControlParentallSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateMenuPass">
+			<wsdl:input message="tns:UpdateMenuPassSoapIn"/>
+			<wsdl:output message="tns:UpdateMenuPassSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Status">
+			<wsdl:input message="tns:StatusSoapIn"/>
+			<wsdl:output message="tns:StatusSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetSmartCardsInfo">
+			<wsdl:input message="tns:GetSmartCardsInfoSoapIn"/>
+			<wsdl:output message="tns:GetSmartCardsInfoSoapOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetInformation">
+			<wsdl:input message="tns:GetInformationSoapIn"/>
+			<wsdl:output message="tns:GetInformationSoapOut"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="TvCableIntegrationServiceInternalHttpGet">
+		<wsdl:operation name="Install">
+			<wsdl:input message="tns:InstallHttpGetIn"/>
+			<wsdl:output message="tns:InstallHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Disconnect">
+			<wsdl:input message="tns:DisconnectHttpGetIn"/>
+			<wsdl:output message="tns:DisconnectHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Reconnect">
+			<wsdl:input message="tns:ReconnectHttpGetIn"/>
+			<wsdl:output message="tns:ReconnectHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Uninstall">
+			<wsdl:input message="tns:UninstallHttpGetIn"/>
+			<wsdl:output message="tns:UninstallHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="AddPacks">
+			<wsdl:input message="tns:AddPacksHttpGetIn"/>
+			<wsdl:output message="tns:AddPacksHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="RemovePacks">
+			<wsdl:input message="tns:RemovePacksHttpGetIn"/>
+			<wsdl:output message="tns:RemovePacksHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReSendKey">
+			<wsdl:input message="tns:ReSendKeyHttpGetIn"/>
+			<wsdl:output message="tns:ReSendKeyHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdatePin">
+			<wsdl:input message="tns:UpdatePinHttpGetIn"/>
+			<wsdl:output message="tns:UpdatePinHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="SendMessage">
+			<wsdl:input message="tns:SendMessageHttpGetIn"/>
+			<wsdl:output message="tns:SendMessageHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateFirmware">
+			<wsdl:input message="tns:UpdateFirmwareHttpGetIn"/>
+			<wsdl:output message="tns:UpdateFirmwareHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReScanChannels">
+			<wsdl:input message="tns:ReScanChannelsHttpGetIn"/>
+			<wsdl:output message="tns:ReScanChannelsHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="AddCarrier">
+			<wsdl:input message="tns:AddCarrierHttpGetIn"/>
+			<wsdl:output message="tns:AddCarrierHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ViewSetTopBoxID">
+			<wsdl:input message="tns:ViewSetTopBoxIDHttpGetIn"/>
+			<wsdl:output message="tns:ViewSetTopBoxIDHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ResetSetTopBox">
+			<wsdl:input message="tns:ResetSetTopBoxHttpGetIn"/>
+			<wsdl:output message="tns:ResetSetTopBoxHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCodeZone">
+			<wsdl:input message="tns:UpdateCodeZoneHttpGetIn"/>
+			<wsdl:output message="tns:UpdateCodeZoneHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="RebootSetTopBox">
+			<wsdl:input message="tns:RebootSetTopBoxHttpGetIn"/>
+			<wsdl:output message="tns:RebootSetTopBoxHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ForceUpdateFirmware">
+			<wsdl:input message="tns:ForceUpdateFirmwareHttpGetIn"/>
+			<wsdl:output message="tns:ForceUpdateFirmwareHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateControlParentall">
+			<wsdl:input message="tns:UpdateControlParentallHttpGetIn"/>
+			<wsdl:output message="tns:UpdateControlParentallHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateMenuPass">
+			<wsdl:input message="tns:UpdateMenuPassHttpGetIn"/>
+			<wsdl:output message="tns:UpdateMenuPassHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Status">
+			<wsdl:input message="tns:StatusHttpGetIn"/>
+			<wsdl:output message="tns:StatusHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetSmartCardsInfo">
+			<wsdl:input message="tns:GetSmartCardsInfoHttpGetIn"/>
+			<wsdl:output message="tns:GetSmartCardsInfoHttpGetOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetInformation">
+			<wsdl:input message="tns:GetInformationHttpGetIn"/>
+			<wsdl:output message="tns:GetInformationHttpGetOut"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="TvCableIntegrationServiceInternalHttpPost">
+		<wsdl:operation name="Install">
+			<wsdl:input message="tns:InstallHttpPostIn"/>
+			<wsdl:output message="tns:InstallHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Disconnect">
+			<wsdl:input message="tns:DisconnectHttpPostIn"/>
+			<wsdl:output message="tns:DisconnectHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Reconnect">
+			<wsdl:input message="tns:ReconnectHttpPostIn"/>
+			<wsdl:output message="tns:ReconnectHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Uninstall">
+			<wsdl:input message="tns:UninstallHttpPostIn"/>
+			<wsdl:output message="tns:UninstallHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="AddPacks">
+			<wsdl:input message="tns:AddPacksHttpPostIn"/>
+			<wsdl:output message="tns:AddPacksHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="RemovePacks">
+			<wsdl:input message="tns:RemovePacksHttpPostIn"/>
+			<wsdl:output message="tns:RemovePacksHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReSendKey">
+			<wsdl:input message="tns:ReSendKeyHttpPostIn"/>
+			<wsdl:output message="tns:ReSendKeyHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdatePin">
+			<wsdl:input message="tns:UpdatePinHttpPostIn"/>
+			<wsdl:output message="tns:UpdatePinHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="SendMessage">
+			<wsdl:input message="tns:SendMessageHttpPostIn"/>
+			<wsdl:output message="tns:SendMessageHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateFirmware">
+			<wsdl:input message="tns:UpdateFirmwareHttpPostIn"/>
+			<wsdl:output message="tns:UpdateFirmwareHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReScanChannels">
+			<wsdl:input message="tns:ReScanChannelsHttpPostIn"/>
+			<wsdl:output message="tns:ReScanChannelsHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="AddCarrier">
+			<wsdl:input message="tns:AddCarrierHttpPostIn"/>
+			<wsdl:output message="tns:AddCarrierHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ViewSetTopBoxID">
+			<wsdl:input message="tns:ViewSetTopBoxIDHttpPostIn"/>
+			<wsdl:output message="tns:ViewSetTopBoxIDHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ResetSetTopBox">
+			<wsdl:input message="tns:ResetSetTopBoxHttpPostIn"/>
+			<wsdl:output message="tns:ResetSetTopBoxHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCodeZone">
+			<wsdl:input message="tns:UpdateCodeZoneHttpPostIn"/>
+			<wsdl:output message="tns:UpdateCodeZoneHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="RebootSetTopBox">
+			<wsdl:input message="tns:RebootSetTopBoxHttpPostIn"/>
+			<wsdl:output message="tns:RebootSetTopBoxHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="ForceUpdateFirmware">
+			<wsdl:input message="tns:ForceUpdateFirmwareHttpPostIn"/>
+			<wsdl:output message="tns:ForceUpdateFirmwareHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateControlParentall">
+			<wsdl:input message="tns:UpdateControlParentallHttpPostIn"/>
+			<wsdl:output message="tns:UpdateControlParentallHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateMenuPass">
+			<wsdl:input message="tns:UpdateMenuPassHttpPostIn"/>
+			<wsdl:output message="tns:UpdateMenuPassHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="Status">
+			<wsdl:input message="tns:StatusHttpPostIn"/>
+			<wsdl:output message="tns:StatusHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetSmartCardsInfo">
+			<wsdl:input message="tns:GetSmartCardsInfoHttpPostIn"/>
+			<wsdl:output message="tns:GetSmartCardsInfoHttpPostOut"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetInformation">
+			<wsdl:input message="tns:GetInformationHttpPostIn"/>
+			<wsdl:output message="tns:GetInformationHttpPostOut"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="TvCableIntegrationServiceInternalSoap" type="tns:TvCableIntegrationServiceInternalSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="Install">
+			<soap:operation soapAction="http://tempuri.org/Install" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Disconnect">
+			<soap:operation soapAction="http://tempuri.org/Disconnect" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Reconnect">
+			<soap:operation soapAction="http://tempuri.org/Reconnect" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Uninstall">
+			<soap:operation soapAction="http://tempuri.org/Uninstall" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddPacks">
+			<soap:operation soapAction="http://tempuri.org/AddPacks" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RemovePacks">
+			<soap:operation soapAction="http://tempuri.org/RemovePacks" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReSendKey">
+			<soap:operation soapAction="http://tempuri.org/ReSendKey" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdatePin">
+			<soap:operation soapAction="http://tempuri.org/UpdatePin" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SendMessage">
+			<soap:operation soapAction="http://tempuri.org/SendMessage" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateFirmware">
+			<soap:operation soapAction="http://tempuri.org/UpdateFirmware" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReScanChannels">
+			<soap:operation soapAction="http://tempuri.org/ReScanChannels" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddCarrier">
+			<soap:operation soapAction="http://tempuri.org/AddCarrier" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ViewSetTopBoxID">
+			<soap:operation soapAction="http://tempuri.org/ViewSetTopBoxID" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ResetSetTopBox">
+			<soap:operation soapAction="http://tempuri.org/ResetSetTopBox" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCodeZone">
+			<soap:operation soapAction="http://tempuri.org/UpdateCodeZone" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RebootSetTopBox">
+			<soap:operation soapAction="http://tempuri.org/RebootSetTopBox" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ForceUpdateFirmware">
+			<soap:operation soapAction="http://tempuri.org/ForceUpdateFirmware" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateControlParentall">
+			<soap:operation soapAction="http://tempuri.org/UpdateControlParentall" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateMenuPass">
+			<soap:operation soapAction="http://tempuri.org/UpdateMenuPass" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Status">
+			<soap:operation soapAction="http://tempuri.org/Status" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSmartCardsInfo">
+			<soap:operation soapAction="http://tempuri.org/GetSmartCardsInfo" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetInformation">
+			<soap:operation soapAction="http://tempuri.org/GetInformation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="TvCableIntegrationServiceInternalSoap12" type="tns:TvCableIntegrationServiceInternalSoap">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="Install">
+			<soap12:operation soapAction="http://tempuri.org/Install" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Disconnect">
+			<soap12:operation soapAction="http://tempuri.org/Disconnect" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Reconnect">
+			<soap12:operation soapAction="http://tempuri.org/Reconnect" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Uninstall">
+			<soap12:operation soapAction="http://tempuri.org/Uninstall" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddPacks">
+			<soap12:operation soapAction="http://tempuri.org/AddPacks" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RemovePacks">
+			<soap12:operation soapAction="http://tempuri.org/RemovePacks" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReSendKey">
+			<soap12:operation soapAction="http://tempuri.org/ReSendKey" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdatePin">
+			<soap12:operation soapAction="http://tempuri.org/UpdatePin" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SendMessage">
+			<soap12:operation soapAction="http://tempuri.org/SendMessage" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateFirmware">
+			<soap12:operation soapAction="http://tempuri.org/UpdateFirmware" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReScanChannels">
+			<soap12:operation soapAction="http://tempuri.org/ReScanChannels" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddCarrier">
+			<soap12:operation soapAction="http://tempuri.org/AddCarrier" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ViewSetTopBoxID">
+			<soap12:operation soapAction="http://tempuri.org/ViewSetTopBoxID" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ResetSetTopBox">
+			<soap12:operation soapAction="http://tempuri.org/ResetSetTopBox" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCodeZone">
+			<soap12:operation soapAction="http://tempuri.org/UpdateCodeZone" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RebootSetTopBox">
+			<soap12:operation soapAction="http://tempuri.org/RebootSetTopBox" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ForceUpdateFirmware">
+			<soap12:operation soapAction="http://tempuri.org/ForceUpdateFirmware" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateControlParentall">
+			<soap12:operation soapAction="http://tempuri.org/UpdateControlParentall" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateMenuPass">
+			<soap12:operation soapAction="http://tempuri.org/UpdateMenuPass" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Status">
+			<soap12:operation soapAction="http://tempuri.org/Status" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSmartCardsInfo">
+			<soap12:operation soapAction="http://tempuri.org/GetSmartCardsInfo" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetInformation">
+			<soap12:operation soapAction="http://tempuri.org/GetInformation" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="TvCableIntegrationServiceInternalHttpGet" type="tns:TvCableIntegrationServiceInternalHttpGet">
+		<http:binding verb="GET"/>
+		<wsdl:operation name="Install">
+			<http:operation location="/Install"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Disconnect">
+			<http:operation location="/Disconnect"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Reconnect">
+			<http:operation location="/Reconnect"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Uninstall">
+			<http:operation location="/Uninstall"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddPacks">
+			<http:operation location="/AddPacks"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RemovePacks">
+			<http:operation location="/RemovePacks"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReSendKey">
+			<http:operation location="/ReSendKey"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdatePin">
+			<http:operation location="/UpdatePin"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SendMessage">
+			<http:operation location="/SendMessage"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateFirmware">
+			<http:operation location="/UpdateFirmware"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReScanChannels">
+			<http:operation location="/ReScanChannels"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddCarrier">
+			<http:operation location="/AddCarrier"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ViewSetTopBoxID">
+			<http:operation location="/ViewSetTopBoxID"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ResetSetTopBox">
+			<http:operation location="/ResetSetTopBox"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCodeZone">
+			<http:operation location="/UpdateCodeZone"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RebootSetTopBox">
+			<http:operation location="/RebootSetTopBox"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ForceUpdateFirmware">
+			<http:operation location="/ForceUpdateFirmware"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateControlParentall">
+			<http:operation location="/UpdateControlParentall"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateMenuPass">
+			<http:operation location="/UpdateMenuPass"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Status">
+			<http:operation location="/Status"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSmartCardsInfo">
+			<http:operation location="/GetSmartCardsInfo"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetInformation">
+			<http:operation location="/GetInformation"/>
+			<wsdl:input>
+				<http:urlEncoded/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="TvCableIntegrationServiceInternalHttpPost" type="tns:TvCableIntegrationServiceInternalHttpPost">
+		<http:binding verb="POST"/>
+		<wsdl:operation name="Install">
+			<http:operation location="/Install"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Disconnect">
+			<http:operation location="/Disconnect"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Reconnect">
+			<http:operation location="/Reconnect"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Uninstall">
+			<http:operation location="/Uninstall"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddPacks">
+			<http:operation location="/AddPacks"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RemovePacks">
+			<http:operation location="/RemovePacks"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReSendKey">
+			<http:operation location="/ReSendKey"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdatePin">
+			<http:operation location="/UpdatePin"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SendMessage">
+			<http:operation location="/SendMessage"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateFirmware">
+			<http:operation location="/UpdateFirmware"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReScanChannels">
+			<http:operation location="/ReScanChannels"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddCarrier">
+			<http:operation location="/AddCarrier"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ViewSetTopBoxID">
+			<http:operation location="/ViewSetTopBoxID"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ResetSetTopBox">
+			<http:operation location="/ResetSetTopBox"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCodeZone">
+			<http:operation location="/UpdateCodeZone"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RebootSetTopBox">
+			<http:operation location="/RebootSetTopBox"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ForceUpdateFirmware">
+			<http:operation location="/ForceUpdateFirmware"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateControlParentall">
+			<http:operation location="/UpdateControlParentall"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateMenuPass">
+			<http:operation location="/UpdateMenuPass"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Status">
+			<http:operation location="/Status"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSmartCardsInfo">
+			<http:operation location="/GetSmartCardsInfo"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetInformation">
+			<http:operation location="/GetInformation"/>
+			<wsdl:input>
+				<mime:content type="application/x-www-form-urlencoded"/>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:mimeXml part="Body"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TvCableIntegrationServiceInternal">
+		<wsdl:port name="TvCableIntegrationServiceInternalSoap" binding="tns:TvCableIntegrationServiceInternalSoap">
+			<soap:address location="http://192.168.21.191:8090/TvCableIntegrationServiceInternal.asmx"/>
+		</wsdl:port>
+		<wsdl:port name="TvCableIntegrationServiceInternalSoap12" binding="tns:TvCableIntegrationServiceInternalSoap12">
+			<soap12:address location="http://192.168.21.191:8090/TvCableIntegrationServiceInternal.asmx"/>
+		</wsdl:port>
+		<wsdl:port name="TvCableIntegrationServiceInternalHttpGet" binding="tns:TvCableIntegrationServiceInternalHttpGet">
+			<http:address location="http://192.168.21.191:8090/TvCableIntegrationServiceInternal.asmx"/>
+		</wsdl:port>
+		<wsdl:port name="TvCableIntegrationServiceInternalHttpPost" binding="tns:TvCableIntegrationServiceInternalHttpPost">
+			<http:address location="http://192.168.21.191:8090/TvCableIntegrationServiceInternal.asmx"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

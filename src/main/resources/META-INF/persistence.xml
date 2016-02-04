@@ -14,6 +14,7 @@
 		<class>com.ec.tvcable.switchaprov.jpa.TransactionSpIntraway</class>
       
 		<properties>
+			<property name="hibernate.ejb.entitymanager_factory_name" value="switch-aprovisionamiento" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />

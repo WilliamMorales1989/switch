@@ -32,6 +32,4 @@ public class ParametrosConax {
 	public void setSerial(String serial) {
 		this.serial = serial;
 	}
-	
-	
 }
