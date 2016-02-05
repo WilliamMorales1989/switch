@@ -5,8 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import com.ec.tvcable.switchaprov.InterfaceInvocationResponse;
-import com.ec.tvcable.switchaprov.service.tvpagada.Mensaje;
+import javax.swing.Timer;
 import com.ec.tvcable.switchaprov.service.tvpagada.Respuesta;
 
 public class Yprd_apro_conax {
@@ -45,13 +44,15 @@ public class Yprd_apro_conax {
 			
 			System.out.println("contador = "+contador);
 			
+			Timer timer = new Timer(5, null); 
+			
 			while (contador.equals("0")) {
 				
 				Query query3 = enmanager.createNativeQuery("select count(1) from ytbl_conax w where w.id = (select max(q.id) from ytbl_conax q where q.citem_id = ?) and w.errorno is not null")
 						.setParameter(1, parConax.getCitem_id());
 						
 				contador = query3.getResultList().get(0).toString();
-				/**System.out.println("contador = "+contador);**/
+				System.out.println("contador = "+contador);
 				
 				if (contador.equals("1")){
 					
@@ -76,6 +77,8 @@ public class Yprd_apro_conax {
 		}catch(Exception e){
 			
 			System.out.println("query_error = "+e);
+			enmanager.close();
+			emfactory.close();
 		}
 		
 		enmanager.close();
