@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Aprovisionamiento/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aprovisionamiento" targetNamespace="http://www.example.org/Aprovisionamiento/">
   <wsdl:types>
-    <xsd:schema targetNamespace="http://www.example.org/Aprovisionamiento/">
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/Aprovisionamiento/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.example.org/Aprovisionamiento/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
       <xsd:element name="Aprovisionamiento">
         <xsd:complexType>
           <xsd:sequence>
-          	<xsd:element name="HeaderRequest" type="tns:HeaderRequest" />
-          	<xsd:element name="BodyRequest" type="tns:BodyRequest"></xsd:element>
+          	<xsd:element name="HeaderRequest" type="tns:HeaderRequest" maxOccurs="1" minOccurs="1"/>
+          	<xsd:element name="BodyRequest" type="tns:BodyRequest" maxOccurs="1" minOccurs="1"></xsd:element>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
       <xsd:element name="AprovisionamientoResponse">
         <xsd:complexType>
           <xsd:sequence>
-          	<xsd:element name="HeaderResponse" type="tns:HeaderResponse" />
+          	<xsd:element name="HeaderResponse"
+          		type="tns:HeaderResponse" />
           	<xsd:element name="BodyResponse" type="tns:BodyResponse"></xsd:element>
           </xsd:sequence>
         </xsd:complexType>

@@ -122,6 +122,9 @@
       <sca:reference name="InternetSGR">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.InternetSGR.InternetSGR"/>
       </sca:reference>
+      <sca:reference name="AprovisionamientoDTH">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.ComandosDTH.AprovisionamientoDTH"/>
+      </sca:reference>
     </sca:component>
     <sca:component name="TvPagadaSGRBean">
       <bean:implementation.bean class="com.ec.tvcable.switchaprov.TvPagadaSGR.TvPagadaSGRBean"/>
@@ -160,6 +163,18 @@
       <bean:implementation.bean class="com.ec.tvcable.switchaprov.conax.CreacionConaxBean"/>
       <sca:service name="CreacionConax">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.conax.CreacionConax"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="AprovisionamientoDTHBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.ComandosDTH.AprovisionamientoDTHBean"/>
+      <sca:service name="AprovisionamientoDTH">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.ComandosDTH.AprovisionamientoDTH"/>
+      </sca:service>
+    </sca:component>
+    <sca:component name="CreacionOtrosBean">
+      <bean:implementation.bean class="com.ec.tvcable.switchaprov.CreacionOtros.CreacionOtrosBean"/>
+      <sca:service name="CreacionOtros">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.CreacionOtros.CreacionOtros"/>
       </sca:service>
     </sca:component>
   </sca:composite>

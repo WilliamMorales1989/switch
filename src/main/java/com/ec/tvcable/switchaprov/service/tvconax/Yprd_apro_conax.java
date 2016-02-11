@@ -14,7 +14,7 @@ public class Yprd_apro_conax {
 	private String errorno;
 	private String errormessage;
 	private Respuesta respuesta;
-
+	private int bandera = 0;
 	public RespuestaConax resConax (ParametrosConax parConax){
 		
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("switch-aprovisionamiento");
@@ -44,7 +44,7 @@ public class Yprd_apro_conax {
 			
 			System.out.println("contador = "+contador);
 			
-			Timer timer = new Timer(5, null); 
+			bandera = 0;
 			
 			while (contador.equals("0")) {
 				
@@ -54,6 +54,19 @@ public class Yprd_apro_conax {
 				contador = query3.getResultList().get(0).toString();
 				System.out.println("contador = "+contador);
 				
+				Thread.sleep(5000);
+				
+				bandera ++;
+				System.out.println("bandera = "+bandera);
+				
+				if (bandera == 12){
+					contador = "2";
+					errorno = "1";
+					errormessage = "No se genero el archivo xml";
+				}
+				
+				
+				
 				if (contador.equals("1")){
 					
 					Query query4 = enmanager.createNativeQuery("select w.errorno from ytbl_conax w where w.id = (select max(q.id) from ytbl_conax q where q.citem_id = ?) and w.errorno is not null")
@@ -62,12 +75,14 @@ public class Yprd_apro_conax {
 					errorno = query4.getResultList().get(0).toString();
 					/*System.out.println("errorno = "+errorno);*/
 					
+					if (!errorno.equals("0"))
+					{
 					Query query5 = enmanager.createNativeQuery("select w.errormessage from ytbl_conax w where w.id = (select max(q.id) from ytbl_conax q where q.citem_id = ?) and w.errorno is not null")
 							.setParameter(1, parConax.getCitem_id());
-							
+					
 					errormessage = query5.getResultList().get(0).toString();
 					/*System.out.println("errormessage = "+errormessage);*/
-					
+					}
 				}
 				
 			}
