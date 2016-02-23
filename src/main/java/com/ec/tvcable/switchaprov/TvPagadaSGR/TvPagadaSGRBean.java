@@ -52,13 +52,13 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 	
 	private Respuesta respuesta;
 	
-	String dblink = "@BSDESA";
+	String dblink = "@RAC";
 	
 	//private static final Logger logger = Logger.getLogger(TvInterfazServiceBean.class);
 	
 	private String InternalCode;
 	
-	@Resource(mappedName = "java:/jdbc/DesaAppDS")
+	@Resource(mappedName = "java:/jdbc/ProduccionDS")
 	private DataSource datasource;
 	
 	@Override
@@ -66,9 +66,15 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 		
 		/**0 = creacion de equipos = IN**/
 		/**1 = eliminacion de equipos = OUT**/
+		/**2 = activacion de equipos = ACTIVAR**/
+		/**3 = activacion de equipos = CORTAR**/
+		/**4 = activacion de equipos = INICIALIZAR**/
+		/**5 = activacion de equipos = REFRESCAR**/
+		/**6 = activacion de equipos = RECOLECTAR DIGITAL**/
+		/**7 = activacion de equipos = RECOLECTAR**/
 		
 		if(param.getBodyRequest().getTipo().equals("IN")){
-			if(param.getHeaderRequest().getController().equals("DAC")){
+			if(param.getHeaderRequest().getController().equals("DAC") || param.getHeaderRequest().getController().equals("DAC_MEDIAGATEWAY")){
 				respuesta = creacion(param, 0);
 			}else{
 				respuesta = creacionconax.resp(param);
@@ -77,22 +83,327 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 		}else if(param.getBodyRequest().getTipo().equals("OUT")){
 			respuesta = eliminacion(param, 1);
 			return respuesta;
+		}else if(param.getBodyRequest().getTipo().equals("ACTIVAR")){
+			
+			ValidacionEquipos validacion = new ValidacionEquipos();
+			ErroresSQL error = new ErroresSQL();
+			
+			error = validacion.verificacionEquipos(param, datasource);
+				
+			if(error.getCodError() == 1){
+				
+				respuesta = new Respuesta();
+				
+				Mensaje mensaje = new Mensaje();
+				
+				mensaje.setCodError(error.getCodError());
+				mensaje.setDetMensaje(error.getDetailError());
+				mensaje.setDatosExtrasTVP(null);
+				
+				respuesta.setMensaje(mensaje);
+							
+				return respuesta;
+			}else{
+				
+				DatoDeviceModel devicemodel = new DatoDeviceModel();
+				devicemodel.setDeviceModel(param.getBodyRequest().getDeviceModel());
+				
+				InternalCode = datostvpagada.InternalCode(devicemodel);
+				
+				TipoComando tipocomando = new TipoComando();
+				tipocomando.setTcomando(2);
+				
+				DatosAprov datosaprov = datostvpagada.datosaprov(tipocomando);
+				
+				datosaprov.setIdServicio(param.getBodyRequest().getIdPlan());
+				
+				String citem = validacion.citemEquipo(Integer.parseInt(param.getBodyRequest().getIdRestype()), datasource);
+				
+				datosaprov.setCitem(citem);
+				Comando comando = coman(param, datosaprov);
+				
+				respuesta = invoke(comando);
+				
+				int result = validacion.RLBCHECKMISTAKE(respuesta.getMensaje().getCodError(), respuesta.getMensaje().getDetMensaje(), datasource);
+				validacion.RLBREGISTROACCIONLAB(param, respuesta, datasource);
+				respuesta.getMensaje().setCodError(result);
+			}
+			return respuesta;
+		}else if(param.getBodyRequest().getTipo().equals("CORTAR")){
+			
+			ValidacionEquipos activacion = new ValidacionEquipos();
+			ErroresSQL error = new ErroresSQL();
+			
+			error = activacion.verificacionEquipos(param, datasource);
+				
+			if(error.getCodError() == 1){
+				
+				respuesta = new Respuesta();
+				
+				Mensaje mensaje = new Mensaje();
+				
+				mensaje.setCodError(error.getCodError());
+				mensaje.setDetMensaje(error.getDetailError());
+				mensaje.setDatosExtrasTVP(null);
+				
+				respuesta.setMensaje(mensaje);
+							
+				return respuesta;
+			}else{
+				
+				DatoDeviceModel devicemodel = new DatoDeviceModel();
+				devicemodel.setDeviceModel(param.getBodyRequest().getDeviceModel());
+				
+				InternalCode = datostvpagada.InternalCode(devicemodel);
+				
+				TipoComando tipocomando = new TipoComando();
+				tipocomando.setTcomando(3);
+				
+				DatosAprov datosaprov = datostvpagada.datosaprov(tipocomando);
+				
+				//datosaprov.setIdServicio(param.getBodyRequest().getIdPlan());
+				
+				String citem = activacion.citemEquipo(Integer.parseInt(param.getBodyRequest().getIdRestype()), datasource);
+				
+				datosaprov.setCitem(citem);
+				Comando comando = coman(param, datosaprov);
+				
+				respuesta = invoke(comando);
+				
+				int result = activacion.RLBCHECKMISTAKE(respuesta.getMensaje().getCodError(), respuesta.getMensaje().getDetMensaje(), datasource);
+				activacion.RLBREGISTROACCIONLAB(param, respuesta, datasource);
+				respuesta.getMensaje().setCodError(result);
+			}
+			return respuesta;
+		}else if(param.getBodyRequest().getTipo().equals("INICIALIZAR")){
+			
+			ValidacionEquipos activacion = new ValidacionEquipos();
+			ErroresSQL error = new ErroresSQL();
+			
+			error = activacion.verificacionEquipos(param, datasource);
+				
+			if(error.getCodError() == 1){
+				
+				respuesta = new Respuesta();
+				
+				Mensaje mensaje = new Mensaje();
+				
+				mensaje.setCodError(error.getCodError());
+				mensaje.setDetMensaje(error.getDetailError());
+				mensaje.setDatosExtrasTVP(null);
+				
+				respuesta.setMensaje(mensaje);
+							
+				return respuesta;
+			}else{
+				
+				DatoDeviceModel devicemodel = new DatoDeviceModel();
+				devicemodel.setDeviceModel(param.getBodyRequest().getDeviceModel());
+				
+				InternalCode = datostvpagada.InternalCode(devicemodel);
+				
+				TipoComando tipocomando = new TipoComando();
+				tipocomando.setTcomando(4);
+				
+				DatosAprov datosaprov = datostvpagada.datosaprov(tipocomando);
+				
+				datosaprov.setIdServicio(param.getBodyRequest().getIdPlan());
+				
+				String citem = activacion.citemEquipo(Integer.parseInt(param.getBodyRequest().getIdRestype()), datasource);
+				
+				datosaprov.setCitem(citem);
+				Comando comando = coman(param, datosaprov);
+				
+				respuesta = invoke(comando);
+				
+				int result = activacion.RLBCHECKMISTAKE(respuesta.getMensaje().getCodError(), respuesta.getMensaje().getDetMensaje(), datasource);
+				activacion.RLBREGISTROACCIONLAB(param, respuesta, datasource);
+				respuesta.getMensaje().setCodError(result);
+			}
+			return respuesta;
+			
+		}else if(param.getBodyRequest().getTipo().equals("REFRESCAR")){
+			
+			ValidacionEquipos activacion = new ValidacionEquipos();
+			ErroresSQL error = new ErroresSQL();
+			
+			error = activacion.verificacionEquipos(param, datasource);
+				
+			if(error.getCodError() == 1){
+				
+				respuesta = new Respuesta();
+				
+				Mensaje mensaje = new Mensaje();
+				
+				mensaje.setCodError(error.getCodError());
+				mensaje.setDetMensaje(error.getDetailError());
+				mensaje.setDatosExtrasTVP(null);
+				
+				respuesta.setMensaje(mensaje);
+							
+				return respuesta;
+			}else{
+				
+				DatoDeviceModel devicemodel = new DatoDeviceModel();
+				devicemodel.setDeviceModel(param.getBodyRequest().getDeviceModel());
+				
+				InternalCode = datostvpagada.InternalCode(devicemodel);
+				
+				TipoComando tipocomando = new TipoComando();
+				tipocomando.setTcomando(5);
+				
+				DatosAprov datosaprov = datostvpagada.datosaprov(tipocomando);
+				
+				datosaprov.setIdServicio(param.getBodyRequest().getIdPlan());
+				
+				String citem = activacion.citemEquipo(Integer.parseInt(param.getBodyRequest().getIdRestype()), datasource);
+				
+				datosaprov.setCitem(citem);
+				Comando comando = coman(param, datosaprov);
+				
+				respuesta = invoke(comando);
+				
+				int result = activacion.RLBCHECKMISTAKE(respuesta.getMensaje().getCodError(), respuesta.getMensaje().getDetMensaje(), datasource);
+				activacion.RLBREGISTROACCIONLAB(param, respuesta, datasource);
+				respuesta.getMensaje().setCodError(result);
+			}
+			return respuesta;
+			
+		}else if(param.getBodyRequest().getTipo().equals("RECOLECTAR")){
+			
+			ValidacionEquipos activacion = new ValidacionEquipos();
+			ErroresSQL error = new ErroresSQL();
+			
+			error = activacion.verificacionEquipos(param, datasource);
+				
+			if(error.getCodError() == 1){
+				
+				respuesta = new Respuesta();
+				
+				Mensaje mensaje = new Mensaje();
+				
+				mensaje.setCodError(error.getCodError());
+				mensaje.setDetMensaje(error.getDetailError());
+				mensaje.setDatosExtrasTVP(null);
+				
+				respuesta.setMensaje(mensaje);
+							
+				return respuesta;
+			}else{
+				
+				DatoDeviceModel devicemodel = new DatoDeviceModel();
+				devicemodel.setDeviceModel(param.getBodyRequest().getDeviceModel());
+				
+				InternalCode = datostvpagada.InternalCode(devicemodel);
+				
+				TipoComando tipocomando = new TipoComando();
+				tipocomando.setTcomando(6);
+				
+				DatosAprov datosaprov = datostvpagada.datosaprov(tipocomando);
+				
+				//datosaprov.setIdServicio(param.getBodyRequest().getIdPlan());
+				
+				String citem = activacion.citemEquipo(Integer.parseInt(param.getBodyRequest().getIdRestype()), datasource);
+				
+				datosaprov.setCitem(citem);
+				Comando comando = coman(param, datosaprov);
+				
+				respuesta = invoke(comando);
+				
+				if (respuesta.getMensaje().getCodError() == 1){
+					
+					DatoDeviceModel devicemodel2 = new DatoDeviceModel();
+					devicemodel2.setDeviceModel(param.getBodyRequest().getDeviceModel());
+					
+					InternalCode = datostvpagada.InternalCode(devicemodel);
+					
+					TipoComando tipocomando2 = new TipoComando();
+					tipocomando2.setTcomando(7);
+					
+					DatosAprov datosaprov2 = datostvpagada.datosaprov(tipocomando2);
+					
+					//datosaprov2.setIdServicio(param.getBodyRequest().getIdPlan());
+					
+					String citem2 = activacion.citemEquipo(Integer.parseInt(param.getBodyRequest().getIdRestype()), datasource);
+					
+					datosaprov2.setCitem(citem2);
+					Comando comando2 = coman(param, datosaprov2);
+					
+					respuesta = invoke(comando2);
+					
+					int result = activacion.RLBCHECKMISTAKE(respuesta.getMensaje().getCodError(), respuesta.getMensaje().getDetMensaje(), datasource);
+					activacion.RLBREGISTROACCIONLAB(param, respuesta, datasource);
+					respuesta.getMensaje().setCodError(result);
+					
+				}else{
+					return respuesta;
+				}
+			}
+			return respuesta;
+			
+		}else if(param.getBodyRequest().getTipo().equals("COLD INIT")){
+			
+			ValidacionEquipos activacion = new ValidacionEquipos();
+			ErroresSQL error = new ErroresSQL();
+			
+			error = activacion.verificacionEquipos(param, datasource);
+				
+			if(error.getCodError() == 1){
+				
+				respuesta = new Respuesta();
+				
+				Mensaje mensaje = new Mensaje();
+				
+				mensaje.setCodError(error.getCodError());
+				mensaje.setDetMensaje(error.getDetailError());
+				mensaje.setDatosExtrasTVP(null);
+				
+				respuesta.setMensaje(mensaje);
+							
+				return respuesta;
+			}else{
+				
+				DatoDeviceModel devicemodel = new DatoDeviceModel();
+				devicemodel.setDeviceModel(param.getBodyRequest().getDeviceModel());
+				
+				InternalCode = datostvpagada.InternalCode(devicemodel);
+				
+				TipoComando tipocomando = new TipoComando();
+				tipocomando.setTcomando(8);
+				
+				DatosAprov datosaprov = datostvpagada.datosaprov(tipocomando);
+				
+				//datosaprov.setIdServicio(param.getBodyRequest().getIdPlan());
+				
+				String citem = activacion.citemEquipo(Integer.parseInt(param.getBodyRequest().getIdRestype()), datasource);
+				
+				datosaprov.setCitem(citem);
+				Comando comando = coman(param, datosaprov);
+				
+				respuesta = invoke(comando);
+				
+				int result = activacion.RLBCHECKMISTAKE(respuesta.getMensaje().getCodError(), respuesta.getMensaje().getDetMensaje(), datasource);
+				activacion.RLBREGISTROACCIONLAB(param, respuesta, datasource);
+				respuesta.getMensaje().setCodError(result);
+			}
+			return respuesta;
+			
 		}
 		
-		
+				
 		return respuesta;
 		
 	}
-	
+	/********************************************************CREACION*************************************************************/
 	private Respuesta creacion(Aprovisionamiento_Type parametros, int accion){
 		
 		String equipoexiste = RLBCHECKRESOURCEVALUE(parametros);
 		
 		if (equipoexiste.equals("OK")){
-			DatoDeviceModel devicemodel = new DatoDeviceModel();
+			/*DatoDeviceModel devicemodel = new DatoDeviceModel();
 			devicemodel.setDeviceModel(parametros.getBodyRequest().getDeviceModel());
 			
-			InternalCode = datostvpagada.InternalCode(devicemodel);
+			InternalCode = datostvpagada.InternalCode(devicemodel);*/
 			
 			TipoComando tipocomando = new TipoComando();
 			tipocomando.setTcomando(accion);
@@ -103,7 +414,15 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 			
 			respuesta = invoke(comando);
 			
-			CreacionEquipos(parametros,respuesta,comando.getDetalle().getTVpagada().getIdAccount());
+			if (parametros.getHeaderRequest().getController().equals("DAC")){
+				
+				CreacionEquiposDAC(parametros,respuesta,comando.getDetalle().getTVpagada().getIdAccount());
+				
+			}else{
+				
+				CreacionEquiposMultiroom(parametros,respuesta,comando.getDetalle().getTVpagada().getIdAccount());
+				
+			}
 			
 			Respuesta respuesta = new Respuesta();
 			
@@ -127,10 +446,7 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 		}
 		
 	}
-	
-	
 	Connection connection;
-	
 	private String RLBCHECKRESOURCEVALUE(Aprovisionamiento_Type parametros){
 		
 		String resultado = null;
@@ -139,7 +455,7 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 			connection = datasource.getConnection();
 			CallableStatement preparecall = connection.prepareCall("{call YLABPACK.RLBCHECKRESOURCEVALUE(?,?,?,?,?,?)}");
 			preparecall.setString(1, parametros.getBodyRequest().getBodega());
-			preparecall.setInt(2, parametros.getBodyRequest().getIdEmpresa());
+			preparecall.setString(2, parametros.getBodyRequest().getIdEmpresa());
 			preparecall.setString(3, parametros.getBodyRequest().getCodigoArticulo());
 			preparecall.setInt(4, parametros.getBodyRequest().getDeviceModel());
 			preparecall.setString(5, parametros.getBodyRequest().getSerie());
@@ -165,24 +481,59 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 		return resultado;
 	}
 	
-	private void CreacionEquipos (Aprovisionamiento_Type parametros, Respuesta respuesta, int idcontroller){
+	private void CreacionEquiposDAC (Aprovisionamiento_Type parametros, Respuesta respuesta, int idcontroller){
 		
 		try {
 			connection = datasource.getConnection();
-			CallableStatement prepareCall = connection.prepareCall("{call YPKG_SGR.YPRD_CREACION_EQUIPOS(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement prepareCall = connection.prepareCall("{call YPKG_SGR.YPRD_CREACION_EQUIPOS(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			prepareCall.setString(1, parametros.getBodyRequest().getNombreCiudad());
 			prepareCall.setString(2, parametros.getBodyRequest().getBodega());
-			prepareCall.setInt(3, parametros.getBodyRequest().getIdEmpresa());
+			prepareCall.setString(3, parametros.getBodyRequest().getIdEmpresa());
 			prepareCall.setString(4, parametros.getBodyRequest().getCodigoArticulo());
 			prepareCall.setInt(5, parametros.getBodyRequest().getDeviceModel());
 			prepareCall.setString(6, parametros.getBodyRequest().getSerie());
 			prepareCall.setString(7, parametros.getBodyRequest().getMacAddress1());
-			prepareCall.setString(8, parametros.getBodyRequest().getUsuario());
-			prepareCall.setInt(9, Integer.parseInt(parametros.getBodyRequest().getIdRestype()));
-			prepareCall.setString(10, parametros.getBodyRequest().getTipo());
-			prepareCall.setInt(11, respuesta.getMensaje().getCodError());
-			prepareCall.setString(12, respuesta.getMensaje().getDetMensaje());
-			prepareCall.setInt(13, idcontroller);
+			prepareCall.setString(8, parametros.getBodyRequest().getMacAddress2());
+			prepareCall.setString(9, parametros.getBodyRequest().getUsuario());
+			prepareCall.setInt(10, Integer.parseInt(parametros.getBodyRequest().getIdRestype()));
+			prepareCall.setString(11, parametros.getBodyRequest().getTipo());
+			prepareCall.setInt(12, respuesta.getMensaje().getCodError());
+			prepareCall.setString(13, respuesta.getMensaje().getDetMensaje());
+			prepareCall.setInt(14, idcontroller);
+			prepareCall.execute();
+
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				connection.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	private void CreacionEquiposMultiroom (Aprovisionamiento_Type parametros, Respuesta respuesta, int idcontroller){
+		
+		try {
+			connection = datasource.getConnection();
+			CallableStatement prepareCall = connection.prepareCall("{call YPKG_SGR.YPRD_CREACION_EQUIPOS_MULTI(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			prepareCall.setString(1, parametros.getBodyRequest().getNombreCiudad());
+			prepareCall.setString(2, parametros.getBodyRequest().getBodega());
+			prepareCall.setString(3, parametros.getBodyRequest().getIdEmpresa());
+			prepareCall.setString(4, parametros.getBodyRequest().getCodigoArticulo());
+			prepareCall.setInt(5, parametros.getBodyRequest().getDeviceModel());
+			prepareCall.setString(6, parametros.getBodyRequest().getSerie());
+			prepareCall.setString(7, parametros.getBodyRequest().getMacAddress1());
+			prepareCall.setString(8, parametros.getBodyRequest().getMacAddress2());
+			prepareCall.setString(9, parametros.getBodyRequest().getUsuario());
+			prepareCall.setInt(10, Integer.parseInt(parametros.getBodyRequest().getIdRestype()));
+			prepareCall.setString(11, parametros.getBodyRequest().getTipo());
+			prepareCall.setInt(12, respuesta.getMensaje().getCodError());
+			prepareCall.setString(13, respuesta.getMensaje().getDetMensaje());
+			prepareCall.setInt(14, idcontroller);
 			prepareCall.execute();
 
 			connection.close();
@@ -257,7 +608,22 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 		tvpagada.setFinal(Ffinal);
 		
 		tvpagada.setFormaPago(datos.getFormadePago());
-		tvpagada.setIdAccount(IdController(param));//(nvl.val(datos.getIdAccount(),0));
+		
+		if(param.getBodyRequest().getTipo().equals("ACTIVAR") 
+				|| param.getBodyRequest().getTipo().equals("INICIALIZAR") 
+				|| param.getBodyRequest().getTipo().equals("REFRESCAR")){
+			
+			tvpagada.setIdAccount(nvl.val(Integer.parseInt(datos.getIdAccount()),0));
+			
+		}else if(param.getBodyRequest().getTipo().equals("RECOLECTAR")
+				||param.getBodyRequest().getTipo().equals("CORTAR")
+				|| param.getBodyRequest().getTipo().equals("COLD INIT")){
+			tvpagada.setIdAccount(0);
+		}else{
+			tvpagada.setIdAccount(IdController(param));
+		}
+		
+		//(nvl.val(datos.getIdAccount(),0));
 		
 		IdEventos ideventos = new IdEventos();
 		ideventos.setCantE(0);//----------------------revisar
@@ -274,8 +640,18 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 		tvpagada.setPaquete(nvl.val(datos.getPaquete(),0));
 		tvpagada.setPrecioEvento(nvl.val(datos.getPrecioEvento(),0));
 		tvpagada.setRating(nvl.val(datos.getRating(),0));
-		tvpagada.setSerie(param.getBodyRequest().getSerie());
-		tvpagada.setIdConvertidor(param.getBodyRequest().getMacAddress1());
+		
+		if (param.getHeaderRequest().getController().equals("DAC")){
+			
+			tvpagada.setSerie(param.getBodyRequest().getSerie());
+			tvpagada.setIdConvertidor(param.getBodyRequest().getMacAddress1());
+			
+		}else{
+			
+			tvpagada.setSerie(param.getBodyRequest().getMacAddress3());
+			tvpagada.setIdConvertidor(param.getBodyRequest().getMacAddress4());			
+		}	
+		
 		tvpagada.setTiempoCompra(nvl.val(datos.getTiempoCompra(),0));
 		tvpagada.setTiempoDisplay(nvl.val(datos.getTiempoDisplay(),0));
 		tvpagada.setTiempoLibre(nvl.val(datos.getTiempoLibre(),0));
@@ -318,7 +694,7 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 			connection = datasource.getConnection();
 			CallableStatement preparecall = connection.prepareCall("{call YLABPACK.RLBGETIDCONTROLER(?,?,?,?,?,?,?)}");
 			preparecall.setString(1, parametros.getBodyRequest().getSerie());
-			preparecall.setInt(2, parametros.getBodyRequest().getIdEmpresa());
+			preparecall.setString(2, parametros.getBodyRequest().getIdEmpresa());
 			preparecall.setString(3, parametros.getBodyRequest().getBodega());
 			preparecall.setString(4, parametros.getBodyRequest().getUsuario());
 			preparecall.setString(5, parametros.getBodyRequest().getIdRestype());
@@ -360,7 +736,7 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 			connection = datasource.getConnection();
 			CallableStatement preparecall = connection.prepareCall("{call YLABPACK.RLBCHECKRESOURCEFORDELETE(?,?,?,?,?)}");
 			preparecall.setString(1, parametros.getBodyRequest().getBodega());
-			preparecall.setInt(2, parametros.getBodyRequest().getIdEmpresa());
+			preparecall.setString(2, parametros.getBodyRequest().getIdEmpresa());
 			preparecall.setInt(3, parametros.getBodyRequest().getDeviceModel());
 			preparecall.setString(4, parametros.getBodyRequest().getSerie());
 			preparecall.registerOutParameter(5, Types.VARCHAR);
@@ -393,20 +769,39 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 			DatoDeviceModel devicemodel = new DatoDeviceModel();
 			devicemodel.setDeviceModel(parametros.getBodyRequest().getDeviceModel());
 			
-			InternalCode = datostvpagada.InternalCode(devicemodel);
+			Comando comando = null;
 			
-			TipoComando tipocomando = new TipoComando();
-			tipocomando.setTcomando(accion);
-			
-			DatosAprov datosaprov = datostvpagada.datosaprov(tipocomando);
-			
-			Comando comando = coman(parametros, datosaprov);
-			
-			respuesta = invoke(comando);
-			
-			EliminacionEquipos(parametros,respuesta,comando.getDetalle().getTVpagada().getIdAccount());
+			if (parametros.getHeaderRequest().getController().equals("DAC") || parametros.getHeaderRequest().getController().equals("DAC_MEDIAGATEWAY")){
+				
+				/**************Aprovicionamiento eliminacion************/
+						InternalCode = datostvpagada.InternalCode(devicemodel);
+						
+						TipoComando tipocomando = new TipoComando();
+						tipocomando.setTcomando(accion);
+						
+						DatosAprov datosaprov = datostvpagada.datosaprov(tipocomando);
+						
+						comando = coman(parametros, datosaprov);
+						
+						respuesta = invoke(comando);
+				/***************Aprovicionamiento eliminacion************/
+				
+				EliminacionEquipos(parametros,respuesta,comando.getDetalle().getTVpagada().getIdAccount());
+				
+			}else{
+				
+				Mensaje mens = new Mensaje();
+				mens.setCodError(0);
+				mens.setDetMensaje("OK");
+				
+				respuesta.setMensaje(mens);
+				
+				int idcontroller = IdController(parametros);
+				EliminacionEquipos(parametros,respuesta,idcontroller);
+			}
 			
 			return respuesta;
+			
 		}else{
 			Respuesta respuesta = new Respuesta();
 					
@@ -420,24 +815,25 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 		}	
 	}
 	
-private void EliminacionEquipos (Aprovisionamiento_Type parametros, Respuesta respuesta, int idcontroller){
+	private void EliminacionEquipos (Aprovisionamiento_Type parametros, Respuesta respuesta, int idcontroller){
 		
 		try {
 			connection = datasource.getConnection();
-			CallableStatement prepareCall = connection.prepareCall("{call YPKG_SGR.YPRD_ELIMINACION_EQUIPOS(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement prepareCall = connection.prepareCall("{call YPKG_SGR.YPRD_ELIMINACION_EQUIPOS(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			prepareCall.setString(1, parametros.getBodyRequest().getNombreCiudad());
 			prepareCall.setString(2, parametros.getBodyRequest().getBodega());
-			prepareCall.setInt(3, parametros.getBodyRequest().getIdEmpresa());
+			prepareCall.setString(3, parametros.getBodyRequest().getIdEmpresa());
 			prepareCall.setString(4, parametros.getBodyRequest().getCodigoArticulo());
 			prepareCall.setInt(5, parametros.getBodyRequest().getDeviceModel());
 			prepareCall.setString(6, parametros.getBodyRequest().getSerie());
 			prepareCall.setString(7, parametros.getBodyRequest().getMacAddress1());
-			prepareCall.setString(8, parametros.getBodyRequest().getUsuario());
-			prepareCall.setInt(9, Integer.parseInt(parametros.getBodyRequest().getIdRestype()));
-			prepareCall.setString(10, parametros.getBodyRequest().getTipo());
-			prepareCall.setInt(11, respuesta.getMensaje().getCodError());
-			prepareCall.setString(12, respuesta.getMensaje().getDetMensaje());
-			prepareCall.setInt(13, idcontroller);
+			prepareCall.setString(8, parametros.getBodyRequest().getMacAddress2());
+			prepareCall.setString(9, parametros.getBodyRequest().getUsuario());
+			prepareCall.setInt(10, Integer.parseInt(parametros.getBodyRequest().getIdRestype()));
+			prepareCall.setString(11, parametros.getBodyRequest().getTipo());
+			prepareCall.setInt(12, respuesta.getMensaje().getCodError());
+			prepareCall.setString(13, respuesta.getMensaje().getDetMensaje());
+			prepareCall.setInt(14, idcontroller);
 			prepareCall.execute();
 
 			connection.close();
@@ -452,4 +848,5 @@ private void EliminacionEquipos (Aprovisionamiento_Type parametros, Respuesta re
 			}
 		}
 	}
+	
 }

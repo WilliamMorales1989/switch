@@ -17,7 +17,7 @@ public class DatosAprov {
 	private String Ubicacion;
 	private String Accion;
 	private String Credito;
-	private String IdServicio;
+	private int IdServicio;
 	private String IdPaquetes;
 	private String IdPaquete;
 	private String IdEventos;
@@ -121,11 +121,11 @@ public class DatosAprov {
 	public void setCredito(String credito) {
 		Credito = credito;
 	}
-	public String getIdServicio() {
+	public int getIdServicio() {
 		return IdServicio;
 	}
-	public void setIdServicio(String idServicio) {
-		IdServicio = idServicio;
+	public int setIdServicio(int idServicio) {
+		return IdServicio = idServicio;
 	}
 	public String getIdPaquetes() {
 		return IdPaquetes;

@@ -34,8 +34,10 @@
       		<xsd:element name="Serie" type="xsd:string"></xsd:element>
       		<xsd:element name="MacAddress1" type="xsd:string"></xsd:element>
       		<xsd:element name="MacAddress2" type="xsd:string"></xsd:element>
+      		<xsd:element name="MacAddress3" type="xsd:string"></xsd:element>
+      		<xsd:element name="MacAddress4" type="xsd:string"></xsd:element>
       		<xsd:element name="IdUsuario" type="xsd:int"></xsd:element>
-      		<xsd:element name="IdEmpresa" type="xsd:int"></xsd:element>
+      		<xsd:element name="IdEmpresa" type="xsd:string"></xsd:element>
       		<xsd:element name="DeviceModel" type="xsd:int"></xsd:element>
       		<xsd:element name="NombreCiudad" type="xsd:string"></xsd:element>
       		<xsd:element name="Bodega" type="xsd:string"></xsd:element>
@@ -43,6 +45,7 @@
       		<xsd:element name="Usuario" type="xsd:string"></xsd:element>
       		<xsd:element name="IdRestype" type="xsd:string"></xsd:element>
       		<xsd:element name="Tipo" type="xsd:string"></xsd:element>
+      		<xsd:element name="IdPlan" type="xsd:int"></xsd:element>
       	</xsd:sequence>
       </xsd:complexType>
 

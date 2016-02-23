@@ -15,7 +15,7 @@ public class DatosTvpadaSGRBean implements DatosTvpadaSGR {
 
 	private String code;
 	
-	String dblink = "@BSDESA";
+	String dblink = "@RAC";
 	@Override
 	public String InternalCode(DatoDeviceModel datodevicemodel) {
 		// TODO Auto-generated method stub
@@ -66,7 +66,7 @@ public class DatosTvpadaSGRBean implements DatosTvpadaSGR {
 		datos.setUbicacion(validacion.val(results.get(0)[11],null));
 		datos.setAccion(validacion.val(results.get(0)[12],null));
 		datos.setCredito(validacion.val(results.get(0)[13],null));
-		datos.setIdServicio(validacion.val(results.get(0)[14],null));
+		datos.setIdServicio(validacion.val(results.get(0)[14],0));
 		datos.setIdPaquetes(validacion.val(results.get(0)[15],null));
 		datos.setIdPaquete(validacion.val(results.get(0)[16],null));
 		datos.setIdEventos(validacion.val(results.get(0)[17],null));

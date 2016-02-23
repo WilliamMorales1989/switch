@@ -125,6 +125,9 @@
       <sca:reference name="AprovisionamientoDTH">
         <sca:interface.java interface="com.ec.tvcable.switchaprov.ComandosDTH.AprovisionamientoDTH"/>
       </sca:reference>
+      <sca:reference name="CreacionOtros">
+        <sca:interface.java interface="com.ec.tvcable.switchaprov.CreacionOtros.CreacionOtros"/>
+      </sca:reference>
     </sca:component>
     <sca:component name="TvPagadaSGRBean">
       <bean:implementation.bean class="com.ec.tvcable.switchaprov.TvPagadaSGR.TvPagadaSGRBean"/>

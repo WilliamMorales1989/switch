@@ -20,8 +20,10 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="Serie" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="MacAddress1" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="MacAddress2" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="MacAddress3" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="MacAddress4" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="IdUsuario" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="IdEmpresa" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="IdEmpresa" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="DeviceModel" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="NombreCiudad" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Bodega" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -29,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="Usuario" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="IdRestype" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Tipo" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="IdPlan" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -42,6 +45,8 @@ import javax.xml.bind.annotation.XmlType;
     "serie",
     "macAddress1",
     "macAddress2",
+    "macAddress3",
+    "macAddress4",
     "idUsuario",
     "idEmpresa",
     "deviceModel",
@@ -50,7 +55,8 @@ import javax.xml.bind.annotation.XmlType;
     "codigoArticulo",
     "usuario",
     "idRestype",
-    "tipo"
+    "tipo",
+    "idPlan"
 })
 public class BodyRequest {
 
@@ -60,10 +66,14 @@ public class BodyRequest {
     protected String macAddress1;
     @XmlElement(name = "MacAddress2", required = true)
     protected String macAddress2;
+    @XmlElement(name = "MacAddress3", required = true)
+    protected String macAddress3;
+    @XmlElement(name = "MacAddress4", required = true)
+    protected String macAddress4;
     @XmlElement(name = "IdUsuario")
     protected int idUsuario;
-    @XmlElement(name = "IdEmpresa")
-    protected int idEmpresa;
+    @XmlElement(name = "IdEmpresa", required = true)
+    protected String idEmpresa;
     @XmlElement(name = "DeviceModel")
     protected int deviceModel;
     @XmlElement(name = "NombreCiudad", required = true)
@@ -78,6 +88,8 @@ public class BodyRequest {
     protected String idRestype;
     @XmlElement(name = "Tipo", required = true)
     protected String tipo;
+    @XmlElement(name = "IdPlan")
+    protected int idPlan;
 
     /**
      * Gets the value of the serie property.
@@ -152,6 +164,54 @@ public class BodyRequest {
     }
 
     /**
+     * Gets the value of the macAddress3 property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMacAddress3() {
+        return macAddress3;
+    }
+
+    /**
+     * Sets the value of the macAddress3 property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMacAddress3(String value) {
+        this.macAddress3 = value;
+    }
+
+    /**
+     * Gets the value of the macAddress4 property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMacAddress4() {
+        return macAddress4;
+    }
+
+    /**
+     * Sets the value of the macAddress4 property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMacAddress4(String value) {
+        this.macAddress4 = value;
+    }
+
+    /**
      * Gets the value of the idUsuario property.
      * 
      */
@@ -170,16 +230,24 @@ public class BodyRequest {
     /**
      * Gets the value of the idEmpresa property.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public int getIdEmpresa() {
+    public String getIdEmpresa() {
         return idEmpresa;
     }
 
     /**
      * Sets the value of the idEmpresa property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setIdEmpresa(int value) {
+    public void setIdEmpresa(String value) {
         this.idEmpresa = value;
     }
 
@@ -341,6 +409,22 @@ public class BodyRequest {
      */
     public void setTipo(String value) {
         this.tipo = value;
+    }
+
+    /**
+     * Gets the value of the idPlan property.
+     * 
+     */
+    public int getIdPlan() {
+        return idPlan;
+    }
+
+    /**
+     * Sets the value of the idPlan property.
+     * 
+     */
+    public void setIdPlan(int value) {
+        this.idPlan = value;
     }
 
 }

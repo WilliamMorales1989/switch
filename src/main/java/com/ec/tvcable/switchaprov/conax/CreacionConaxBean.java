@@ -17,7 +17,7 @@ import com.ec.tvcable.switchaprov.service.tvpagada.Respuesta;
 @Service(CreacionConax.class)
 public class CreacionConaxBean implements CreacionConax {
 
-	@Resource(mappedName = "java:/jdbc/DesaAppDS")
+	@Resource(mappedName = "java:/jdbc/ProduccionDS")
 	private DataSource datasource;
 	
 	Connection connection;
@@ -134,7 +134,7 @@ public class CreacionConaxBean implements CreacionConax {
 		
 		try {
 			connection = datasource.getConnection();
-			CallableStatement prepareCall = connection.prepareCall("{call YPKG_SGR.YPRD_CREACION_EQUIPOS_CONAX(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement prepareCall = connection.prepareCall("{call YPKG_SGR.YPRD_CREACION_EQUIPOS_CONAX(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			prepareCall.setString(1, parametros.getBodyRequest().getNombreCiudad());
 			prepareCall.setString(2, parametros.getBodyRequest().getBodega());
 			prepareCall.setInt(3, parametros.getBodyRequest().getIdEmpresa());
@@ -142,12 +142,13 @@ public class CreacionConaxBean implements CreacionConax {
 			prepareCall.setInt(5, parametros.getBodyRequest().getDeviceModel());
 			prepareCall.setString(6, parametros.getBodyRequest().getSerie());
 			prepareCall.setString(7, parametros.getBodyRequest().getMacAddress1());
-			prepareCall.setString(8, parametros.getBodyRequest().getUsuario());
-			prepareCall.setInt(9, Integer.parseInt(parametros.getBodyRequest().getIdRestype()));
-			prepareCall.setString(10, parametros.getBodyRequest().getTipo());
-			prepareCall.setInt(11, respuesta.getMensaje().getCodError());
-			prepareCall.setString(12, respuesta.getMensaje().getDetMensaje());
-			prepareCall.setInt(13, idcontroller);
+			prepareCall.setString(8, parametros.getBodyRequest().getMacAddress2());
+			prepareCall.setString(9, parametros.getBodyRequest().getUsuario());
+			prepareCall.setInt(10, Integer.parseInt(parametros.getBodyRequest().getIdRestype()));
+			prepareCall.setString(11, parametros.getBodyRequest().getTipo());
+			prepareCall.setInt(12, respuesta.getMensaje().getCodError());
+			prepareCall.setString(13, respuesta.getMensaje().getDetMensaje());
+			prepareCall.setInt(14, idcontroller);
 			prepareCall.execute();
 
 			connection.close();

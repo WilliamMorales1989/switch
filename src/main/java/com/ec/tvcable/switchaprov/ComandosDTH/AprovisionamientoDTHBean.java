@@ -11,13 +11,17 @@ import javax.sql.DataSource;
 import org.switchyard.component.bean.Service;
 
 import com.ec.tvcable.switchaprov.AprovisionamientoSGR.Aprovisionamiento_Type;
+import com.ec.tvcable.switchaprov.DatosTvpadaSGR.DatoDeviceModel;
+import com.ec.tvcable.switchaprov.DatosTvpadaSGR.DatosAprov;
+import com.ec.tvcable.switchaprov.DatosTvpadaSGR.TipoComando;
+import com.ec.tvcable.switchaprov.service.tvpagada.Comando;
 import com.ec.tvcable.switchaprov.service.tvpagada.Mensaje;
 import com.ec.tvcable.switchaprov.service.tvpagada.Respuesta;
 
 @Service(AprovisionamientoDTH.class)
 public class AprovisionamientoDTHBean implements AprovisionamientoDTH {
 
-	@Resource(mappedName = "java:/jdbc/DesaAppDS")
+	@Resource(mappedName = "java:/jdbc/ProduccionDS")
 	private DataSource datasource;
 	
 	Connection connection;
@@ -33,7 +37,13 @@ public class AprovisionamientoDTHBean implements AprovisionamientoDTH {
 		
 		String estado = invocardht.status(null, null);*/
 		
-		respuesta = creacionDTH(parametros);
+		if(parametros.getBodyRequest().getTipo().equals("IN")){
+			respuesta = creacionDTH(parametros);
+			return respuesta;
+		}else if(parametros.getBodyRequest().getTipo().equals("OUT")){
+			respuesta = eliminacion(parametros);
+			return respuesta;
+		}
 		return respuesta;
 	}
 	
@@ -141,7 +151,7 @@ public class AprovisionamientoDTHBean implements AprovisionamientoDTH {
 		
 		try {
 			connection = datasource.getConnection();
-			CallableStatement prepareCall = connection.prepareCall("{call YPKG_SGR.YPRD_CREACION_EQUIPOS(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement prepareCall = connection.prepareCall("{call YPKG_SGR.YPRD_CREACION_EQUIPOS(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			prepareCall.setString(1, parametros.getBodyRequest().getNombreCiudad());
 			prepareCall.setString(2, parametros.getBodyRequest().getBodega());
 			prepareCall.setInt(3, parametros.getBodyRequest().getIdEmpresa());
@@ -149,12 +159,13 @@ public class AprovisionamientoDTHBean implements AprovisionamientoDTH {
 			prepareCall.setInt(5, parametros.getBodyRequest().getDeviceModel());
 			prepareCall.setString(6, parametros.getBodyRequest().getSerie());
 			prepareCall.setString(7, parametros.getBodyRequest().getMacAddress1());
-			prepareCall.setString(8, parametros.getBodyRequest().getUsuario());
-			prepareCall.setInt(9, Integer.parseInt(parametros.getBodyRequest().getIdRestype()));
-			prepareCall.setString(10, parametros.getBodyRequest().getTipo());
-			prepareCall.setInt(11, respuesta.getMensaje().getCodError());
-			prepareCall.setString(12, respuesta.getMensaje().getDetMensaje());
-			prepareCall.setInt(13, idcontroller);
+			prepareCall.setString(8, parametros.getBodyRequest().getMacAddress2());
+			prepareCall.setString(9, parametros.getBodyRequest().getUsuario());
+			prepareCall.setInt(10, Integer.parseInt(parametros.getBodyRequest().getIdRestype()));
+			prepareCall.setString(11, parametros.getBodyRequest().getTipo());
+			prepareCall.setInt(12, respuesta.getMensaje().getCodError());
+			prepareCall.setString(13, respuesta.getMensaje().getDetMensaje());
+			prepareCall.setInt(14, idcontroller);
 			prepareCall.execute();
 
 			connection.close();
@@ -183,5 +194,106 @@ public class AprovisionamientoDTHBean implements AprovisionamientoDTH {
 			}
 		}
 		return resp;
+	}
+	
+	///////////////***********************************ELIMINACION**********************/////////////////////
+	
+	private String RLBCHECKRESOURCEFORDELETE(Aprovisionamiento_Type parametros){
+		
+		String resultado = null;
+		
+		try {
+			connection = datasource.getConnection();
+			CallableStatement preparecall = connection.prepareCall("{call YLABPACK.RLBCHECKRESOURCEFORDELETE(?,?,?,?,?)}");
+			preparecall.setString(1, parametros.getBodyRequest().getBodega());
+			preparecall.setInt(2, parametros.getBodyRequest().getIdEmpresa());
+			preparecall.setInt(3, parametros.getBodyRequest().getDeviceModel());
+			preparecall.setString(4, parametros.getBodyRequest().getSerie());
+			preparecall.registerOutParameter(5, Types.VARCHAR);
+			preparecall.executeQuery();
+			resultado = preparecall.getString(5);
+			System.out.println("resultado: "+ resultado);
+			connection.close();
+			
+			return resultado;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			try {
+				connection.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return resultado;
+	}
+	
+	private Respuesta eliminacion(Aprovisionamiento_Type parametros){
+		
+		String equipoexiste = RLBCHECKRESOURCEFORDELETE(parametros);
+		
+		if (equipoexiste.equals("OK")){
+			DatoDeviceModel devicemodel = new DatoDeviceModel();
+			devicemodel.setDeviceModel(parametros.getBodyRequest().getDeviceModel());
+
+			Mensaje mens = new Mensaje();
+			mens.setCodError(0);
+			mens.setDetMensaje("OK");
+			
+			respuesta.setMensaje(mens);
+			
+			int idcontroller = IdController(parametros);
+			EliminacionEquipos(parametros,respuesta,idcontroller);
+			
+			return respuesta;
+			
+		}else{
+			Respuesta respuesta = new Respuesta();
+					
+			Mensaje mensaje = new Mensaje();
+			mensaje.setCodError(1);
+			mensaje.setDetMensaje("ERROR: El equipo NO existe");
+			mensaje.setDatosExtrasTVP(null);
+			respuesta.setMensaje(mensaje);
+			
+			return respuesta;
+		}	
+	}
+	
+	private void EliminacionEquipos (Aprovisionamiento_Type parametros, Respuesta respuesta, int idcontroller){
+		
+		try {
+			connection = datasource.getConnection();
+			CallableStatement prepareCall = connection.prepareCall("{call YPKG_SGR.YPRD_ELIMINACION_EQUIPOS(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			prepareCall.setString(1, parametros.getBodyRequest().getNombreCiudad());
+			prepareCall.setString(2, parametros.getBodyRequest().getBodega());
+			prepareCall.setInt(3, parametros.getBodyRequest().getIdEmpresa());
+			prepareCall.setString(4, parametros.getBodyRequest().getCodigoArticulo());
+			prepareCall.setInt(5, parametros.getBodyRequest().getDeviceModel());
+			prepareCall.setString(6, parametros.getBodyRequest().getSerie());
+			prepareCall.setString(7, parametros.getBodyRequest().getMacAddress1());
+			prepareCall.setString(8, parametros.getBodyRequest().getMacAddress2());
+			prepareCall.setString(9, parametros.getBodyRequest().getUsuario());
+			prepareCall.setInt(10, Integer.parseInt(parametros.getBodyRequest().getIdRestype()));
+			prepareCall.setString(11, parametros.getBodyRequest().getTipo());
+			prepareCall.setInt(12, respuesta.getMensaje().getCodError());
+			prepareCall.setString(13, respuesta.getMensaje().getDetMensaje());
+			prepareCall.setInt(14, idcontroller);
+			prepareCall.execute();
+
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				connection.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 }

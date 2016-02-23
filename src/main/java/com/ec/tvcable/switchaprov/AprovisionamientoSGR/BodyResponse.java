@@ -17,10 +17,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="ErrorCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="ErrorMessagge" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="Serie" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="IdUsuario" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ErrorCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ErrorMessagge" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,69 +31,21 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "BodyResponse", propOrder = {
-    "errorCode",
-    "errorMessagge",
     "serie",
-    "idUsuario"
+    "idUsuario",
+    "errorCode",
+    "errorMessagge"
 })
 public class BodyResponse {
 
-    @XmlElement(name = "ErrorCode", required = true)
-    protected String errorCode;
-    @XmlElement(name = "ErrorMessagge", required = true)
-    protected String errorMessagge;
     @XmlElement(name = "Serie", required = true)
     protected String serie;
     @XmlElement(name = "IdUsuario", required = true)
     protected String idUsuario;
-
-    /**
-     * Gets the value of the errorCode property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getErrorCode() {
-        return errorCode;
-    }
-
-    /**
-     * Sets the value of the errorCode property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setErrorCode(String value) {
-        this.errorCode = value;
-    }
-
-    /**
-     * Gets the value of the errorMessagge property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getErrorMessagge() {
-        return errorMessagge;
-    }
-
-    /**
-     * Sets the value of the errorMessagge property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setErrorMessagge(String value) {
-        this.errorMessagge = value;
-    }
+    @XmlElement(name = "ErrorCode", required = true)
+    protected String errorCode;
+    @XmlElement(name = "ErrorMessagge", required = true)
+    protected String errorMessagge;
 
     /**
      * Gets the value of the serie property.
@@ -141,6 +93,54 @@ public class BodyResponse {
      */
     public void setIdUsuario(String value) {
         this.idUsuario = value;
+    }
+
+    /**
+     * Gets the value of the errorCode property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    /**
+     * Sets the value of the errorCode property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setErrorCode(String value) {
+        this.errorCode = value;
+    }
+
+    /**
+     * Gets the value of the errorMessagge property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getErrorMessagge() {
+        return errorMessagge;
+    }
+
+    /**
+     * Sets the value of the errorMessagge property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setErrorMessagge(String value) {
+        this.errorMessagge = value;
     }
 
 }
