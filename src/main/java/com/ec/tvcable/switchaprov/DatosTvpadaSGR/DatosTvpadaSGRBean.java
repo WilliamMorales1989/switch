@@ -15,7 +15,7 @@ public class DatosTvpadaSGRBean implements DatosTvpadaSGR {
 
 	private String code;
 	
-	String dblink = "@RAC";
+	String dblink = "@BSDESA";
 	@Override
 	public String InternalCode(DatoDeviceModel datodevicemodel) {
 		// TODO Auto-generated method stub

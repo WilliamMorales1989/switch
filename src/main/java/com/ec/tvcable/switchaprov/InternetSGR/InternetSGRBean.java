@@ -18,7 +18,7 @@ import com.ec.tvcable.switchaprov.service.tvpagada.Respuesta;
 @Service(InternetSGR.class)
 public class InternetSGRBean implements InternetSGR {
 
-	@Resource(mappedName = "java:/jdbc/ProduccionDS")
+	@Resource(mappedName = "java:/jdbc/DesaAppDS")
 	private DataSource datasource;
 	
 	Connection connection;

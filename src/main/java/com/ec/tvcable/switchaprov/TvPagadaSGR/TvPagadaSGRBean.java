@@ -52,13 +52,13 @@ public class TvPagadaSGRBean implements TvPagadaSGR {
 	
 	private Respuesta respuesta;
 	
-	String dblink = "@RAC";
+	String dblink = "@BSDESA";
 	
 	//private static final Logger logger = Logger.getLogger(TvInterfazServiceBean.class);
 	
 	private String InternalCode;
 	
-	@Resource(mappedName = "java:/jdbc/ProduccionDS")
+	@Resource(mappedName = "java:/jdbc/DesaAppDS")
 	private DataSource datasource;
 	
 	@Override

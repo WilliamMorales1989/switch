@@ -19,7 +19,7 @@ import com.ec.tvcable.switchaprov.service.tvpagada.Respuesta;
 public class CreacionOtrosBean implements CreacionOtros {
 
 	
-	@Resource(mappedName = "java:/jdbc/ProduccionDS")
+	@Resource(mappedName = "java:/jdbc/DesaAppDS")
 	private DataSource datasource;
 	
 	Connection connection;
